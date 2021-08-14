@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageBackground, TextInput, TouchableOpacity, StyleSheet, Image, SafeAreaView, View, Button, Text} from 'react-native';
+import {ImageBackground, TextInput, TouchableOpacity, Image, SafeAreaView, View, Text} from 'react-native';
 import tailwind from 'tailwind-rn';
 
 

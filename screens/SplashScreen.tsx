@@ -16,7 +16,7 @@ export default function SplashScreen({ navigation }) {
                     <Text style = {tailwind('')}>Save money, Live better</Text>
                 </View>
                 <TouchableOpacity onPress ={pressHandler} >
-                    <Text style={tailwind('p-px')}>Welcome, Tap to get started</Text>
+                    <Text style={tailwind('p-2')}>Welcome, Tap to get started</Text>
                 </TouchableOpacity>
             </ImageBackground>
         </SafeAreaView>

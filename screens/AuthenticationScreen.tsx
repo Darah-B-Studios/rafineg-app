@@ -22,7 +22,7 @@ export default function AuthenticationScreen({navigation}){
                     <Text style = {tailwind('')}>Save money, Live better</Text>
                 </View>
                 <View style={tailwind('pt-20 w-full m-12 items-center content-center justify-center flex-col')}>
-                    <TouchableOpacity onPress={navigateToLogin} style={[tailwind('bg-red-500 w-11/12 items-center h-12 m-4 justify-center '), {backgrounColor:'#990000'}]} >
+                    <TouchableOpacity onPress={navigateToLogin} style={[tailwind('bg-red-500 w-11/12 items-center h-12 m-4 justify-center '), {backgrounColor:'#FF3C6D'}]} >
                         <Text style={tailwind('text-white text-center text-xl')}>LOGIN</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={navigateToSignUp} style={tailwind('border-solid border-4 justify-center w-11/12 items-center h-12 border-white ')} >
