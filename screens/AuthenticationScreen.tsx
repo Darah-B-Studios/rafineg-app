@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {ImageBackground, TouchableOpacity, StyleSheet, Image, SafeAreaView, View, Button, Text} from 'react-native';
+import {ImageBackground, TouchableOpacity, Image, SafeAreaView, View, Text} from 'react-native';
 import tailwind from 'tailwind-rn';
 import Colors from '../constants/Colors';
 

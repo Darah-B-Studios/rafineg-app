@@ -12,12 +12,12 @@ const Login = () => {
                     <Text style = {tailwind('text-white text-3xl font-bold text-center')}>RAFINEG</Text>
                 </View>
                     <View style={tailwind('pt-5 w-full m-1 items-center content-center justify-center flex-col')}>
-                        <View style={tailwind(' m-4 border-solid border-4 justify-center w-11/12 items-center h-12 border-white ')} >
-                            <TextInput style={[tailwind('text-white text-xl')]} 
+                        <View style={tailwind(' m-4 border-solid border-4 justify-center w-11/12 h-12 border-white ')} >
+                            <TextInput style={[tailwind('p-1 text-white text-xl')]} 
                             placeholder='Email address'/>
                         </View>
-                        <View style={tailwind(' border-solid border-4 justify-center w-11/12 items-center h-12 border-white ')} >
-                            <TextInput style={tailwind('text-xl text-white')}
+                        <View style={tailwind(' border-solid border-4 justify-center w-11/12 h-12 border-white ')} >
+                            <TextInput style={tailwind('p-1 text-xl text-white')}
                             placeholder = 'Password'
                             selectionColor = '#ffffff'
                             />
