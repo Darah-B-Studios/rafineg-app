@@ -1,5 +1,6 @@
 import React from 'react';
-import {ImageBackground, StyleSheet, Image, TouchableOpacity, Alert, SafeAreaView, View, Text, StatusBar} from 'react-native';
+import {ImageBackground, Image, TouchableOpacity, SafeAreaView, View, Text} from 'react-native';
+import Animated from 'react-native-reanimated';
 import tailwind from 'tailwind-rn';
 
 export default function SplashScreen({ navigation }) {
@@ -15,9 +16,9 @@ export default function SplashScreen({ navigation }) {
                     <Text style = {tailwind('text-white text-3xl font-bold text-center')}>RAFINEG</Text>
                     <Text style = {tailwind('')}>Save money, Live better</Text>
                 </View>
-                <TouchableOpacity onPress ={pressHandler} >
-                    <Text style={tailwind('p-2')}>Welcome, Tap to get started</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity onPress ={pressHandler} >
+                        <Text style={tailwind('p-2')}>Welcome, Tap to get started</Text>
+                    </TouchableOpacity> 
             </ImageBackground>
         </SafeAreaView>
     );
