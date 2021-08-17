@@ -25,6 +25,11 @@ export default {
           Login:'Login'
         }
       },
+      Dashboard: {
+        screens: {
+          Dashboard: 'Dashboard'
+        }
+      }
     },
   },
 };
