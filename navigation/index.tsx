@@ -8,10 +8,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
-import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import SplashScreen from '../screens/SplashScreen';
+import AuthenticationScreen from '../screens/AuthenticationScreen';
+import Login from '../screens/Login';
+import Dashboard from '../screens/Dashboard';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -30,8 +33,10 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <Stack.Screen name="SplashScreen" component={SplashScreen} />
+      <Stack.Screen name="AuthenticationScreen" component={AuthenticationScreen}/>
+      <Stack.Screen name="Login" component={Login}/>
+      <Stack.Screen name="Dashboard" component={Dashboard}/>
     </Stack.Navigator>
   );
 }

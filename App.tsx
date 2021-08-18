@@ -6,6 +6,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
+//import SplashScreen from './screens/SplashScreen';
+import Dashboard from './screens/Dashboard';
+import Packages from './screens/Packages';
+import ReferralScreen from './screens/ReferralScreen';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -15,10 +19,12 @@ export default function App() {
     return null;
   } else {
     return (
-      <SafeAreaProvider>
+      <ReferralScreen/>
+      
+      /*<SafeAreaProvider>
         <Navigation colorScheme={colorScheme} />
         <StatusBar />
-      </SafeAreaProvider>
+      </SafeAreaProvider>*/
     );
   }
 }

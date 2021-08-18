@@ -10,21 +10,26 @@ export default {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
-      Root: {
+      SplashScreen: {
         screens: {
-          TabOne: {
-            screens: {
-              TabOneScreen: 'one',
-            },
-          },
-          TabTwo: {
-            screens: {
-              TabTwoScreen: 'two',
-            },
-          },
-        },
+          SplashScreen: 'SplashScreen'
+        }
       },
-      NotFound: '*',
+      AuthenticationScreen: {
+        screens: {
+          AuthenticationScreen: 'AuthenticationScreen'
+        }
+      },
+      Login: {
+        screens: {
+          Login:'Login'
+        }
+      },
+      Dashboard: {
+        screens: {
+          Dashboard: 'Dashboard'
+        }
+      }
     },
   },
 };
