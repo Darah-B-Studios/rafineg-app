@@ -2,63 +2,23 @@ import React from "react";
 import {
   ScrollView,
   StatusBar,
-  SafeAreaView,
   Text,
   View,
-  ImageBackground,
   Image,
   TouchableOpacity,
 } from "react-native";
 import tailwind from "tailwind-rn";
 import { SimpleLineIcons, Ionicons, AntDesign } from "@expo/vector-icons";
+import Container from "../components/shared/container.component";
+import DashboardHeader from "../components/dashboard/dashboard-header.component";
 
 const Dashboard = () => {
   return (
     <>
-      <SafeAreaView
-        style={[
-          tailwind("w-full h-full flex-1"),
-          {
-            paddingTop: 10,
-          },
-        ]}
-      >
-        <ImageBackground
-          resizeMode="cover"
-          style={tailwind("flex-1 h-full w-full items-center")}
-          source={require("./../assets/images/splash-background.png")}
-        >
+      <Container>
+        {/* TODO: Make status bar consistent on iOS */}
           <StatusBar barStyle="light-content" backgroundColor="blue" />
-          <View style={tailwind("h-1/6 w-full bg-blue-700 flex-auto")}>
-            <View
-              style={tailwind(
-                "flex-row pt-6 flex-1 items-baseline justify-between"
-              )}
-            >
-              <View style={tailwind("pl-3")}>
-                <Ionicons name="ios-arrow-back-sharp" size={16} color="white" />
-              </View>
-              <View style={tailwind("pr-3")}>
-                <SimpleLineIcons name="menu" size={16} color="white" />
-              </View>
-            </View>
-            <View style={tailwind("flex-row justify-between pb-1")}>
-              <View style={tailwind("flex-col pl-4")}>
-                <Image source={require("./../assets/images/icon-wallet.png")} />
-                <Text style={tailwind("text-white")}>Total Savings</Text>
-                <Text style={tailwind("text-white text-base")}>XAF 100000</Text>
-              </View>
-              <View>
-                <View style={tailwind("pr-3 pt-3")}>
-                  <Image
-                    style={tailwind("w-10 h-10 rounded-full ")}
-                    resizeMode="cover"
-                    source={require("./../assets/images/icon-wallet.png")}
-                  />
-                </View>
-              </View>
-            </View>
-          </View>
+          <DashboardHeader />
           <View style={tailwind("h-3/4 w-full")}>
             <ScrollView>
               <View
@@ -71,12 +31,12 @@ const Dashboard = () => {
                 </View>
                 <View
                   style={tailwind(
-                    "flex-1 p-1 flex-row items-baseline justify-between"
+                    "flex-1 p-1 flex-row items-baseline justify-between space-x-2"
                   )}
                 >
                   <TouchableOpacity
                     style={tailwind(
-                      "border-solid border-2 justify-center border-white "
+                      "border-solid border-2 p-2 justify-center border-white "
                     )}
                   >
                     <Text> Yearly </Text>
@@ -132,8 +92,7 @@ const Dashboard = () => {
           >
             <AntDesign name="plus" size={24} color="black" />
           </TouchableOpacity>
-        </ImageBackground>
-      </SafeAreaView>
+        </Container>
     </>
   );
 };

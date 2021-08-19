@@ -19,12 +19,12 @@ export default function App() {
     return null;
   } else {
     return (
-      <ReferralScreen/>
+      // <ReferralScreen/>
       
-      /*<SafeAreaProvider>
+      <SafeAreaProvider>
         <Navigation colorScheme={colorScheme} />
         <StatusBar />
-      </SafeAreaProvider>*/
+      </SafeAreaProvider>
     );
   }
 }
