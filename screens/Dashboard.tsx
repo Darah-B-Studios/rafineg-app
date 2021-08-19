@@ -18,9 +18,6 @@ const Dashboard = () => {
       <SafeAreaView
         style={[
           tailwind("w-full h-full flex-1"),
-          {
-            paddingTop: 10,
-          },
         ]}
       >
         <ImageBackground
