@@ -18,11 +18,12 @@ export default function App() {
     return null;
   } else {
     return (
-      <Packages/>
-      /*<SafeAreaProvider>
+      // <ReferralScreen/>
+      
+      <SafeAreaProvider>
         <Navigation colorScheme={colorScheme} />
         <StatusBar />
-      </SafeAreaProvider>*/
+      </SafeAreaProvider>
     );
   }
 }

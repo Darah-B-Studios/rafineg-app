@@ -14,6 +14,9 @@ import {
 import tailwind from "tailwind-rn";
 import { useForm, Controller } from "react-hook-form";
 import Dashboard from "./Dashboard";
+import Container from "../components/shared/container.component";
+import Logo from "../components/shared/logo.component";
+import ValidationError from "../components/forms/vlaidation-error.component";
 
 const Login = ({navigation}) => {
   const emailInput = React.useRef<TextInput>(null);
@@ -36,12 +39,7 @@ const Login = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={tailwind("h-full w-full flex-1")}>
-      <ImageBackground
-        resizeMode="cover"
-        style={tailwind("flex-1 h-full w-full items-center")}
-        source={require("./../assets/images/splash-background.png")}
-      >
+    <Container>
         <KeyboardAvoidingView
           style={tailwind("flex-1 h-full w-full items-center")}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -51,14 +49,8 @@ const Login = ({navigation}) => {
               "items-center content-center w-full pt-32 flex-col"
             )}
           >
-            <Image
-              style={tailwind("w-20 h-20")}
-              resizeMode="cover"
-              source={require("./../assets/images/white-logo.png")}
-            />
-            <Text style={tailwind("text-white text-3xl font-bold text-center")}>
-              RAFINEG
-            </Text>
+            <Logo showText/>
+            
           </View>
           <View
             style={tailwind(
@@ -68,7 +60,7 @@ const Login = ({navigation}) => {
             
               <View
                 style={tailwind(
-                  " m-4 border-solid border-2 justify-center w-11/12 h-12 border-white "
+                  "border-solid border-2 justify-center w-11/12 border-white mb-6"
                 )}
               >
                   <Pressable onPress={() => emailInput.current?.focus()}>
@@ -79,7 +71,7 @@ const Login = ({navigation}) => {
                   }}
                   render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                      style={[tailwind("p-1 text-white text-xl")]}
+                      style={[tailwind("py-3 px-4 text-white text-xl")]}
                       placeholder="Email address"
                       keyboardType="email-address"
                       textContentType="username"
@@ -95,14 +87,14 @@ const Login = ({navigation}) => {
                   name="email"
                   defaultValue=""
                 />
-                {errors.firstName && <Text>This is required.</Text>}
+                {errors.firstName && <ValidationError message="This is required." />}
                 </Pressable>
               </View>
             
             
               <View
                 style={tailwind(
-                  "border-solid border-2 justify-center w-11/12 h-12 border-white "
+                  "border-solid border-2 justify-center w-11/12 border-white "
                 )}
               >
                   <Pressable onPress={() => passwordInput.current?.focus()}>
@@ -113,7 +105,7 @@ const Login = ({navigation}) => {
                   }}
                   render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                      style={tailwind("p-1 text-xl text-white")}
+                      style={tailwind("py-3 px-4 text-xl text-white")}
                       placeholder="Password"
                       selectionColor="#ffffff"
                       returnKeyType="done"
@@ -133,7 +125,7 @@ const Login = ({navigation}) => {
               </View>
             <TouchableOpacity
               style={[
-                tailwind("w-11/12 items-center h-12 mt-12 justify-center "),
+                tailwind("w-11/12 items-center py-4 mt-5 justify-center "),
                 { backgroundColor: "#9d0090" },
               ]}
               onPress={handleSubmit(onSubmit)}
@@ -147,8 +139,7 @@ const Login = ({navigation}) => {
             Forgot Password
           </Text>
         </KeyboardAvoidingView>
-      </ImageBackground>
-    </SafeAreaView>
+      </Container>
   );
 };
 

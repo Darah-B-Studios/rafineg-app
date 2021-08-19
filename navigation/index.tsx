@@ -9,7 +9,6 @@ import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
 import { RootStackParamList } from '../types';
-import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import SplashScreen from '../screens/SplashScreen';
 import AuthenticationScreen from '../screens/AuthenticationScreen';
