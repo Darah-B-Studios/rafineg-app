@@ -3,26 +3,18 @@ import React from 'react'
 import { View, Image, Text } from 'react-native'
 import tailwind from 'tailwind-rn'
 
-const DashboardHeader: React.FunctionComponent = () => {
+type DashboardHeaderProps= {
+  totalSavings: string
+}
+
+const DashboardHeader: React.FunctionComponent<DashboardHeaderProps> = ({totalSavings}) => {
   return (
-    <View style={tailwind("w-full bg-blue-700 flex-auto py-3")}>
-      <View
-        style={tailwind(
-          "flex-row flex-1 items-baseline justify-between"
-        )}
-      >
-        <View style={tailwind("pl-3")}>
-          <Ionicons name="ios-arrow-back-sharp" size={16} color="white" />
-        </View>
-        <View style={tailwind("pr-3")}>
-          <SimpleLineIcons name="menu" size={16} color="white" />
-        </View>
-      </View>
+    <View style={tailwind("w-full bg-blue-700 py-3")}>
       <View style={tailwind("flex-row justify-between items-center")}>
         <View style={tailwind("flex-col pl-4")}>
-          <Image source={require("../../assets/images/icon-wallet.png")} />
+          <Image source={require("./../../assets/images/icon-wallet.png")} />
           <Text style={tailwind("text-white")}>Total Savings</Text>
-          <Text style={tailwind("text-white text-base")}>XAF 100000</Text>
+          <Text style={tailwind("text-white text-base")}>{totalSavings}</Text>
         </View>
         {/* avatar */}
         <View>

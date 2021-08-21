@@ -13,7 +13,7 @@ const Logo: React.FunctionComponent<LogoProps> = ({showText}) => {
     <>
       <Image
         resizeMode="contain"
-        source={require('../../assets/images/white-logo.png')}
+        source={require('./../../assets/images/white-logo.png')}
       />
       {
         showText &&

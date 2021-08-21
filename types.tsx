@@ -10,6 +10,15 @@ export type RootStackParamList = {
   Dashboard: undefined;
 };
 
+export type DrawerNavParamList = {
+  Dashboard: undefined;
+  Subscriptions: undefined;
+  ReferralScreen: undefined;
+  Transactions: undefined;
+  Settings: undefined;
+  Logout: undefined
+}
+
 export type BottomTabParamList = {
   TabOne: undefined;
   TabTwo: undefined;
