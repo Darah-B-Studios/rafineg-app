@@ -9,67 +9,70 @@ import {
 } from "react-native";
 import tailwind from "tailwind-rn";
 import { SimpleLineIcons, Ionicons, AntDesign } from "@expo/vector-icons";
-import Container from "../components/shared/container.component";
-import DashboardHeader from "../components/dashboard/dashboard-header.component";
+import Container from "../../components/shared/container.component";
+import DashboardHeader from "../../components/dashboard/dashboard-header.component";
+import AppbarHeader from "../../components/shared/appbar-header.component";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 
 const Dashboard = () => {
+
   return (
     <>
       <Container>
         {/* TODO: Make status bar consistent on iOS */}
           <StatusBar barStyle="light-content" backgroundColor="blue" />
-          <DashboardHeader />
-          <View style={tailwind("h-3/4 w-full")}>
-            <ScrollView>
+    
+            <ScrollView style={tailwind("w-full")}>
+            <DashboardHeader totalSavings='XAF200,000' />
               <View
                 style={tailwind(
                   "w-full pt-2 px-2 flex-row flex-1 items-baseline justify-between"
                 )}
               >
-                <View style={tailwind("flex-1")}>
+                <View style={tailwind("")}>
                   <Text>Saving Analysis</Text>
                 </View>
                 <View
                   style={tailwind(
-                    "flex-1 p-1 flex-row items-baseline justify-between space-x-2"
+                    "flex-1 p-1 flex-row items-baseline justify-end"
                   )}
                 >
                   <TouchableOpacity
                     style={tailwind(
-                      "border-solid border-2 p-2 justify-center border-white "
+                      "border-solid border p-2 justify-center border-white "
                     )}
                   >
                     <Text> Yearly </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={tailwind(
-                      "border-solid border-2 justify-center border-white "
+                      "border-solid border p-2 justify-center border-white "
                     )}
                   >
                     <Text> Monthly</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={tailwind(
-                      "border-solid border-2 justify-center border-white "
+                      "border-solid border p-2 justify-center border-white "
                     )}
                   >
                     <Text> Weekly</Text>
                   </TouchableOpacity>
                 </View>
               </View>
-              <View style={tailwind("p-4 self-center h-52 bg-white w-11/12")}>
+              <View style={tailwind("p-4 self-center h-52 bg-white w-full")}>
                 <Text style={tailwind("self-center text-xl")}>Chart Area</Text>
               </View>
               <View
-                style={tailwind("p-4 m-4 self-center h-52 bg-white w-11/12")}
+                style={tailwind("p-4 self-center m-2 h-52 bg-white w-full")}
               >
-                <Text style={tailwind("self-center text-xl")}>
+                <Text style={tailwind("self-center mx-2 text-xl")}>
                   Recent Transactions Area
                 </Text>
               </View>
               <View
                 style={tailwind(
-                  "p-4 m-4 self-center h-52 bg-white w-11/12 opacity-80"
+                  "p-4 self-center h-52 bg-white w-full opacity-80"
                 )}
               >
                 <Text style={tailwind("self-center text-xl opacity-100")}>
@@ -77,13 +80,13 @@ const Dashboard = () => {
                 </Text>
               </View>
             </ScrollView>
-          </View>
+          
 
-          <View style={tailwind("w-full bg-gray-300 h-12")}></View>
+          <View style={tailwind("w-full bg-gray-300 p-6 self-end")}></View>
           <TouchableOpacity
             style={[
               tailwind(
-                "w-12 bg-white h-12 rounded-full absolute items-center justify-center"
+                "p-4 bg-white rounded-full absolute items-center justify-center"
               ),
               {
                 bottom: 23,

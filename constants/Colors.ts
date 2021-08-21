@@ -1,6 +1,6 @@
 const tintColorLight = '#2f95dc';
 const tintColorDark = '#fff';
-const polarisStarBlue = '#120078';
+export const polarisStarBlue = '#120078';
 const crimsonRed = '#990000';
 const purple = '#9d0090';
 const yellow = 'fecc1a';

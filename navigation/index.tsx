@@ -11,9 +11,10 @@ import { ColorSchemeName } from 'react-native';
 import { RootStackParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import SplashScreen from '../screens/SplashScreen';
-import AuthenticationScreen from '../screens/AuthenticationScreen';
-import Login from '../screens/Login';
-import Dashboard from '../screens/Dashboard';
+import AuthenticationScreen from '../screens/authentication/AuthenticationScreen';
+import Login from '../screens/authentication/Login';
+import Dashboard from '../screens/dashboard/Dashboard';
+import DrawerNavigator from './DrawerNavigator';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -21,6 +22,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <RootNavigator />
+      
     </NavigationContainer>
   );
 }
@@ -35,7 +37,7 @@ function RootNavigator() {
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="AuthenticationScreen" component={AuthenticationScreen}/>
       <Stack.Screen name="Login" component={Login}/>
-      <Stack.Screen name="Dashboard" component={Dashboard}/>
+      <Stack.Screen name="Dashboard" component={DrawerNavigator}/>
     </Stack.Navigator>
   );
 }

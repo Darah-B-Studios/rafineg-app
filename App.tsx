@@ -7,8 +7,8 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
-import ReferralListScreen from './screens/ReferralListScreen';
-import Packages from './screens/Packages';
+import ReferralListScreen from './screens/referrals/ReferralListScreen';
+import Packages from './screens/packages/Packages';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -17,9 +17,7 @@ export default function App() {
   if (!isLoadingComplete) {
     return null;
   } else {
-    return (
-      // <ReferralScreen/>
-      
+    return (  
       <SafeAreaProvider>
         <Navigation colorScheme={colorScheme} />
         <StatusBar />

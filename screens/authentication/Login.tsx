@@ -13,10 +13,10 @@ import {
 } from "react-native";
 import tailwind from "tailwind-rn";
 import { useForm, Controller } from "react-hook-form";
-import Dashboard from "./Dashboard";
-import Container from "../components/shared/container.component";
-import Logo from "../components/shared/logo.component";
-import ValidationError from "../components/forms/vlaidation-error.component";
+import Dashboard from "../dashboard/Dashboard";
+import Container from "../../components/shared/container.component";
+import Logo from "../../components/shared/logo.component";
+import ValidationError from "../../components/forms/vlaidation-error.component";
 
 const Login = ({navigation}) => {
   const emailInput = React.useRef<TextInput>(null);
