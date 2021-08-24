@@ -23,7 +23,7 @@ export function DrawerContent(props){
             <NavDrawerHeader/>
             <DrawerContentScrollView {...props}>
                 <View>
-                    <Drawer.Section>
+                    
                         <DrawerItem
                         icon={({color, size}) => (
                             <Icon 
@@ -33,7 +33,7 @@ export function DrawerContent(props){
 
                         )}
                         label="Dashboard"
-                        onPress={()=> {props.navigation.navigate("Dashboard")}}/>
+                        onPress={()=> {props.navigation.navigate("Home")}}/>
                         <DrawerItem
                         icon={({color, size}) => (
                             <Icon 
@@ -74,8 +74,8 @@ export function DrawerContent(props){
                         )}
                         label="Settings"
                         onPress={()=> {props.navigation.navigate("Settings")}}/>
-                    </Drawer.Section>
-                    <Drawer.Section>
+                    
+                    
                     <DrawerItem
                         icon={({color, size}) => (
                             <Icon 
@@ -86,7 +86,7 @@ export function DrawerContent(props){
                         )}
                         label="Logout"
                         onPress={()=> {}}/>
-                    </Drawer.Section>
+                    
                 </View>
                 
 
