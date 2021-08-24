@@ -17,9 +17,6 @@ import DashboardHeader from "../../components/dashboard/dashboard-header.compone
 
 const ReferralListScreen = () => {
   //Dummy data
-
-  
-
   const data = [
     { id: "G01", name: "John Doe", time: "2 days ago", amount: "2500" },
     { id: "G02", name: "John Doe", time: "2 days ago", amount: "2500" },
@@ -31,6 +28,7 @@ const ReferralListScreen = () => {
     { id: "G08", name: "John Doe", time: "2 days ago", amount: "2500" },
     { id: "G09", name: "John Doe", time: "2 days ago", amount: "2500" },
   ];
+  
   return (
     <>
       <Container>
