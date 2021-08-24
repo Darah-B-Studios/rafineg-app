@@ -17,6 +17,7 @@ import tailwind from "tailwind-rn";
 import { SimpleLineIcons, Ionicons, AntDesign } from "@expo/vector-icons";
 import Container from "../../components/shared/container.component";
 import DashboardHeader from "../../components/dashboard/dashboard-header.component";
+import Appbar from "../../components/shared/appbar-header.component";
 
 const { width, height } = Dimensions.get("window");
 const SPACING = 10;
@@ -26,7 +27,7 @@ const CAROUSEL_HEIGHT = height * 0.65;
 const ITEM_SIZE = Platform.OS === "ios" ? width * 0.72 : width * 0.74;
 const SPACER_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
-const Packages = () => {
+const Packages = ({navigation}) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   const data = [
@@ -64,6 +65,7 @@ const Packages = () => {
   return (
     <Container>
         <StatusBar />
+        <Appbar navigation={navigation} screenTitle="Subscriptions"/>
         <DashboardHeader totalSavings="XAF 100000"/>
         <View style={tailwind("h-3/4 w-full flex-auto")}>
           <View
