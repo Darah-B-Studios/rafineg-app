@@ -1,14 +1,15 @@
 import React from 'react'
-import { View } from 'react-native'
-import { Avatar, Text } from 'react-native-paper'
+import { View, Image,Text } from 'react-native'
+import { Avatar } from 'react-native-paper'
 import tailwind from 'tailwind-rn'
 
 const NavDrawerHeader: React.FunctionComponent = () => {
     return (
         <View style={tailwind("bg-blue-700 py-10 items-center")}>
                     <View style={tailwind("")}>
-                        <Avatar.Image 
-                            size={80}
+                        <Image 
+                            resizeMode='contain'
+                            style={tailwind(" h-20 w-20 rounded-full")}
                             source={{uri: 'https://picsum.photos/40'}}/>
 
                     </View>

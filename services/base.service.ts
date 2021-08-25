@@ -1,15 +1,16 @@
 import axios from "axios";
-import { API_URL } from "@env";
-const apiUrl = "https://rafineg.herokuapp.com/api";
+const apiUrl = "https://rafineg.herokuapp.com/api/";
+const headers = {
+  'Content-Type': 'application/json',
+  'Accespt': 'application/json',
+}
 export const baseService = {
   post: async (route: string, payload: any) => {
-    await axios.post(route, payload)
+    await axios.post(route, payload).then(response => response.data);
   },
-  get: async (route: string) => await axios.get(route),
+  get: async (route: string) => await axios.get(route).then(response => response.data),
   test: async () => {
-    console.log('application url: ', `${apiUrl}/test`);
-    const result = await axios.get(API_URL.concat('test'));
-    console.log('result: ', result.data);
-    return result.data;
+    const data = await axios.get(apiUrl.concat('test')).then(response => response.data);
+    return data;
   }
 };
