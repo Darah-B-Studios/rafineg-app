@@ -12,7 +12,7 @@ export default function AuthenticationScreen({navigation}){
     }
     const navigateToSignUp = () => {
         //todo: Implement function to navigate to signup screen
-        console.log('To sign up screen');
+        navigation.navigate('Signup');
     }
         return (
             <Container>

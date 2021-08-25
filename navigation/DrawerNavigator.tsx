@@ -13,8 +13,21 @@ import  tailwind  from 'tailwind-rn';
 import { Ionicons } from '@expo/vector-icons';
 import { DrawerActions } from '@react-navigation/native';
 import Packages from '../screens/packages/Packages';
+import { createStackNavigator } from '@react-navigation/stack';
+import ReferralScreen from '../screens/referrals/ReferralScreen';
 
 const DrawerNav = createDrawerNavigator()
+
+const ReferralStack = createStackNavigator()
+
+function ReferralNavigator(){
+    return (
+        <ReferralStack.Navigator>
+            <ReferralStack.Screen name="Referral" component={ReferralListScreen}/>
+            <ReferralStack.Screen name="Withdraw" component={ReferralScreen}/>
+        </ReferralStack.Navigator>
+    )
+} 
 
 
 
@@ -26,7 +39,7 @@ export default function DrawerNavigator(){
          >
             <DrawerNav.Screen name="Home" component={Dashboard}/>
             <DrawerNav.Screen name="Subscriptions" component={Packages}/>
-            <DrawerNav.Screen name="Referrals" component={ReferralListScreen}/>
+            <DrawerNav.Screen name="Referrals" component={ReferralNavigator}/>
             <DrawerNav.Screen name="Transactions" component={Transactions}/>
             <DrawerNav.Screen name="Settings" component={SettingsScreen}/>
         </DrawerNav.Navigator>

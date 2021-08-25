@@ -7,6 +7,7 @@ export type RootStackParamList = {
   SplashScreen: undefined;
   AuthenticationScreen: undefined;
   Login: undefined;
+  Signup: undefined;
   Dashboard: undefined;
 };
 
