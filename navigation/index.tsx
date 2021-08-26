@@ -15,12 +15,16 @@ import AuthenticationScreen from '../screens/authentication/AuthenticationScreen
 import Login from '../screens/authentication/Login';
 import Dashboard from '../screens/dashboard/Dashboard';
 import DrawerNavigator from './DrawerNavigator';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Packages from '../screens/packages/Packages';
+
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        
       <RootNavigator />
       
     </NavigationContainer>
