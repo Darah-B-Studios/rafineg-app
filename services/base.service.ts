@@ -5,7 +5,7 @@ const headers = {
   'Accespt': 'application/json',
 }
 export const baseService = {
-  post: async (route: string, payload: any) => {
+  post: async (route: string, payload?: any) => {
     await axios.post(route, payload).then(response => response.data);
   },
   get: async (route: string) => await axios.get(route).then(response => response.data),
