@@ -6,6 +6,27 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     "test": "jest --watchAll"
   },
   "jest": {
@@ -13,6 +34,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
+    "@react-native-community/checkbox": "^0.5.8",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "5.11.2",
     "@react-navigation/drawer": "^6.1.4",

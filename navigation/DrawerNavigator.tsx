@@ -15,6 +15,7 @@ import { DrawerActions } from '@react-navigation/native';
 import Packages from '../screens/packages/Packages';
 import { createStackNavigator } from '@react-navigation/stack';
 import ReferralScreen from '../screens/referrals/ReferralScreen';
+import ProfileScreen from '../screens/profile/ProfileScreen';
 
 const DrawerNav = createDrawerNavigator()
 
@@ -41,6 +42,7 @@ export default function DrawerNavigator(){
             <DrawerNav.Screen name="Subscriptions" component={Packages}/>
             <DrawerNav.Screen name="Referrals" component={ReferralNavigator}/>
             <DrawerNav.Screen name="Transactions" component={Transactions}/>
+            <DrawerNav.Screen name="Profile" component={ProfileScreen}/>
             <DrawerNav.Screen name="Settings" component={SettingsScreen}/>
         </DrawerNav.Navigator>
 
