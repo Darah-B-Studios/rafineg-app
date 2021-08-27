@@ -5,7 +5,7 @@ const headers = {
   'Accespt': 'application/json',
 }
 
-type ApiResponse<T = {}> = {
+export type ApiResponse<T = {}> = {
   success: boolean;
   errors?: any;
   message?: string;

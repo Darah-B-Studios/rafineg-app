@@ -1,19 +1,21 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { RecoilRoot } from 'recoil';
+import { useAppHook } from './hooks/app.hook';
 
-export default function App() {
-  const isLoadingComplete = useCachedResources();
+const App = () => {
+  // const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
-
-  if (!isLoadingComplete) {
-    return null;
-  } else {
+  const { initAppState } = useAppHook();
+  useEffect(() => {
+    initAppState();
+  }, []);
+  
     return (
       <RecoilRoot>
         <SafeAreaProvider>
@@ -22,5 +24,6 @@ export default function App() {
         </SafeAreaProvider>
       </RecoilRoot>
     );
-  }
 }
+
+export default App;

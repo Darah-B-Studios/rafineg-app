@@ -4,18 +4,19 @@ import { cashBoxListState } from "../recoil/atoms/cashbox.atom";
 import { cashBoxService } from "../services/cashbox.service"
 
 export const useCashBox = () => {
-  const init = async () => {
+  const initCashBoxState = async () => {
     const setCashBoxList = useSetRecoilState(cashBoxListState);
     const cashBoxes = await cashBoxService.index();
     setCashBoxList(cashBoxes.data);
   }
   
-  const storeCashBox = (cashBox: ICashBox) => {
-    const apiResponse = cashBoxService.store(cashBox)
+  const storeCashBox = async (cashBox: ICashBox) => {
+    const apiResponse = await cashBoxService.store(cashBox);
+    return apiResponse;
   }
 
   return {
-    init,
-
+    initCashBoxState,
+    storeCashBox,
   }
 }
