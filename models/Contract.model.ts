@@ -1,5 +1,5 @@
 export interface IContract {
-  id: number,
+  id: number | null,
   name: string,
   code: string,
   description: string,
@@ -7,4 +7,15 @@ export interface IContract {
   endDate: Date,
   updatedOn: Date,
   createdOn: Date
+}
+
+export const emptyContract: IContract = {
+  id: null,
+  name: "",
+  code: "",
+  description: "",
+  startDate: new Date(),
+  endDate: new Date(),
+  updatedOn: new Date(),
+  createdOn: new Date()
 }
