@@ -17,6 +17,7 @@ export default function AuthenticationScreen({navigation}){
         setLoading(true);
         await testAuth();
         setLoading(false);
+        navigation.navigate('Signup');
     }
         return (
             <Container>

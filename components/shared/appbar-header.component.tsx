@@ -15,7 +15,7 @@ const Appbar: React.FunctionComponent<NavHeaderProps> = ({navigation, screenTitl
             <Text style={tailwind(" text-white text-xl")}> {screenTitle}</Text>
 
             <View style={tailwind("")}>
-            <Ionicons name="menu-outline" size={40} color="white" onPress={() => navigation.openDrawer()}/>
+            <Ionicons name="menu-outline" size={30} color="white" onPress={() => navigation.openDrawer()}/>
             </View>
         </View>
     )
