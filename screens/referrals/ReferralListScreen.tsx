@@ -50,7 +50,7 @@ const ReferralListScreen = ({navigation}) => {
               </View>
               <View>
                 <TouchableOpacity
-                  onPress={()=> console.log("Withdraw")}
+                  onPress={()=> navigation.navigate("Withdraw")}
                   style={tailwind(
                     "bg-blue-700 items-center justify-center self-end p-3 m-3"
                   )}
