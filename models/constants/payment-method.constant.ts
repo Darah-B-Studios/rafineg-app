@@ -1,0 +1,5 @@
+export const PAYMENT_METHOD = {
+  MOMO: "MTN_MOMO",
+  ORANGE: "ORANGE_MOMO",
+  STRIPE: "STRIPE"
+}
