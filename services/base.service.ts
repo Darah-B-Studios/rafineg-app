@@ -5,12 +5,14 @@ const headers = {
   'Accespt': 'application/json',
 }
 export const baseService = {
+  get: async (route: string) => await axios.get(route).then(response => response.data),
   post: async (route: string, payload?: any) => {
     await axios.post(route, payload).then(response => response.data);
   },
-  get: async (route: string) => await axios.get(route).then(response => response.data),
-  test: async () => {
-    const data = await axios.get(apiUrl.concat('test')).then(response => response.data);
-    return data;
-  }
+  patch: async (route: string, payload: any) => {
+    await axios.patch(route, payload).then(response => response.data);
+  },
+  destroy: async (route: string) => {
+    await axios.delete(route).then(response => response.data);
+  },
 };
