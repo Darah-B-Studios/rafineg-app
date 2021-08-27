@@ -3,16 +3,26 @@ import {TouchableOpacity, View, Text} from 'react-native';
 import Container from '../../components/shared/container.component';
 import Logo from '../../components/shared/logo.component';
 import tailwind from 'tailwind-rn';
+import { useAuth } from '../../hooks/auth/auth.hook';
+import { authService } from '../../services/auth/auth.service';
+import { baseService } from '../../services/base.service';
 
 
 export default function AuthenticationScreen({navigation}){
-
+    const { testAuth } = useAuth();
     const navigateToLogin = () =>{
         navigation.navigate('Login');
     }
-    const navigateToSignUp = () => {
+    const navigateToSignUp = async () => {
         //todo: Implement function to navigate to signup screen
+
         navigation.navigate('Signup');
+        console.log('To sign up screen');
+        try {
+            const testData = baseService.test();
+            console.log('test data: ', testData);
+        } catch (error) {
+            // console.log('error: ', error);
     }
         return (
             <Container>
