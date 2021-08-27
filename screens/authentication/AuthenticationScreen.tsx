@@ -15,13 +15,14 @@ export default function AuthenticationScreen({navigation}){
     }
     const navigateToSignUp = async () => {
         //todo: Implement function to navigate to signup screen
+
+        navigation.navigate('Signup');
         console.log('To sign up screen');
         try {
             const testData = baseService.test();
             console.log('test data: ', testData);
         } catch (error) {
             // console.log('error: ', error);
-        }
     }
         return (
             <Container>

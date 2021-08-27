@@ -15,12 +15,17 @@ import AuthenticationScreen from '../screens/authentication/AuthenticationScreen
 import Login from '../screens/authentication/Login';
 import Dashboard from '../screens/dashboard/Dashboard';
 import DrawerNavigator from './DrawerNavigator';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Packages from '../screens/packages/Packages';
+import Signup from '../screens/authentication/Signup';
+
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        
       <RootNavigator />
       
     </NavigationContainer>
@@ -37,6 +42,7 @@ function RootNavigator() {
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="AuthenticationScreen" component={AuthenticationScreen}/>
       <Stack.Screen name="Login" component={Login}/>
+      <Stack.Screen name="Signup" component={Signup}/>
       <Stack.Screen name="Dashboard" component={DrawerNavigator}/>
     </Stack.Navigator>
   );

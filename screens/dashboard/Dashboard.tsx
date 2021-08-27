@@ -13,14 +13,16 @@ import Container from "../../components/shared/container.component";
 import DashboardHeader from "../../components/dashboard/dashboard-header.component";
 import AppbarHeader from "../../components/shared/appbar-header.component";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
+import Appbar from "../../components/shared/appbar-header.component";
 
-const Dashboard = () => {
+const Dashboard = ({navigation}) => {
 
   return (
     <>
       <Container>
         {/* TODO: Make status bar consistent on iOS */}
           <StatusBar barStyle="light-content" backgroundColor="blue" />
+          <Appbar navigation={navigation} screenTitle="Dashboard"/>
     
             <ScrollView style={tailwind("w-full")}>
             <DashboardHeader totalSavings='XAF200,000' />

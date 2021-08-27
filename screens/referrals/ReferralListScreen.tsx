@@ -14,8 +14,11 @@ import { SimpleLineIcons, Ionicons, AntDesign } from "@expo/vector-icons";
 import { FlatList } from "react-native-gesture-handler";
 import Container from "../../components/shared/container.component";
 import DashboardHeader from "../../components/dashboard/dashboard-header.component";
+import Appbar from "../../components/shared/appbar-header.component";
 
-const ReferralListScreen = () => {
+
+
+const ReferralListScreen = ({navigation}) => {
   //Dummy data
   const data = [
     { id: "G01", name: "John Doe", time: "2 days ago", amount: "2500" },
@@ -33,6 +36,7 @@ const ReferralListScreen = () => {
     <>
       <Container>
           <StatusBar barStyle="light-content" backgroundColor="blue" />
+          <Appbar navigation={navigation} screenTitle="Referrals"/>
           <DashboardHeader totalSavings="Your Referrals"/>
           <View style={tailwind("h-3/4 w-full")}>
             <View style={tailwind("flex-row justify-between pt-4 px-3")}>
