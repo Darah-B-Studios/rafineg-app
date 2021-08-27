@@ -1,11 +1,14 @@
-import { emptyCashBox } from "../../models/Cashbox.model";
+import { atom } from "recoil";
+import { emptyCashBox, ICashBox } from "../../models/Cashbox.model";
 
-const cashBox = atom({
+const cashBoxState = atom({
   key: "cashbox",
   default: emptyCashBox
 });
 
-const cashBoxes = atom({
-  key: "cashboxes",
-  default: []
+const cashBoxListState = atom({
+  key: "cashbox list",
+  default: [] as ICashBox[]
 });
+
+export { cashBoxState, cashBoxListState };
