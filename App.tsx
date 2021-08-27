@@ -9,6 +9,11 @@ import Navigation from './navigation';
 
 import ReferralListScreen from './screens/referrals/ReferralListScreen';
 import Packages from './screens/packages/Packages';
+import Signup from './screens/authentication/Signup';
+import VerifyPhoneNumberScreen from './screens/verification/VerifyPhoneNumberScreen';
+import VerifyPhoneSuccessScreen from './screens/verification/VerifyPhoneSuccessScreen';
+import Transactions from './screens/transactions/Transactions';
+import ProfileScreen from './screens/profile/ProfileScreen';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -17,7 +22,8 @@ export default function App() {
   if (!isLoadingComplete) {
     return null;
   } else {
-    return (  
+    return (
+      
       <SafeAreaProvider>
         <Navigation colorScheme={colorScheme} />
         <StatusBar />
