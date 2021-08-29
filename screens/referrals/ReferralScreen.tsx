@@ -15,8 +15,11 @@ import { TextInput } from "react-native-gesture-handler";
 import { useForm, Controller } from "react-hook-form";
 import Container from "../../components/shared/container.component";
 import DashboardHeader from "../../components/dashboard/dashboard-header.component";
+import { useState } from "react";
 
 const ReferralScreen = () => {
+  const [loading, setLoading] = useState(false);
+  const [casboxes, setCashboxes]
   const {
     control,
     handleSubmit,
