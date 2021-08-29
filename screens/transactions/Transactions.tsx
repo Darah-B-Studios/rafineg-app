@@ -9,7 +9,7 @@ const Transactions = ({navigation}) => {
         return (
             <Container>
                 <Appbar navigation={navigation} screenTitle="Transactions"/>
-                <View style={tailwind("bg-white mx-3 p-2 bg-opacity-50 my-6 w-11/12")}>
+                <View style={[tailwind("bg-white mx-3 p-2 bg-opacity-50 my-6 w-11/12")]}>
                     <Text style={tailwind("p-2")}>Recent Transactions</Text>
                     <View style={tailwind("border border-gray-400")}></View>
                     <View style={tailwind("w-full")}>

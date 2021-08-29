@@ -18,7 +18,18 @@ export default function AuthenticationScreen({navigation}){
         await testAuth();
         setLoading(false);
         navigation.navigate('Signup');
+<<<<<<< Updated upstream
     }
+=======
+        console.log('To sign up screen');
+        try {
+            const testData = baseService.test();
+            console.log('test data: ', testData);
+        } catch (error) {
+            // console.log('error: ', error);
+         }
+        }
+>>>>>>> Stashed changes
         return (
             <Container>
                 <View style = {tailwind('items-center content-center w-full pt-40 flex-col')}>
