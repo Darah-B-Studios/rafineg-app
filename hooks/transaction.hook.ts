@@ -47,9 +47,23 @@ export const useTransaction = () => {
     return apiResponse;
   }
 
+  /**
+   * Delete a user transaction  
+   * @param transaction user transaction record
+   * @returns apiResponse
+   */
+  const deleteTransaction = async (transaction: ITransaction) => {
+    const apiResponse = await transactionService.delete(transaction);
+    if (apiResponse.success) {
+      setTransactionList(transactionList.filter(transactionItem => transactionItem.id !== apiResponse.data.id));
+    }
+    return apiResponse;
+  }
+
   return {
     initTransactionState,
     updateTransaction,
-    storeTransaction
+    storeTransaction,
+    deleteTransaction
   }
 }

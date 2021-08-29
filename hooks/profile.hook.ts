@@ -9,7 +9,7 @@ export const useProfile = () => {
   /**
    * Initialize app with all user profile for admin users
    */
-  const initiProfileListState = async () => {
+  const initProfileState = async () => {
     const apiResponse = await profileService.index();
     setProfileList(apiResponse.data)
   }
@@ -33,7 +33,7 @@ export const useProfile = () => {
   }
 
   return {
-    initiProfileListState,
+    initProfileState,
     updateProfile
   }
 }
