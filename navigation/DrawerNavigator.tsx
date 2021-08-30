@@ -23,7 +23,7 @@ const ReferralStack = createStackNavigator()
 
 function ReferralNavigator(){
     return (
-        <ReferralStack.Navigator>
+        <ReferralStack.Navigator screenOptions={{headerShown:false}}>
             <ReferralStack.Screen name="Referral" component={ReferralListScreen}/>
             <ReferralStack.Screen name="Withdraw" component={ReferralScreen}/>
         </ReferralStack.Navigator>
