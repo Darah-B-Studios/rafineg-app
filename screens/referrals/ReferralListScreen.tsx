@@ -10,15 +10,17 @@ import {
   TouchableOpacity,
 } from "react-native";
 import tailwind from "tailwind-rn";
-import { SimpleLineIcons, Ionicons, AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { FlatList } from "react-native-gesture-handler";
 import Container from "../../components/shared/container.component";
 import DashboardHeader from "../../components/dashboard/dashboard-header.component";
 import Appbar from "../../components/shared/appbar-header.component";
+import { ScreenProps } from "../../App";
 
 
 
-const ReferralListScreen = ({navigation}) => {
+const ReferralListScreen: React.FunctionComponent<ScreenProps<'Referals'>> = ({ navigation }) => {
+  
   //Dummy data
   const data = [
     { id: "G01", name: "John Doe", time: "2 days ago", amount: "2500" },
@@ -48,7 +50,7 @@ const ReferralListScreen = ({navigation}) => {
               </View>
               <View>
                 <TouchableOpacity
-                  onPress={()=> console.log("Withdraw")}
+                  onPress={()=> navigation.navigate('Withdraw')}
                   style={tailwind(
                     "bg-blue-700 items-center justify-center self-end p-3 m-3"
                   )}

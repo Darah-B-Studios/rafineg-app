@@ -4,8 +4,6 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Image,
-  SafeAreaView,
   View,
   Text,
   Platform,
@@ -13,12 +11,12 @@ import {
 } from "react-native";
 import tailwind from "tailwind-rn";
 import { useForm, Controller } from "react-hook-form";
-import Dashboard from "../dashboard/Dashboard";
 import Container from "../../components/shared/container.component";
 import Logo from "../../components/shared/logo.component";
 import ValidationError from "../../components/forms/vlaidation-error.component";
+import { ScreenProps } from "../../App";
 
-const Login = ({navigation}) => {
+const Login: React.FunctionComponent<ScreenProps<'Login'>> = ({navigation}) => {
   const emailInput = React.useRef<TextInput>(null);
   const passwordInput = React.useRef<TextInput>(null);
 
@@ -28,14 +26,15 @@ const Login = ({navigation}) => {
     formState: { errors },
   } = useForm();
 
-  //TEMPORAL: navigate to dashboard if the email and password are not empty
-  const onSubmit = ({email, password}) => {
-    if (!email.trim().isEmpty &&  !password.trim().isEmpty){
-      navigation.navigate(Dashboard);
-    } else {
-      console.log("Invalide credentials")
-    }
+  type submitProps = {
+    email: string,
+    password: string;
+  }
 
+  const onSubmit = ({email, password}: submitProps) => {
+    if (email.trim() !== '' &&  password.trim() !== ''){
+      navigation.replace('Dashboard');
+    }
   };
 
   return (
@@ -110,7 +109,7 @@ const Login = ({navigation}) => {
                       selectionColor="#ffffff"
                       returnKeyType="done"
                       onBlur={onBlur}
-                      //onSubmitEditing={handleSubmit(onSubmit)}
+                      onSubmitEditing={handleSubmit(onSubmit)}
                       onChangeText={onChange}
                       ref={passwordInput}
                       placeholderTextColor="#ffffff"

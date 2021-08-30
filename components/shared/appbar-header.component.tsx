@@ -11,7 +11,7 @@ type NavHeaderProps = {
 const Appbar: React.FunctionComponent<NavHeaderProps> = ({navigation, screenTitle}) => {
 
     return (
-        <View style={tailwind("mt-6 flex-row justify-between items-center p-3 bg-blue-700 w-full")}>
+        <View style={tailwind("flex-row justify-between items-center p-3 bg-blue-700 w-full")}>
             <Text style={tailwind(" text-white text-xl")}> {screenTitle}</Text>
 
             <View style={tailwind("")}>

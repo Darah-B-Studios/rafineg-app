@@ -4,24 +4,22 @@ import {
   StatusBar,
   Text,
   View,
-  Image,
   TouchableOpacity,
 } from "react-native";
 import tailwind from "tailwind-rn";
-import { SimpleLineIcons, Ionicons, AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import Container from "../../components/shared/container.component";
 import DashboardHeader from "../../components/dashboard/dashboard-header.component";
-import AppbarHeader from "../../components/shared/appbar-header.component";
-import { DrawerActions, useNavigation } from "@react-navigation/native";
 import Appbar from "../../components/shared/appbar-header.component";
+import { ScreenProps } from "../../App";
 
-const Dashboard = ({navigation}) => {
+const Dashboard: React.FunctionComponent<ScreenProps<'Dashboard'>> = ({navigation}) => {
 
   return (
     <>
       <Container>
         {/* TODO: Make status bar consistent on iOS */}
-          <StatusBar barStyle="light-content" backgroundColor="blue" />
+          <StatusBar />
           <Appbar navigation={navigation} screenTitle="Dashboard"/>
     
             <ScrollView style={tailwind("w-full")}>

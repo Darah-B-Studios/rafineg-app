@@ -20,6 +20,7 @@ export const useAppHook = () => {
     await initTransactionState();
     await initProfileState();
     await initContractState();
+    return true;
   }
 
   return {

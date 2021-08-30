@@ -9,6 +9,14 @@ export type RootStackParamList = {
   Login: undefined;
   Signup: undefined;
   Dashboard: undefined;
+  Packages: undefined;
+  PackageDetail: undefined,
+  Referals: undefined,
+  Withdraw: undefined,
+  Transactions: undefined,
+  TransactionDetail: undefined,
+  Profiles: undefined,
+  Profile: undefined,
 };
 
 export type DrawerNavParamList = {

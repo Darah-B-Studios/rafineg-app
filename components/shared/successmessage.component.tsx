@@ -12,11 +12,10 @@ const SuccessMessage: React.FunctionComponent<SuccessMessageProps> = ({title, me
     return (
         <View style={tailwind(" bg-white items-center p-8 w-11/12 m-3")}>
                 <View style={tailwind("bg-green-500 p-2 rounded-full")}>
-                <Feather name="check" size={40} color="white" />
+                    <Feather name="check" size={40} color="white" />
                 </View>
                 <Text style={tailwind("text-green-500 p-2")}>{title}</Text>
                 <Text style={tailwind("text-center")}>{message}</Text>
-
             </View>
     )
 }

@@ -23,7 +23,7 @@ const ReferralStack = createStackNavigator()
 
 function ReferralNavigator(){
     return (
-        <ReferralStack.Navigator>
+        <ReferralStack.Navigator screenOptions={{ headerShown: false }}>
             <ReferralStack.Screen name="Referral" component={ReferralListScreen}/>
             <ReferralStack.Screen name="Withdraw" component={ReferralScreen}/>
         </ReferralStack.Navigator>
@@ -39,7 +39,7 @@ export default function DrawerNavigator(){
         screenOptions={{ headerShown: false }} 
          >
             <DrawerNav.Screen name="Home" component={Dashboard}/>
-            <DrawerNav.Screen name="Subscriptions" component={Packages}/>
+            <DrawerNav.Screen name="Packages" component={Packages}/>
             <DrawerNav.Screen name="Referrals" component={ReferralNavigator}/>
             <DrawerNav.Screen name="Transactions" component={Transactions}/>
             <DrawerNav.Screen name="Profile" component={ProfileScreen}/>

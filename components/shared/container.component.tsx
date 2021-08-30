@@ -1,9 +1,11 @@
 import React from 'react'
-import { ImageBackground, SafeAreaView} from 'react-native'
+import { ImageBackground, SafeAreaView, StatusBar} from 'react-native'
 import tailwind from "tailwind-rn"
 
 const Container: React.FunctionComponent = ({children}) => {
   return (
+    <>
+       <StatusBar />
     <SafeAreaView style={tailwind("h-full w-full flex-1")}>
       <ImageBackground
         resizeMode="cover"
@@ -13,6 +15,7 @@ const Container: React.FunctionComponent = ({children}) => {
         {children}
       </ImageBackground>
     </SafeAreaView>
+      </>
   )
 }
 
