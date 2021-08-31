@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import Navigation from '../navigation'
 import useCachedResources from '../hooks/useCachedResources'
 import { useColorScheme } from 'react-native'
+import EditProfileScreen from './profile/EditProfileScreen'
 // import { useAppHook } from '../hooks/app.hook'
 
 const AppShell: React.FunctionComponent = () => {
@@ -17,7 +18,7 @@ const AppShell: React.FunctionComponent = () => {
   // }, []);
 
   return (
-    <>
+    <> 
       <SafeAreaProvider>
         <Navigation colorScheme={colorScheme} />
         <StatusBar />

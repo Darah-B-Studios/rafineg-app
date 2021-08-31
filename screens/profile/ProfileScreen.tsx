@@ -4,6 +4,7 @@ import Appbar from '../../components/shared/appbar-header.component'
 import tailwind from 'tailwind-rn'
 import { ScreenProps } from '../../App'
 import Container from '../../components/shared/container.component'
+import { EvilIcons } from '@expo/vector-icons'
 
 const ProfileScreen: React.FunctionComponent<ScreenProps<'Profile'>> = ({navigation}) => {
     return (
@@ -27,7 +28,7 @@ const ProfileScreen: React.FunctionComponent<ScreenProps<'Profile'>> = ({navigat
 
                     <View style={tailwind("flex-row justify-between items-end")}>
                     <Text style={tailwind("p-2")}>Personal Information</Text>
-                    <TouchableOpacity style={tailwind("flex-row p-2 ")}>
+                    <TouchableOpacity style={tailwind("flex-row p-2 ")} onPress={() => navigation.navigate("EditProfile")}>
                         <EvilIcons name="pencil" size={24} color="blue" />
                         <Text style={tailwind("text-blue-700 underline")}>edit</Text>
                     </TouchableOpacity>

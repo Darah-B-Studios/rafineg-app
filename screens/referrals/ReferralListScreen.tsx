@@ -22,7 +22,12 @@ import { ScreenProps } from "../../App";
 const ReferralListScreen: React.FunctionComponent<ScreenProps<'Referals'>> = ({ navigation }) => {
   
   //Dummy data
-  const data = [
+  const data: {
+    id: string,
+    name: string,
+    time: string
+    amount: string
+  } [] = [
     { id: "G01", name: "John Doe", time: "2 days ago", amount: "2500" },
     { id: "G02", name: "John Doe", time: "2 days ago", amount: "2500" },
     { id: "G03", name: "John Doe", time: "2 days ago", amount: "2500" },
@@ -37,9 +42,7 @@ const ReferralListScreen: React.FunctionComponent<ScreenProps<'Referals'>> = ({ 
   return (
     <>
       <Container>
-          <StatusBar barStyle="light-content" backgroundColor="blue" />
           <Appbar navigation={navigation} screenTitle="Referrals"/>
-          <DashboardHeader totalSavings="Your Referrals"/>
           <View style={tailwind("h-3/4 w-full")}>
             <View style={tailwind("flex-row justify-between pt-4 px-3")}>
               <View style={tailwind("flex-wrap")}>
@@ -67,7 +70,7 @@ const ReferralListScreen: React.FunctionComponent<ScreenProps<'Referals'>> = ({ 
                 removeClippedSubviews={false}
                 contentContainerStyle={{width:'100%', margin:2}}
                 keyExtractor={(item) => item.id}
-                renderItem={(item) => {
+                renderItem={({item}) => {
                   return (
                     <View style={tailwind("flex-1 flex-row justify-between bg-gray-100 m-3 w-11/12 h-20")}>
                       <View style={tailwind('flex-row items-center justify-center')}>
@@ -82,7 +85,7 @@ const ReferralListScreen: React.FunctionComponent<ScreenProps<'Referals'>> = ({ 
                         </View>
                       </View>
                       <View style={tailwind('self-end p-2')}>
-                        <Text>{item.amount}</Text>
+                        <Text>+{item.amount}</Text>
 
                       </View>
 

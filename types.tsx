@@ -12,6 +12,7 @@ export type RootStackParamList = {
   Packages: undefined;
   PackageDetail: undefined,
   Referals: undefined,
+  EditProfile: undefined,
   Withdraw: undefined,
   Transactions: undefined,
   TransactionDetail: undefined,

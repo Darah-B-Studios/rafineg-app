@@ -23,7 +23,6 @@ const Dashboard: React.FunctionComponent<ScreenProps<'Dashboard'>> = ({navigatio
           <Appbar navigation={navigation} screenTitle="Dashboard"/>
     
             <ScrollView style={tailwind("w-full")}>
-            <DashboardHeader totalSavings='XAF200,000' />
               <View
                 style={tailwind(
                   "w-full pt-2 px-2 flex-row flex-1 items-baseline justify-between"
@@ -60,11 +59,11 @@ const Dashboard: React.FunctionComponent<ScreenProps<'Dashboard'>> = ({navigatio
                   </TouchableOpacity>
                 </View>
               </View>
-              <View style={tailwind("p-4 self-center h-52 bg-white w-full")}>
+              <View style={tailwind("p-4 self-center mt-4 h-52 bg-white w-11/12")}>
                 <Text style={tailwind("self-center text-xl")}>Chart Area</Text>
               </View>
               <View
-                style={tailwind("p-4 self-center m-2 h-52 bg-white w-full")}
+                style={tailwind("p-4 self-center m-2 h-52 bg-white w-11/12")}
               >
                 <Text style={tailwind("self-center mx-2 text-xl")}>
                   Recent Transactions Area
@@ -72,7 +71,7 @@ const Dashboard: React.FunctionComponent<ScreenProps<'Dashboard'>> = ({navigatio
               </View>
               <View
                 style={tailwind(
-                  "p-4 self-center h-52 bg-white w-full opacity-80"
+                  "p-4 self-center h-52 bg-white w-11/12 opacity-80"
                 )}
               >
                 <Text style={tailwind("self-center text-xl opacity-100")}>
