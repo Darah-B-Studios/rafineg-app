@@ -1,12 +1,11 @@
 import React from 'react'
-import { ImageBackground, SafeAreaView, StatusBar} from 'react-native'
+import { ImageBackground, SafeAreaView} from 'react-native'
 import tailwind from "tailwind-rn"
-
+import { StatusBar } from 'expo-status-bar'
 const Container: React.FunctionComponent = ({children}) => {
-  return (
-    <>
-       <StatusBar />
+  return (  
     <SafeAreaView style={tailwind("h-full w-full flex-1")}>
+      <StatusBar/>
       <ImageBackground
         resizeMode="cover"
         style={tailwind("flex-1 h-full w-full items-center")}
@@ -15,7 +14,6 @@ const Container: React.FunctionComponent = ({children}) => {
         {children}
       </ImageBackground>
     </SafeAreaView>
-      </>
   )
 }
 

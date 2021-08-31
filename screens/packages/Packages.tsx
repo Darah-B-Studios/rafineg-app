@@ -20,7 +20,6 @@ const CAROUSEL_HEIGHT = height * 0.65;
 const Packages: React.FunctionComponent<ScreenProps<'Packages'>> = ({navigation}) => {
   return (
     <Container>
-        <StatusBar />
         <Appbar navigation={navigation} screenTitle="Subscriptions"/>
         {/* <DashboardHeader totalSavings="XAF 100000"/> */}
         <View style={tailwind("h-3/4 w-full flex-auto")}>
@@ -42,7 +41,7 @@ const Packages: React.FunctionComponent<ScreenProps<'Packages'>> = ({navigation}
           </View>
           
         {/* package carousel */}
-            <PackageCarousel />
+          <PackageCarousel />
         </View>
 
         <TouchableOpacity
