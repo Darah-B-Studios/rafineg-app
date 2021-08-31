@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Dimensions, Platform, Image, Text, TouchableOpacity} from 'react-native';
-import Animated from 'react-native-reanimated';
+import { View, Dimensions, Platform, Image, Text, FlatList, Animated, TouchableOpacity} from 'react-native';
 import tailwind from 'tailwind-rn';
 import { AntDesign } from "@expo/vector-icons";
 

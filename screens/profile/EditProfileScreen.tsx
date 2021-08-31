@@ -47,9 +47,14 @@ const EditProfileScreen = ({navigation}) => {
                      placeholder="Enter your name"
                      keyboardType="default"/>
                     </View>
+                    <ProfileTextInput label="Email address"
+                    placeholder="Enter your email address"
+                    keyboardType="email-address"/>
 
-                    
-                   
+                    <ProfileTextInput label="Address"
+                    placeholder="Mile 4 Nkwen"
+                    keyboardType="default"/>
+
                     </View>
 
                     

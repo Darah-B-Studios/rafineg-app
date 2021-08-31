@@ -9,7 +9,7 @@ const Transactions: React.FunctionComponent<ScreenProps<'Transactions'>> = ({ na
         return (
             <Container>
                 <Appbar navigation={navigation} screenTitle="Transactions"/>
-                <View>Transaction details</View>
+                <View><Text>Transaction details</Text></View>
             </Container>
         )
     
