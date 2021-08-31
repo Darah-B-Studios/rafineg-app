@@ -26,10 +26,10 @@ type ScreenRouteProp<T extends keyof RootStackParamList> = RouteProp<
 const App = () => {
   useCachedResources();
   const colorScheme = useColorScheme();
-  const { initAppState } = useAppHook();
-  useEffect(() => {
-    initAppState();
-  }, []);
+  // const { initAppState } = useAppHook();
+  // useEffect(() => {
+  //   initAppState();
+  // }, []);
 
     return (
       <RecoilRoot>
