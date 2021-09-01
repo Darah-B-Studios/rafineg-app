@@ -1,18 +1,21 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useDispatch, useSelector } from "react-redux";
 import { ICashBox } from "../models/Cashbox.model";
-import { cashBoxListState, cashBoxState } from "../recoil/atoms/cashbox.atom";
+import { addCashbox, cashboxesSelector, cashboxSelector } from "../redux/cashbox.slice";
 import { cashBoxService } from "../services/cashbox.service"
 
 export const useCashBox = () => {
-  const [cashBoxList, setCashBoxList] = useRecoilState(cashBoxListState);
+  const dispatch = useDispatch();
+  const cashBoxList = useSelector(cashboxesSelector);
+  const cashBox = useSelector(cashboxSelector);
 
   /**
    * Initialize the cashBoxes state
    */
   const initCashBoxState = async () => {
-    const setCashBoxList = useSetRecoilState(cashBoxListState);
-    const cashBoxes = await cashBoxService.index();
-    setCashBoxList(cashBoxes.data);
+    const apiResponse = await cashBoxService.index();
+    if (apiResponse.success) {
+      dispatch(addCashbox(apiResponse.data));
+    }
   }
   
   /**
@@ -23,9 +26,9 @@ export const useCashBox = () => {
   const storeCashBox = async (cashBox: ICashBox) => {
     const apiResponse = await cashBoxService.store(cashBox);
     if (apiResponse.success) {
-      setCashBoxList([...cashBoxList, apiResponse.data]);
+      dispatch(addCashbox(apiResponse.data));
     }
-    return apiResponse
+    return apiResponse;
   }
 
   /**
@@ -36,19 +39,17 @@ export const useCashBox = () => {
   const updateCashBox = async (cashBox: ICashBox) => {
     const apiResponse = await cashBoxService.update(cashBox);
     if (apiResponse.success) {
-      cashBoxList.map(cashBoxItem => {
-        if (cashBoxItem.id === apiResponse.data.id) {
-          return apiResponse.data;
-        }
-      });
-      setCashBoxList(cashBoxList);
+      dispatch(updateCashBox(apiResponse.data));
     }
     return apiResponse;
   }
 
   return {
+    cashBox,
+    cashBoxes: cashBoxList,
     initCashBoxState,
     storeCashBox,
     updateCashBox,
   }
 }
+
