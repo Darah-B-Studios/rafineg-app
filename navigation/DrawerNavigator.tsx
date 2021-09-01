@@ -19,35 +19,35 @@ const ReferralStack = createStackNavigator()
 
 const ProfileStack = createStackNavigator()
 
-function ReferralNavigator(){
+function ReferralNavigator() {
     return (
         <ReferralStack.Navigator screenOptions={{ headerShown: false }}>
-            <ReferralStack.Screen name="Referral" component={ReferralListScreen}/>
-            <ReferralStack.Screen name="Withdraw" component={ReferralScreen}/>
+            <ReferralStack.Screen name="Referral" component={ReferralListScreen} />
+            <ReferralStack.Screen name="Withdraw" component={ReferralScreen} />
         </ReferralStack.Navigator>
     )
-} 
+}
 
-function ProfileNavigator(){
+function ProfileNavigator() {
     return (
-        <ProfileStack.Navigator screenOptions={{headerShown: false}}>
-            <ProfileStack.Screen name="ProfileS" component={ProfileScreen}/>
-            <ProfileStack.Screen name="EditProfile" component={EditProfileScreen}/>
+        <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+            <ProfileStack.Screen name="ProfileS" component={ProfileScreen} />
+            <ProfileStack.Screen name="EditProfile" component={EditProfileScreen} />
         </ProfileStack.Navigator>
     )
 }
 
-export default function DrawerNavigator(){
-    return(
-        <DrawerNav.Navigator drawerContent={props => <DrawerContent {...props}/>} initialRouteName="Dashboard"
-        screenOptions={{ headerShown: false }} 
-         >
-            <DrawerNav.Screen name="Home" component={Dashboard}/>
-            <DrawerNav.Screen name="Packages" component={Packages}/>
-            <DrawerNav.Screen name="Referrals" component={ReferralNavigator}/>
-            <DrawerNav.Screen name="Transactions" component={TransactionDetails}/>
-            <DrawerNav.Screen name="Profile" component={ProfileNavigator}/>
-            <DrawerNav.Screen name="Settings" component={SettingsScreen}/>
+export default function DrawerNavigator() {
+    return (
+        <DrawerNav.Navigator drawerContent={props => <DrawerContent {...props} />} initialRouteName="Dashboard"
+            screenOptions={{ headerShown: false }}
+        >
+            <DrawerNav.Screen name="Home" component={Dashboard} />
+            <DrawerNav.Screen name="Packages" component={Packages} />
+            <DrawerNav.Screen name="Referrals" component={ReferralNavigator} />
+            <DrawerNav.Screen name="Transactions" component={TransactionDetails} />
+            <DrawerNav.Screen name="Profile" component={ProfileNavigator} />
+            <DrawerNav.Screen name="Settings" component={SettingsScreen} />
         </DrawerNav.Navigator>
     );
 }

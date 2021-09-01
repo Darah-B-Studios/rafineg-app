@@ -5,17 +5,17 @@ import tailwind from 'tailwind-rn'
 type TextInputParams = {
     label: string,
     keyboardType: KeyboardType,
-    placeholder: string
+    placeholder: string,
 }
 
-const ProfileTextInput: React.FunctionComponent<TextInputParams> = ({label, keyboardType, placeholder}) => {
+const ProfileTextInput: React.FunctionComponent<TextInputParams> = ({ label, keyboardType, placeholder }) => {
     return (
-        <View>
-            <Text>{label}</Text>
-            <TextInput 
-            keyboardType = {keyboardType}
-            placeholder={placeholder}
-            style={tailwind("border rounded w-full")}
+        <View style={tailwind('mb-4 flex-1')}>
+            <Text style={tailwind('mb-2')}>{label}</Text>
+            <TextInput
+                keyboardType={keyboardType}
+                placeholder={placeholder}
+                style={tailwind("border rounded w-full px-2 py-3 border-gray-400")}
             />
         </View>
     )
