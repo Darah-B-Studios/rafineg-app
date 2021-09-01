@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Dimensions, Platform, Image, Text, FlatList, Animated, TouchableOpacity} from 'react-native';
+import { View, Dimensions, Platform, Image, Text, FlatList, Animated, TouchableOpacity } from 'react-native';
 import tailwind from 'tailwind-rn';
 import { AntDesign } from "@expo/vector-icons";
 
 const PackageCarousel: React.FunctionComponent = () => {
-   const data = [
+  const data = [
     {
       id: 0,
       title: "Basic",
@@ -38,7 +38,7 @@ const PackageCarousel: React.FunctionComponent = () => {
   const SPACING = 10;
   const imageW = width * 0.65;
   const CAROUSEL_HEIGHT = height * 0.65;
-  const ITEM_SIZE = Platform.OS === "ios" ? width * 0.72 : width * 0.74;
+  const ITEM_SIZE = Platform.OS === "ios" ? width * 0.90 : width * 0.90;
   const SPACER_ITEM_SIZE = (width - ITEM_SIZE) / 2;
   const dataWithSpacer = [{ id: "leftSpacer" }, ...data, { id: "rightSpacer" }];
   const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -46,101 +46,101 @@ const PackageCarousel: React.FunctionComponent = () => {
   return (
     <>
       <View
-            style={[
-              tailwind("absolute"),
-              {
-                height: CAROUSEL_HEIGHT,
-                width: width,
-                top: 60,
-              },
-            ]}
-          >
-          <Animated.FlatList
-              data={dataWithSpacer}
-              removeClippedSubviews={false}
-              keyExtractor={(item) => item.id.toString()}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              pagingEnabled
-              snapToInterval={ITEM_SIZE}
-              snapToAlignment="start"
-              contentContainerStyle={{}}
-              decelerationRate={Platform.OS === "ios" ? 0 : 0.98}
-              bounces={false}
-              scrollEventThrottle={16}
-              renderToHardwareTextureAndroid
-              onScroll={Animated.event(
-                [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                { useNativeDriver: true }
-              )}
-              renderItem={({ item, index }) => {
-                const inputRange = [
-                  (index - 2) * ITEM_SIZE,
-                  (index - 1) * ITEM_SIZE,
-                  index * ITEM_SIZE,
-                ];
-                const translateY = scrollX.interpolate({
-                  inputRange,
-                  outputRange: [-50, 0, -50],
-                });
-                if (!item.title) {
-                  return <View style={{ width: SPACER_ITEM_SIZE }}></View>;
-                }
-                return (
-                  <View
-                    style={{
-                      width: ITEM_SIZE,
-                      height: CAROUSEL_HEIGHT * 0.9,
-                      shadowOpacity: 1,
-                      shadowRadius: 1,
-                      shadowColor: "#000",
-                      shadowOffset: {
-                        width: 0,
-                        height: 0,
+        style={[
+          tailwind("absolute"),
+          {
+            height: CAROUSEL_HEIGHT,
+            width: width,
+            top: 60,
+          },
+        ]}
+      >
+        <Animated.FlatList
+          data={dataWithSpacer}
+          removeClippedSubviews={false}
+          keyExtractor={(item) => item.id.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          snapToInterval={ITEM_SIZE}
+          snapToAlignment="start"
+          contentContainerStyle={{}}
+          decelerationRate={Platform.OS === "ios" ? 0 : 0.98}
+          bounces={false}
+          scrollEventThrottle={16}
+          renderToHardwareTextureAndroid
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            { useNativeDriver: true }
+          )}
+          renderItem={({ item, index }) => {
+            const inputRange = [
+              (index - 2) * ITEM_SIZE,
+              (index - 1) * ITEM_SIZE,
+              index * ITEM_SIZE,
+            ];
+            const translateY = scrollX.interpolate({
+              inputRange,
+              outputRange: [-50, 0, -50],
+            });
+            if (!item.title) {
+              return <View style={{ width: SPACER_ITEM_SIZE }}></View>;
+            }
+            return (
+              <View
+                style={{
+                  width: ITEM_SIZE,
+                  height: CAROUSEL_HEIGHT * 0.9,
+                  shadowOpacity: 1,
+                  shadowRadius: 1,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 0,
+                  },
+                }}
+              >
+                <Animated.View
+                  style={[
+                    tailwind("bg-white justify-center items-center flex-1 border-0"),
+                    {
+                      marginHorizontal: SPACING,
+                      alignItems: "center",
+                      transform: [{ translateY }],
+                    },
+                  ]}
+                >
+                  <Image
+                    resizeMode="cover"
+                    source={{ uri: item.image }}
+                    style={[
+                      tailwind(""),
+                      {
+                        width: "100%",
+                        height: "50%",
                       },
-                    }}
-                  >
-                    <Animated.View
-                      style={[
-                        tailwind("bg-white justify-center items-center flex-1 border-0"),
-                        {
-                          marginHorizontal: SPACING,
-                          alignItems: "center",
-                          transform: [{ translateY }],
-                        },
-                      ]}
-                    >
-                      <Image
-                        resizeMode="cover"
-                        source={{ uri: item.image }}
-                        style={[
-                          tailwind(""),
-                          {
-                            width: "100%",
-                            height: "50%",
-                          },
-                        ]}
-                      />
-                      <View style={tailwind("flex-1")}>
-                        <Text style={tailwind("p-2 text-xl")}>
-                          {item.title}
-                        </Text>
-                        <Text style={tailwind("pl-2")}>{item.detail}</Text>
-                      </View>
-                      <TouchableOpacity
-                        style={tailwind(
-                          "p-3 bg-gray-100 m-3 self-end flex-row items-center justify-between"
-                        )}
-                      >
-                        <Text>Details</Text>
-                        <AntDesign name="arrowright" size={24} color="black" />
-                      </TouchableOpacity>
-                    </Animated.View>
+                    ]}
+                  />
+                  <View style={tailwind("flex-1")}>
+                    <Text style={tailwind("p-2 text-xl")}>
+                      {item.title}
+                    </Text>
+                    <Text style={tailwind("pl-2")}>{item.detail}</Text>
                   </View>
-                );
-              }}
+                  <TouchableOpacity
+                    style={tailwind(
+                      "p-3 bg-gray-100 m-3 self-end flex-row items-center justify-between"
+                    )}
+                  >
+                    <Text>Details</Text>
+                    <AntDesign name="arrowright" size={24} color="black" />
+                  </TouchableOpacity>
+                </Animated.View>
+              </View>
+            );
+          }}
         />
-        </View>
+      </View>
     </>
   )
 }

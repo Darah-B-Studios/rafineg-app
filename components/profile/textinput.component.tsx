@@ -15,7 +15,7 @@ const ProfileTextInput: React.FunctionComponent<TextInputParams> = ({ label, key
             <TextInput
                 keyboardType={keyboardType}
                 placeholder={placeholder}
-                style={tailwind("border rounded w-full px-2 py-3 border-gray-400")}
+                style={tailwind("border rounded w-full p-2 border-gray-400")}
             />
         </View>
     )
