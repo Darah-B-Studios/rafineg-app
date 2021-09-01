@@ -46,6 +46,7 @@
         "react-native-vector-icons": "^8.1.0",
         "react-native-web": "~0.13.12",
         "recoil": "^0.4.1",
+        "stripe": "^8.172.0",
         "tailwind-rn": "^3.0.1"
     },
     "devDependencies": {
