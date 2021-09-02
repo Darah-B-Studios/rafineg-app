@@ -1,10 +1,12 @@
-import { useRecoilState } from "recoil";
+import { useDispatch, useSelector } from "react-redux";
 import { ITransaction } from "../models/Transaction.model";
-import { transactionListState } from "../recoil/atoms/transaction.atom";
+import { addTransaction, removeTransaction, transactionSelector, transactionsSelector } from "../redux/transaction.slice";
 import { transactionService } from "../services/transaction.service";
 
 export const useTransaction = () => {
-  const [transactionList, setTransactionList] = useRecoilState(transactionListState);
+  const dispatch = useDispatch();
+  const transactions = useSelector(transactionsSelector);
+  const transaction = useSelector(transactionSelector);
 
   /**
    * initialize the app state with all transactions
@@ -12,10 +14,18 @@ export const useTransaction = () => {
   const initTransactionState = async () => {
     const apiResponse = await transactionService.index();
     if (apiResponse.success) {
-      setTransactionList(apiResponse.data);
+      dispatch(addTransaction(apiResponse.data));
     }
     return;
   }
+
+    
+  /**
+   * Sets a single transaction in the state
+   * @param transaction transaction
+   * @returns null
+   */
+  const setTransaction = (transaction: ITransaction): void => dispatch(setTransaction(transaction));
 
   /**
    * Save a new transaction   
@@ -25,7 +35,7 @@ export const useTransaction = () => {
   const storeTransaction = async (transaction: ITransaction) => {
     const apiResponse = await transactionService.store(transaction);
     if (apiResponse.success) {
-      setTransactionList([...transactionList, apiResponse.data]);
+      dispatch(addTransaction(apiResponse.data));
     }
     return apiResponse;
   }
@@ -37,12 +47,7 @@ export const useTransaction = () => {
   const updateTransaction = async (transaction: ITransaction) => {
     const apiResponse = await transactionService.update(transaction);
     if (apiResponse.success) {
-      transactionList.map(item => {
-        if (item.id === apiResponse.data.id) {
-          return apiResponse.data;
-        }
-      })
-      setTransactionList(transactionList);
+      dispatch(updateTransaction(apiResponse.data));
     }
     return apiResponse;
   }
@@ -55,13 +60,16 @@ export const useTransaction = () => {
   const deleteTransaction = async (transaction: ITransaction) => {
     const apiResponse = await transactionService.delete(transaction);
     if (apiResponse.success) {
-      setTransactionList(transactionList.filter(transactionItem => transactionItem.id !== apiResponse.data.id));
+      dispatch(removeTransaction(apiResponse.data));
     }
     return apiResponse;
   }
 
   return {
+    transaction,
+    transactions,
     initTransactionState,
+    setTransaction,
     updateTransaction,
     storeTransaction,
     deleteTransaction

@@ -5,7 +5,7 @@ import { cashBoxService } from "../services/cashbox.service"
 
 export const useCashBox = () => {
   const dispatch = useDispatch();
-  const cashBoxList = useSelector(cashboxesSelector);
+  const cashBoxes = useSelector(cashboxesSelector);
   const cashBox = useSelector(cashboxSelector);
 
   /**
@@ -17,6 +17,13 @@ export const useCashBox = () => {
       dispatch(addCashbox(apiResponse.data));
     }
   }
+
+  /**
+   * Sets a single cashbox in the state
+   * @param cashbox cashbox
+   * @returns null
+   */
+  const setCashBox = (cashbox: ICashBox): void => dispatch(setCashBox(cashbox));
   
   /**
    * Save a new cashbox to there server
@@ -46,7 +53,8 @@ export const useCashBox = () => {
 
   return {
     cashBox,
-    cashBoxes: cashBoxList,
+    cashBoxes,
+    setCashBox,
     initCashBoxState,
     storeCashBox,
     updateCashBox,

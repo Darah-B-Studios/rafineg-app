@@ -19,7 +19,7 @@ export const packageSlice = createSlice({
     setPackage: (state, action: PayloadAction<IPackage>) => {
       state.package = action.payload;
     },
-    addPackage: (state, action: PayloadAction<IPackage>) => {
+    addPackage: (state, action: PayloadAction<IPackage | Array<IPackage>>) => {
        const data = Array.isArray(action.payload) ? action.payload : [action.payload];
       state.packages = [
         ...state.packages,
