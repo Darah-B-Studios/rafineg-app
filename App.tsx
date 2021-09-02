@@ -10,6 +10,7 @@ import store from './redux/store';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Navigation from './navigation';
 import { StatusBar } from 'expo-status-bar';
+import { useAppHook } from './hooks/app.hook';
 
 type ScreenNavigationProp<
   T extends keyof RootStackParamList
@@ -26,8 +27,14 @@ export type ScreenProps<T extends keyof RootStackParamList> = {
 };
 
 const App = () => {
+  const { initAppState } = useAppHook();
   useCachedResources();
   const colorScheme = useColorScheme();
+  useEffect(() => {
+    initAppState()
+      .then(response => console.log('state loaded'))
+      .catch(error => console.log('Error: ', error));
+  }, []);
 
   return (
     <Provider store={store}>
