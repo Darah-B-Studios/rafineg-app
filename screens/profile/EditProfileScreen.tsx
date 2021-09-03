@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import {
   View,
   Text,
@@ -11,9 +11,10 @@ import {
   Alert,
   Pressable,
 } from "react-native";
+import * as ImagePicker from 'expo-image-picker';
 import Appbar from "../../components/shared/appbar-header.component";
 import tailwind from "tailwind-rn";
-import { EvilIcons } from "@expo/vector-icons";
+import { AntDesign, EvilIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import Container from "../../components/shared/container.component";
 import ProfileTextInput from "../../components/profile/textinput.component";
@@ -36,6 +37,35 @@ type FormData ={
 const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
   ({ navigation }) => {
 
+
+    const [image, setImage] = useState(null);
+
+    useEffect(() => {
+      (async () => {
+        if (Platform.OS !== 'web') {
+          const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (status !== 'granted') {
+            alert('Sorry, we need camera roll permissions to make this work!');
+          }
+        }
+      })();
+    }, []);
+  
+    const pickImage = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+  
+      console.log(result);
+  
+      if (!result.cancelled) {
+        setImage(result.uri);
+      }
+    };
+
   const [modalVisible, setModalVisible] = useState(false);  
   const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
   const onSubmit = ({firstName, lastName, email, address, city, region, aboutMe}: FormData) => console.log({firstName, lastName, email, address, city, region, aboutMe})
@@ -55,7 +85,13 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
               style={[tailwind("bg-white mx-3 p-2 pb-12 bg-opacity-50 my-6 w-11/12")]}
             >
               <View style={tailwind("border-gray-300 pb-2 border-b-2")}>
-                <ProfileHeader />
+                <ProfileHeader imageUri={image}>
+                  <Pressable 
+                  onPress={pickImage}
+                  style={[tailwind("absolute p-1 bg-white rounded-full items-center"),{right:0, bottom:0} ]}>
+                    <AntDesign name="camera" size={16} color="red" />
+                  </Pressable>
+                </ProfileHeader>
 
                 <View style={tailwind("flex-row justify-between items-end")}>
                   <Text style={tailwind("p-2")}>Personal Information</Text>
@@ -206,7 +242,6 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
                     keyboardType="default"
                     onChangeText={onChange}
                     multiline={true}
-                    numberOfLines={4}
                     onBlur={onBlur}
                     value={value}
                   />)}

@@ -13,7 +13,7 @@ const ProfileTextInput: React.FunctionComponent<TextInputParams> = ({ label, ...
         <View style={tailwind('mb-4 flex-1')}>
             <Text style={tailwind('mb-2')}>{label}</Text>
             <TextInput
-                style={tailwind("border rounded w-full p-2 border-gray-400")}
+                style={tailwind("border text-left rounded w-full p-2 border-gray-400")}
                 {...props}
             />
         </View>
