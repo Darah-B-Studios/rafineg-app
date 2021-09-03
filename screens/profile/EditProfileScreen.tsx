@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,9 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  Modal,
+  Alert,
+  Pressable,
 } from "react-native";
 import Appbar from "../../components/shared/appbar-header.component";
 import tailwind from "tailwind-rn";
@@ -16,9 +19,26 @@ import Container from "../../components/shared/container.component";
 import ProfileTextInput from "../../components/profile/textinput.component";
 import { ScreenProps } from "../../App";
 import ProfileHeader from "../../components/profile/profile-header.component";
+import { useForm, Controller } from "react-hook-form";
+import ValidationError from "../../components/forms/vlaidation-error.component";
+import SuccessMessage from "../../components/shared/successmessage.component";
+
+type FormData ={
+  firstName: string,
+  lastName: string,
+  email: string,
+  address: string,
+  city: string,
+  region: string,
+  aboutMe: string
+}
 
 const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
   ({ navigation }) => {
+
+  const [modalVisible, setModalVisible] = useState(false);  
+  const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const onSubmit = ({firstName, lastName, email, address, city, region, aboutMe}: FormData) => console.log({firstName, lastName, email, address, city, region, aboutMe})
     return (
       <Container>
         <Appbar
@@ -50,51 +70,163 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
 
               <View style={tailwind("p-2 mt-3")}>
                 <View style={tailwind("flex-row justify-between items-center")}>
+                <View style={tailwind("flex-1 mx-1")}>
+                <Controller
+                    control={control}
+                    rules={{
+                    required: true,
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
                   <ProfileTextInput
                     label="First Name"
                     placeholder="Enter your name"
                     keyboardType="default"
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                  />)}
+                  name="firstName"
+                  defaultValue=""
                   />
-
-                  <View style={tailwind("px-2")}></View>
+                  {errors.firstName && <ValidationError message="This is required"/>}
+                  </View>
+                  <View style={tailwind("flex-1 mx-1")}>
+                  <Controller
+                    control={control}
+                    rules={{
+                    required: true,
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
                   <ProfileTextInput
                     label="Last Name"
                     placeholder="Enter your name"
                     keyboardType="default"
-                  />
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                   />)}
+                   name="lastName"
+                   defaultValue=""
+                   />
+                   {errors.lastName && <ValidationError message="This is required"/>}
+                   </View>
                 </View>
+                <View>
+                <Controller
+                    control={control}
+                    rules={{
+                    required: true,
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
                 <ProfileTextInput
                   label="Email address"
                   placeholder="Enter your email address"
                   keyboardType="email-address"
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                />)}
+                name="email"
+                defaultValue=""
                 />
-
+                {errors.email && <ValidationError message="This is required"/>}
+                </View>
+                <View>
+                <Controller
+                    control={control}
+                    rules={{
+                    required: true,
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
                 <ProfileTextInput
                   label="Address"
                   placeholder="Mile 4 Nkwen"
                   keyboardType="default"
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                />)}
+                name="address"
+                defaultValue=""
                 />
+                {errors.address && <ValidationError message="This is required"/>}
+                </View>
                 <View style={tailwind("flex-row justify-between items-center")}>
+                  <View style={tailwind("flex-1 mx-1")}>
+                  <Controller
+                    control={control}
+                    rules={{
+                    required: true,
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
                   <ProfileTextInput
                     label="City/Town"
                     placeholder="Mile 4 Nkwen"
                     keyboardType="default"
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                  />)}
+                  name="city"
+                  defaultValue=""
                   />
-
-                  <View style={tailwind("px-2")}></View>
+                  {errors.city && <ValidationError message="This is required"/>}
+                  </View>
+                  <View style={tailwind("flex-1 mx-1")}>
+                  <Controller
+                    control={control}
+                    rules={{
+                    required: true,
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
                   <ProfileTextInput
                     label="Region"
                     placeholder="North West"
                     keyboardType="default"
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                  />)}
+                  name="region"
+                  defaultValue=""
                   />
+                  {errors.region && <ValidationError message="This is required"/>}
                 </View>
+                </View>
+                <View>
+                <Controller
+                    control={control}
+                    rules={{
+                    required: true,
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
                 <ProfileTextInput
                     label="About Me"
                     placeholder="A business man going about his daily activities"
                     keyboardType="default"
+                    onChangeText={onChange}
+                    multiline={true}
+                    numberOfLines={4}
+                    onBlur={onBlur}
+                    value={value}
+                  />)}
+                  name="aboutMe"
+                  defaultValue=""
                   />
+                  {errors.aboutMe && <ValidationError message="This is required"/>}
+                  </View>
               </View>
-               <TouchableOpacity style={tailwind("bg-purple-600 p-4 self-start")}>
+              <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={modalVisible}
+                  onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                  }}
+                >
+                  <SuccessMessage title="Update Profile" message ="Successfully updated profile"><Text onPress={() => setModalVisible(!modalVisible)}>Close</Text></SuccessMessage>
+                </Modal>
+               <TouchableOpacity onPress={() => setModalVisible(true)} style={tailwind("bg-purple-600 p-4 self-start")}>
                    <Text style={tailwind("text-white")}>save changes</Text>
                 </TouchableOpacity> 
 
