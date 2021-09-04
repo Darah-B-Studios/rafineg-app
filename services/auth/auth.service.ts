@@ -4,5 +4,6 @@ import { IUser } from "../../models/User.model";
 
 export const authService = {
   login: async (user: IUser) => await baseService.post(API_URL.concat('login'), user),
-  register: async (user: IUser) => await baseService.post(API_URL.concat('register'), user)
+  register: async (user: IUser) => await baseService.post(API_URL.concat('register'), user),
+  logout: async () => await baseService.post(API_URL.concat('logout'), null)
 }

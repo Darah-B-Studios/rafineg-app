@@ -16,7 +16,9 @@ import Container from "../../components/shared/container.component";
 import DashboardHeader from "../../components/dashboard/dashboard-header.component";
 import Appbar from "../../components/shared/appbar-header.component";
 
-const ReferralListScreen = ({ navigation }) => {
+
+
+const ReferralListScreen = ({navigation}) => {
   //Dummy data
   const data = [
     { id: "G01", name: "John Doe", time: "2 days ago", amount: "2500" },
