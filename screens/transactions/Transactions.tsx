@@ -133,7 +133,7 @@ const Transactions: React.FunctionComponent<ScreenProps<"Transactions">> = ({
   return (
     <Container>
       <Appbar navigation={navigation} screenTitle="Transactions" />
-      <View style={tailwind("mx-3 w-11/12")}>
+      <View style={tailwind("")}>
         <FlatList
           keyExtractor={(item) => item.id.toString()}
           data={sampleTransactions}
@@ -145,7 +145,7 @@ const Transactions: React.FunctionComponent<ScreenProps<"Transactions">> = ({
 
               onPress={()=> navigation.navigate("TransactionDetail")}
               style={tailwind(
-                "w-full justify-between mb-2 flex-row flex-1 bg-white opacity-70"
+                "w-full justify-between px-3 flex-row flex-1 bg-white opacity-70"
               )}
             >
               <View style={tailwind("p-2")}>

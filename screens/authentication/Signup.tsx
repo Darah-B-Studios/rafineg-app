@@ -197,7 +197,7 @@ const Signup: React.FunctionComponent<ScreenProps<'Signup'>> = ({ navigation }) 
                 <Text style={tailwind("p-2")}>I agree to all <Text style={{ color: "#9d0090" }}
                   onPress={() => alert("Terms")}>terms</Text> and
                   <Text style={{ color: "#9d0090" }}
-                    onPress={() => alert("Conditions")}>conditions</Text></Text>
+                    onPress={() => alert("Conditions")}> conditions</Text></Text>
                 </>
             }
           </View>
