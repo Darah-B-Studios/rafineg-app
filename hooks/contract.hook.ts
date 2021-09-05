@@ -1,10 +1,13 @@
-import { useRecoilState } from "recoil"
+import { useDispatch, useSelector } from "react-redux";
 import { IContract } from "../models/Contract.model";
-import { contractListState } from "../recoil/atoms/contract.atom"
+import { addContract, contractSelector, contractsSelector, removeContract } from "../redux/contract.slice";
 import { contractService } from "../services/contract.service";
 
 export const useContract = () => {
-  const [contractList, setContractList] = useRecoilState(contractListState);
+  const dispatch = useDispatch();
+  const contracts = useSelector(contractsSelector);
+  const contract = useSelector(contractSelector);
+
 
   /**
    * initialize app contract state
@@ -13,10 +16,17 @@ export const useContract = () => {
   const initContractState = async () => {
     const apiResponse = await contractService.index();
     if (apiResponse.success) {
-      setContractList(apiResponse.data);
+      dispatch(addContract(apiResponse.data));
     }
     return;
   }
+
+  /**
+   * Sets a single contract in the state
+   * @param contract contract
+   * @returns null
+   */
+  const setContract = (contract: IContract): void => dispatch(setContract(contract));
 
   /**
    * Add new contract
@@ -26,7 +36,7 @@ export const useContract = () => {
   const storeContract = async (contract: IContract) => {
     const apiResponse = await contractService.store(contract);
     if (apiResponse.success) {
-      setContractList([...contractList, apiResponse.data]);
+      dispatch(addContract(apiResponse.data));
     }
     return apiResponse;
   }
@@ -38,12 +48,7 @@ export const useContract = () => {
   const updateContract = async (contract: IContract) => {
     const apiResponse = await contractService.update(contract);
     if (apiResponse.success) {
-      contractList.map(item => {
-        if (item.id === apiResponse.data.id) {
-          return apiResponse.data;
-        }
-      })
-      setContractList(contractList);
+     dispatch(updateContract(apiResponse.data));
     }
     return apiResponse;
   }
@@ -56,17 +61,15 @@ export const useContract = () => {
   const deleteContract = async (contract: IContract) => {
     const apiResponse = await contractService.delete(contract);
     if (apiResponse.success) {
-      contractList.map(item => {
-        if (item.id === apiResponse.data.id) {
-          return apiResponse.data;
-        }
-      })
-      setContractList(contractList);
+      dispatch(removeContract(apiResponse.data));
     }
     return apiResponse;
   }
 
   return {
+    contract,
+    contracts,
+    setContract,
     initContractState,
     storeContract,
     updateContract,

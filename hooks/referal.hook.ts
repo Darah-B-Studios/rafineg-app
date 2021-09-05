@@ -1,10 +1,12 @@
-import { useRecoilState } from "recoil";
+import { useDispatch, useSelector } from "react-redux";
 import { IReferal } from "../models/Referal.model";
-import { referalListState } from "../recoil/atoms/referal.atom";
+import { addReferal, referalSelector, referalsSelector, removeReferal } from "../redux/referal.slice";
 import { referalService } from "../services/referal.service"
 
 export const useReferal = () => {
-  const [referalList, setReferalList] = useRecoilState(referalListState);
+  const dispatch = useDispatch();
+  const referals = useSelector(referalsSelector);
+  const referal = useSelector(referalSelector);
 
   /**
    * Initialize with with all referals
@@ -13,10 +15,19 @@ export const useReferal = () => {
   const initReferalState = async () => {
     const apiResponse = await referalService.index();
     if (apiResponse.success) {
-      setReferalList(apiResponse.data);
+      dispatch(addReferal(apiResponse.data));
     }
     return;
   }
+
+  
+  /**
+   * Sets a single referal in the state
+   * @param referal referal
+   * @returns null
+   */
+  const setReferal = (referal: IReferal): void => dispatch(setReferal(referal));
+
 
   /**
    * Store a new referal into the database
@@ -26,7 +37,7 @@ export const useReferal = () => {
   const storeReferal = async (referal: IReferal) => {
     const apiResponse = await referalService.store(referal);
     if (apiResponse.success) {
-      setReferalList([...referalList, apiResponse.data]);
+      dispatch(addReferal(apiResponse.data));
     }
     return apiResponse;
   }
@@ -38,12 +49,9 @@ export const useReferal = () => {
    */
   const updateReferal = async (referal: IReferal) => {
     const apiResponse = await referalService.update(referal);
-     referalList.map(referalItem => {
-        if (referalItem.id === apiResponse.data.id) {
-          return apiResponse.data;
-        }
-      });
-    setReferalList(referalList);
+    if (apiResponse.success) {
+      dispatch(updateReferal(apiResponse.data));
+    }
     return apiResponse;
   }
 
@@ -55,13 +63,16 @@ export const useReferal = () => {
   const deleteReferal = async (referal: IReferal) => {
     const apiResponse = await referalService.delete(referal);
     if (apiResponse.success) {
-      setReferalList(referalList.filter(referalItem => referalItem.id !== apiResponse.data.id));
+      dispatch(removeReferal(apiResponse.data));
     }
     return apiResponse;
   }
 
   return {
+    referal,
+    referals,
     initReferalState,
+    setReferal,
     storeReferal,
     updateReferal,
     deleteReferal

@@ -1,10 +1,12 @@
-import { useRecoilState } from "recoil";
+import { useDispatch, useSelector } from "react-redux";
 import { IPackage } from "../models/Package.model";
-import { subscriptionListState } from "../recoil/atoms/package.atoms";
+import { addPackage, removePackage, subscriptionSelector, subscriptionsSelector } from "../redux/package.slice";
 import { packageService } from "../services/package.service"
 
 export const usePackage = () => {
-  const [packageList, setPackageList] = useRecoilState(subscriptionListState);
+  const dispatch = useDispatch();
+  const subscriptions = useSelector(subscriptionsSelector);
+  const subscription = useSelector(subscriptionSelector);
 
   /**
    * Initialize the app with all the available packages
@@ -13,10 +15,17 @@ export const usePackage = () => {
   const initPackageState = async () => {
     const apiResponse = await packageService.index();
     if (apiResponse.success) {
-      setPackageList(apiResponse.data);
+      dispatch(addPackage(apiResponse.data));
     }
     return;
   }
+
+    /**
+   * Sets a single package in the state
+   * @param package package
+   * @returns null
+   */
+  const setPackage = (suscription: IPackage): void => dispatch(setPackage(suscription));
 
   /**
    * Add a new package (alias subscription) to the platform
@@ -27,7 +36,7 @@ export const usePackage = () => {
   const storePackage = async (subscription: IPackage) => {
     const apiResponse = await packageService.store(subscription);
     if (apiResponse.success) {
-      setPackageList([...packageList, apiResponse.data]);
+      dispatch(addPackage(apiResponse.data));
     }
     return apiResponse;
   }
@@ -40,12 +49,7 @@ export const usePackage = () => {
   const updatePackage = async (subscription: IPackage) => {
     const apiResponse = await packageService.update(subscription);
      if (apiResponse.success) {
-       packageList.map(packageItem => {
-         if (packageItem.id === apiResponse.data.id) {
-           return apiResponse.data;
-         }
-       });
-      setPackageList(packageList);
+       dispatch(updatePackage(apiResponse.data));
     }
     return apiResponse;
   }
@@ -58,12 +62,15 @@ export const usePackage = () => {
   const deletePackage = async (subscription: IPackage) => {
     const apiResponse = await packageService.delete(subscription);
      if (apiResponse.success) {
-      setPackageList(packageList.filter(packageItem => packageItem.id !== apiResponse.data.id));
+       dispatch(removePackage(apiResponse.data));
     }
     return apiResponse;
   }
 
   return {
+    subscription,
+    subscriptions,
+    setPackage,
     initPackageState,
     storePackage,
     updatePackage,

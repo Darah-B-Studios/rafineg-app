@@ -1,5 +1,5 @@
 import { useCashBox } from "./cashbox.hook";
-import { useContract } from "./contact.hook";
+import { useContract } from "./contract.hook";
 import { useProfile } from "./profile.hook";
 import { useReferal } from "./referal.hook";
 import { useTransaction } from "./transaction.hook";
@@ -20,6 +20,7 @@ export const useAppHook = () => {
     await initTransactionState();
     await initProfileState();
     await initContractState();
+    return true;
   }
 
   return {

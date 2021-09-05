@@ -4,19 +4,19 @@ import Container from '../../components/shared/container.component';
 import Logo from '../../components/shared/logo.component';
 import tailwind from 'tailwind-rn';
 import { useAuth } from '../../hooks/auth/auth.hook';
+import { ScreenProps } from '../../App';
 
 
-export default function AuthenticationScreen({navigation}){
+const AuthenticationScreen: React.FunctionComponent<ScreenProps<'AuthenticationScreen'>> = ({navigation}) => {
     const { testAuth } = useAuth();
     const [loading, setLoading] = useState(false);
     const navigateToLogin = () => {
         navigation.navigate('Login');
     }
-    const navigateToSignUp = async () => {
-        //todo: Implement function to navigate to signup screen
-        setLoading(true);
-        await testAuth();
-        setLoading(false);
+    const navigateToSignUp = () => {
+        // setLoading(true);
+        // await testAuth();
+        // setLoading(false);
         navigation.navigate('Signup');
     }
         return (
@@ -37,3 +37,4 @@ export default function AuthenticationScreen({navigation}){
         );
 };
 
+export default AuthenticationScreen;

@@ -16,10 +16,10 @@ import { useForm, Controller } from "react-hook-form";
 import Container from "../../components/shared/container.component";
 import DashboardHeader from "../../components/dashboard/dashboard-header.component";
 import { useState } from "react";
+import { ScreenProps } from "../../App";
 
-const ReferralScreen = () => {
+const ReferralScreen: React.FunctionComponent<ScreenProps<'Referals'>> = () => {
   const [loading, setLoading] = useState(false);
-  const [casboxes, setCashboxes]
   const {
     control,
     handleSubmit,

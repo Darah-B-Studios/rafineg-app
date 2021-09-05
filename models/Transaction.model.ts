@@ -2,11 +2,13 @@ import { emptyUser, IUser } from "./User.model";
 
 export interface ITransaction {
   id: number,
-  code: "",
+  code?: "",
   description: string,
   amount: number,
   method: string,
-  user: IUser
+  user?: IUser,
+  createOn: Date,
+  updateOn?: Date,
 }
 
 export const emptyTransaction: ITransaction = {
@@ -15,5 +17,7 @@ export const emptyTransaction: ITransaction = {
     description: "",
     amount: 0,
     method: "",
-    user: emptyUser
+    user: emptyUser,
+    createOn: new Date(),
+    updateOn: new Date(),
 }

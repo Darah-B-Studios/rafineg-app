@@ -10,34 +10,39 @@ import {
   TouchableOpacity,
 } from "react-native";
 import tailwind from "tailwind-rn";
-import { SimpleLineIcons, Ionicons, AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { FlatList } from "react-native-gesture-handler";
 import Container from "../../components/shared/container.component";
 import DashboardHeader from "../../components/dashboard/dashboard-header.component";
 import Appbar from "../../components/shared/appbar-header.component";
+import { ScreenProps } from "../../App";
 
 
 
-const ReferralListScreen = ({navigation}) => {
+const ReferralListScreen: React.FunctionComponent<ScreenProps<'Referals'>> = ({ navigation }) => {
+
   //Dummy data
-  const data = [
-    { id: "G01", name: "John Doe", time: "2 days ago", amount: "2500" },
-    { id: "G02", name: "John Doe", time: "2 days ago", amount: "2500" },
-    { id: "G03", name: "John Doe", time: "2 days ago", amount: "2500" },
-    { id: "G04", name: "John Doe", time: "2 days ago", amount: "2500" },
-    { id: "G05", name: "John Doe", time: "2 days ago", amount: "2500" },
-    { id: "G06", name: "John Doe", time: "2 days ago", amount: "2500" },
-    { id: "G07", name: "John Doe", time: "2 days ago", amount: "2500" },
-    { id: "G08", name: "John Doe", time: "2 days ago", amount: "2500" },
-    { id: "G09", name: "John Doe", time: "2 days ago", amount: "2500" },
-  ];
+  const data: {
+    id: string,
+    name: string,
+    time: string
+    amount: string
+  }[] = [
+      { id: "G01", name: "John Doe", time: "2 days ago", amount: "2500" },
+      { id: "G02", name: "John Doe", time: "2 days ago", amount: "2500" },
+      { id: "G03", name: "John Doe", time: "2 days ago", amount: "2500" },
+      { id: "G04", name: "John Doe", time: "2 days ago", amount: "2500" },
+      { id: "G05", name: "John Doe", time: "2 days ago", amount: "2500" },
+      { id: "G06", name: "John Doe", time: "2 days ago", amount: "2500" },
+      { id: "G07", name: "John Doe", time: "2 days ago", amount: "2500" },
+      { id: "G08", name: "John Doe", time: "2 days ago", amount: "2500" },
+      { id: "G09", name: "John Doe", time: "2 days ago", amount: "2500" },
+    ];
 
   return (
     <>
       <Container>
-        <StatusBar barStyle="light-content" backgroundColor="blue" />
         <Appbar navigation={navigation} screenTitle="Referrals" />
-        <DashboardHeader totalSavings="Your Referrals" />
         <View style={tailwind("h-3/4 w-full")}>
           <View style={tailwind("flex-row justify-between pt-4 px-3")}>
             <View style={tailwind("flex-wrap")}>
@@ -48,7 +53,7 @@ const ReferralListScreen = ({navigation}) => {
             </View>
             <View>
               <TouchableOpacity
-                onPress={() => console.log("Withdraw")}
+                onPress={() => navigation.navigate('Withdraw')}
                 style={tailwind(
                   "bg-blue-700 items-center justify-center self-end p-3 m-3"
                 )}
@@ -63,31 +68,27 @@ const ReferralListScreen = ({navigation}) => {
               scrollEventThrottle={16}
               scrollEnabled={true}
               removeClippedSubviews={false}
-              contentContainerStyle={{ width: "100%", margin: 2 }}
+              contentContainerStyle={{ width: '100%', margin: 2 }}
               keyExtractor={(item) => item.id}
-              renderItem={(item) => {
+              renderItem={({ item }) => {
                 return (
-                  <View
-                    style={tailwind(
-                      "flex-1 flex-row justify-between bg-gray-100 m-3 w-11/12 h-20"
-                    )}
-                  >
-                    <View
-                      style={tailwind("flex-row items-center justify-center")}
-                    >
+                  <View style={tailwind("flex-1 flex-row justify-between bg-gray-100 m-3 w-11/12 h-20")}>
+                    <View style={tailwind('flex-row items-center justify-center')}>
                       <Image
                         style={tailwind("w-12 h-12 pl-2 ml-2 rounded-full ")}
                         resizeMode="cover"
                         source={require("./../../assets/images/icon-wallet.png")}
                       />
-                      <View style={tailwind("ml-2")}>
-                        <Text style={tailwind("text-xl")}>{item.name}</Text>
+                      <View style={tailwind('ml-2')}>
+                        <Text style={tailwind('text-xl')}>{item.name}</Text>
                         <Text>{item.time}</Text>
                       </View>
                     </View>
-                    <View style={tailwind("self-end p-2")}>
-                      <Text>{item.amount}</Text>
+                    <View style={tailwind('self-end p-2')}>
+                      <Text>+{item.amount}</Text>
+
                     </View>
+
                   </View>
                 );
               }}

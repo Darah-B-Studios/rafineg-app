@@ -1,10 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useRecoilState } from "recoil";
 import { IUser } from "../models/User.model";
 import { userListState } from "../recoil/atoms/user.atom";
+import { addUser, removeUser, updateUser, userSelector, usersSelector } from "../redux/user.slice";
 import { userService } from "../services/user.service"
 
 export const useUser = () => {
-  const [userList, setUserList] = useRecoilState(userListState);
+  const dispatch = useDispatch();
+  const users = useSelector(usersSelector);
+  const user = useSelector(userSelector);
 
   /**
    * Initialize the app with various users
@@ -13,10 +17,17 @@ export const useUser = () => {
   const initUserState = async () => {
     const apiResponse = await userService.index();
     if (apiResponse.success) {
-      setUserList(apiResponse.data);
+      dispatch(addUser(apiResponse.data));
     }
     return;
   }
+
+    /**
+   * Sets a single user in the state
+   * @param user user
+   * @returns null
+   */
+  const setUser = (user: IUser): void => dispatch(setUser(user));
 
   /**
    * Add or store a new user 
@@ -26,7 +37,7 @@ export const useUser = () => {
   const storeUser = async (user: IUser) => {
     const apiResponse = await userService.store(user);
     if (apiResponse.success) {
-      setUserList([...userList, apiResponse.data]);
+      dispatch(addUser(apiResponse.data));
     }
     return apiResponse;
   }
@@ -39,12 +50,7 @@ export const useUser = () => {
   const updateUSer = async (user: IUser) => {
     const apiResponse = await userService.update(user);
     if (apiResponse.success) {
-      userList.map(item => {
-        if (item.id === apiResponse.data.id) {
-          return apiResponse.data;
-        }
-      })
-      setUserList(userList);
+      dispatch(updateUser(apiResponse.data));
     }
     return apiResponse;
   }
@@ -57,14 +63,16 @@ export const useUser = () => {
   const deleteUser = async (user: IUser) => {
     const apiResponse = await userService.delete(user);
     if (apiResponse.success) {
-      const newUserList = userList.filter(user => user.id !== user.id);
-      setUserList(newUserList);
+      dispatch(removeUser(apiResponse.data));
     }
     return apiResponse;
   }
 
   return {
+    user,
+    users,
     initUserState,
+    setUser,
     storeUser,
     updateUSer,
     deleteUser
