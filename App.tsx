@@ -13,6 +13,8 @@ import { StatusBar } from 'expo-status-bar';
 import { useAppHook } from './hooks/app.hook';
 import EditProfileScreen from './screens/profile/EditProfileScreen';
 
+//Auth context to manage authentication flow
+const AuthContext = React.createContext('signIn');
 type ScreenNavigationProp<
   T extends keyof RootStackParamList
   > = StackNavigationProp<RootStackParamList, T>;
