@@ -11,7 +11,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Navigation from './navigation';
 import { StatusBar } from 'expo-status-bar';
 import { useAppHook } from './hooks/app.hook';
+import EditProfileScreen from './screens/profile/EditProfileScreen';
 
+//Auth context to manage authentication flow
+const AuthContext = React.createContext('signIn');
 type ScreenNavigationProp<
   T extends keyof RootStackParamList
   > = StackNavigationProp<RootStackParamList, T>;
@@ -27,22 +30,27 @@ export type ScreenProps<T extends keyof RootStackParamList> = {
 };
 
 const App = () => {
-  const { initAppState } = useAppHook();
-  useCachedResources();
+  // const { initAppState } = useAppHook();
+  // useCachedResources();
   const colorScheme = useColorScheme();
-  useEffect(() => {
-    initAppState()
-      .then(response => console.log('state loaded'))
-      .catch(error => console.log('Error: ', error));
-  }, []);
+  // useEffect(() => {
+  //   initAppState()
+  //     .then(response => console.log('state loaded'))
+  //     .catch(error => console.log('Error: ', error));
+  // }, []);
 
   return (
-    <Provider store={store}>
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
-    </Provider>
+
+    <SafeAreaProvider>
+         <Navigation colorScheme={colorScheme} />
+         <StatusBar />
+       </SafeAreaProvider>
+    // <Provider store={store}>
+    //   <SafeAreaProvider>
+    //     <Navigation colorScheme={colorScheme} />
+    //     <StatusBar />
+    //   </SafeAreaProvider>
+    // </Provider>
   );
 }
 

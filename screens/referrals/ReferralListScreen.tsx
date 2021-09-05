@@ -62,7 +62,7 @@ const ReferralListScreen: React.FunctionComponent<ScreenProps<'Referals'>> = ({ 
               </TouchableOpacity>
             </View>
           </View>
-          <View style={tailwind("h-4/5")}>
+          <View style={tailwind("")}>
             <FlatList
               data={data}
               scrollEventThrottle={16}
@@ -96,7 +96,7 @@ const ReferralListScreen: React.FunctionComponent<ScreenProps<'Referals'>> = ({ 
           </View>
         </View>
 
-        <View style={tailwind("w-full bg-gray-300 self-end p-6")}></View>
+        
         <TouchableOpacity
           style={[
             tailwind(

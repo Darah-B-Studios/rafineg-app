@@ -4,7 +4,7 @@ import tailwind from "tailwind-rn"
 import { StatusBar } from 'expo-status-bar'
 const Container: React.FunctionComponent = ({children}) => {
   return (  
-    <SafeAreaView style={tailwind("h-full w-full flex-1")}>
+    <SafeAreaView style={tailwind("h-full items-center w-full flex-1")}>
       <StatusBar/>
       <ImageBackground
         resizeMode="cover"
