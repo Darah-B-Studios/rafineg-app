@@ -8,17 +8,19 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   ScrollView,
-  Platform
+  Platform,
 } from "react-native";
 import tailwind from "tailwind-rn";
 import Container from "../../components/shared/container.component";
 import Logo from "../../components/shared/logo.component";
 import { useForm, Controller } from "react-hook-form";
 import ValidationError from "../../components/forms/vlaidation-error.component";
-import Checkbox from 'expo-checkbox';
+import Checkbox from "expo-checkbox";
 import { ScreenProps } from "../../App";
 
-const Signup: React.FunctionComponent<ScreenProps<'Signup'>> = ({ navigation }) => {
+const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
+  navigation,
+}) => {
   const nameInput = React.useRef<TextInput>(null);
   const phoneInput = React.useRef<TextInput>(null);
   const emailInput = React.useRef<TextInput>(null);
@@ -34,16 +36,20 @@ const Signup: React.FunctionComponent<ScreenProps<'Signup'>> = ({ navigation }) 
   type submitProps = {
     email: string;
     password: string;
-  }
+  };
   const onSubmit = ({ email, password }: submitProps) => {
-    if (email.trim() !== '' && password.trim() !== '') {
-      navigation.navigate('Dashboard');
+    if (email.trim() !== "" && password.trim() !== "") {
+      navigation.navigate("Dashboard");
     }
   };
 
   return (
     <Container>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ alignItems: 'center' }} style={tailwind("h-full w-full flex-1")}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ alignItems: "center" }}
+        style={tailwind("h-full w-full flex-1")}
+      >
         <View style={tailwind("pt-12")}></View>
         <Logo showText={true} />
 
@@ -185,21 +191,37 @@ const Signup: React.FunctionComponent<ScreenProps<'Signup'>> = ({ navigation }) 
               />
             </Pressable>
           </View>
-          <View style={tailwind("self-start p-2 flex-row items-center justify-start")}>
-            {
-              Platform.OS === 'android' &&
+          <View
+            style={tailwind(
+              "self-start p-2 flex-row items-center justify-start"
+            )}
+          >
+            {Platform.OS === "android" && (
               <>
                 <Checkbox
-                    value={isChecked}
-                    onValueChange={setChecked}
-                    color={isChecked ? '#4630EB' : undefined}
-                  />
-                <Text style={tailwind("p-2")}>I agree to all <Text style={{ color: "#9d0090" }}
-                  onPress={() => alert("Terms")}>terms</Text> and
-                  <Text style={{ color: "#9d0090" }}
-                    onPress={() => alert("Conditions")}> conditions</Text></Text>
-                </>
-            }
+                  value={isChecked}
+                  onValueChange={setChecked}
+                  color={isChecked ? "#4630EB" : undefined}
+                />
+                <Text style={tailwind("p-2")}>
+                  I agree to all{" "}
+                  <Text
+                    style={{ color: "#9d0090" }}
+                    onPress={() => alert("Terms")}
+                  >
+                    terms
+                  </Text>{" "}
+                  and
+                  <Text
+                    style={{ color: "#9d0090" }}
+                    onPress={() => alert("Conditions")}
+                  >
+                    {" "}
+                    conditions
+                  </Text>
+                </Text>
+              </>
+            )}
           </View>
 
           <TouchableOpacity
@@ -214,10 +236,16 @@ const Signup: React.FunctionComponent<ScreenProps<'Signup'>> = ({ navigation }) 
             </Text>
           </TouchableOpacity>
           <View style={tailwind("p-6")}>
-            <Text>Already have an account?  <Text style={tailwind("text-yellow-500 underline")}
-              onPress={() => navigation.navigate('Login')}>Login</Text></Text>
+            <Text>
+              Already have an account?{" "}
+              <Text
+                style={tailwind("text-yellow-500 underline")}
+                onPress={() => navigation.navigate("Login")}
+              >
+                Login
+              </Text>
+            </Text>
           </View>
-
         </KeyboardAvoidingView>
       </ScrollView>
     </Container>
