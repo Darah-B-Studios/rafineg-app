@@ -1,15 +1,28 @@
-import axios from "axios";
-import { API_URL } from "@env";
-const apiUrl = "https://rafineg.herokuapp.com/api";
+import axios, { AxiosResponse } from "axios";
+const apiUrl = "https://rafineg.herokuapp.com/api/";
+const headers = {
+  'Content-Type': 'application/json',
+  'Accespt': 'application/json',
+}
+
+export type ApiResponse<T = {}> = {
+  success: boolean;
+  errors?: any;
+  message?: string;
+  data: T
+}
+
 export const baseService = {
-  post: async (route: string, payload: any) => {
-    await axios.post(route, payload)
+  get: async <T>(route: string): Promise<ApiResponse<T[]>> => {
+    return await axios.get(route).then(response => response.data);
   },
-  get: async (route: string) => await axios.get(route),
-  test: async () => {
-    console.log('application url: ', `${apiUrl}/test`);
-    const result = await axios.get(API_URL.concat('test'));
-    console.log('result: ', result.data);
-    return result.data;
-  }
+  post: async <T>(route: string, payload?: any): Promise<ApiResponse<T>> => {
+    return await axios.post(route, payload).then(response => response.data);
+  },
+  patch: async <T>(route: string, payload: any): Promise<ApiResponse<T>> => {
+    return await axios.patch(route, payload).then(response => response.data);
+  },
+  destroy: async <T>(route: string): Promise<ApiResponse<T>> => {
+    return await axios.delete(route).then(response => response.data);
+  },
 };

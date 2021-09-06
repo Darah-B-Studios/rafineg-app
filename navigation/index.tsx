@@ -3,31 +3,35 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
-import { ColorSchemeName } from 'react-native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import * as React from "react";
+import { ColorSchemeName } from "react-native";
 
-import { RootStackParamList } from '../types';
-import LinkingConfiguration from './LinkingConfiguration';
-import SplashScreen from '../screens/SplashScreen';
-import AuthenticationScreen from '../screens/authentication/AuthenticationScreen';
-import Login from '../screens/authentication/Login';
-import Dashboard from '../screens/dashboard/Dashboard';
-import DrawerNavigator from './DrawerNavigator';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import Packages from '../screens/packages/Packages';
-import Signup from '../screens/authentication/Signup';
+import { RootStackParamList } from "../types";
+import LinkingConfiguration from "./LinkingConfiguration";
+import SplashScreen from "../screens/SplashScreen";
+import AuthenticationScreen from "../screens/authentication/AuthenticationScreen";
+import Login from "../screens/authentication/Login";
+import DrawerNavigator from "./DrawerNavigator";
+import Signup from "../screens/authentication/Signup";
+import Registration from "../screens/registration/RegistrationScreen";
 
-
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+export default function Navigation({
+  colorScheme,
+}: {
+  colorScheme: ColorSchemeName;
+}) {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        
+      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+    >
       <RootNavigator />
-      
     </NavigationContainer>
   );
 }
@@ -40,10 +44,14 @@ function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
-      <Stack.Screen name="AuthenticationScreen" component={AuthenticationScreen}/>
-      <Stack.Screen name="Login" component={Login}/>
-      <Stack.Screen name="Signup" component={Signup}/>
-      <Stack.Screen name="Dashboard" component={DrawerNavigator}/>
+      <Stack.Screen
+        name="AuthenticationScreen"
+        component={AuthenticationScreen}
+      />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Signup" component={Signup} />
+      <Stack.Screen name="Registration" component={Registration} />
+      <Stack.Screen name="Dashboard" component={DrawerNavigator} />
     </Stack.Navigator>
   );
 }

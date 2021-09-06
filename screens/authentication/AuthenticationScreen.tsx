@@ -1,28 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {TouchableOpacity, View, Text} from 'react-native';
 import Container from '../../components/shared/container.component';
 import Logo from '../../components/shared/logo.component';
 import tailwind from 'tailwind-rn';
 import { useAuth } from '../../hooks/auth/auth.hook';
-import { authService } from '../../services/auth/auth.service';
-import { baseService } from '../../services/base.service';
+import { ScreenProps } from '../../App';
 
 
-export default function AuthenticationScreen({navigation}){
+const AuthenticationScreen: React.FunctionComponent<ScreenProps<'AuthenticationScreen'>> = ({navigation}) => {
     const { testAuth } = useAuth();
-    const navigateToLogin = () =>{
+    const [loading, setLoading] = useState(false);
+    const navigateToLogin = () => {
         navigation.navigate('Login');
     }
-    const navigateToSignUp = async () => {
-        //todo: Implement function to navigate to signup screen
-
+    const navigateToSignUp = () => {
+        // setLoading(true);
+        // await testAuth();
+        // setLoading(false);
         navigation.navigate('Signup');
-        console.log('To sign up screen');
-        try {
-            const testData = baseService.test();
-            console.log('test data: ', testData);
-        } catch (error) {
-            // console.log('error: ', error);
     }
         return (
             <Container>
@@ -35,10 +30,11 @@ export default function AuthenticationScreen({navigation}){
                         <Text style={tailwind('text-white text-center text-xl uppercase')}>login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={navigateToSignUp} style={tailwind('border-solid border-2 justify-center w-10/12 items-center py-3 border-white')} >
-                        <Text style={tailwind('text-white text-center text-xl uppercase')}>sign up</Text>
+                        <Text style={tailwind('text-white text-center text-xl uppercase')}>{loading ? 'loading...' : 'sing up'}</Text>
                     </TouchableOpacity>
                 </View>
            </Container>
         );
 };
 
+export default AuthenticationScreen;
