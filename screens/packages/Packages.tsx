@@ -41,7 +41,7 @@ const Packages: React.FunctionComponent<ScreenProps<'Packages'>> = ({navigation}
           </View>
           
         {/* package carousel */}
-          <PackageCarousel />
+          <PackageCarousel navigation={navigation}/>
         </View>
 
         <TouchableOpacity

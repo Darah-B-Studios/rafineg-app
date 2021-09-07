@@ -8,9 +8,10 @@ export type RootStackParamList = {
   AuthenticationScreen: undefined;
   Login: undefined;
   Signup: undefined;
+  Registration: undefined;
   Dashboard: undefined;
   Packages: undefined;
-  PackageDetail: undefined,
+  PackageDetails: undefined,
   Referals: undefined,
   EditProfile: undefined,
   Withdraw: undefined,
@@ -26,7 +27,9 @@ export type DrawerNavParamList = {
   ReferralScreen: undefined;
   Transactions: undefined;
   Settings: undefined;
-  Logout: undefined
+  PackageDetails: undefined,
+  Logout: undefined;
+  Packages: undefined;
 }
 
 export type BottomTabParamList = {
