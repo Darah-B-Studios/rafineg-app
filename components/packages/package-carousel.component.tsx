@@ -3,7 +3,9 @@ import { View, Dimensions, Platform, Image, Text, FlatList, Animated, TouchableO
 import tailwind from 'tailwind-rn';
 import { AntDesign } from "@expo/vector-icons";
 
-const PackageCarousel: React.FunctionComponent = () => {
+
+
+const PackageCarousel: React.FunctionComponent = ({...props}) => {
   const data = [
     {
       id: 0,
@@ -127,7 +129,7 @@ const PackageCarousel: React.FunctionComponent = () => {
                     </Text>
                     <Text style={tailwind("pl-2")}>{item.detail}</Text>
                   </View>
-                  <TouchableOpacity
+                  <TouchableOpacity {...props}
                     style={tailwind(
                       "p-3 bg-gray-100 m-3 self-end flex-row items-center justify-between"
                     )}

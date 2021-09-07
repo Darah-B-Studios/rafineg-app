@@ -103,7 +103,8 @@ const ReferralListScreen: React.FunctionComponent<ScreenProps<'Referals'>> = ({ 
               "p-4 bg-white rounded-full absolute items-center justify-center"
             ),
             {
-              bottom: 23,
+              bottom: 10,
+              right: 10
             },
           ]}
         >

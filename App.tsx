@@ -12,6 +12,7 @@ import Navigation from './navigation';
 import { StatusBar } from 'expo-status-bar';
 import { useAppHook } from './hooks/app.hook';
 import EditProfileScreen from './screens/profile/EditProfileScreen';
+import PackageDetails from './screens/packages/PackageDetails';
 
 //Auth context to manage authentication flow
 const AuthContext = React.createContext('signIn');
@@ -40,17 +41,12 @@ const App = () => {
   // }, []);
 
   return (
-
-    <SafeAreaProvider>
-         <Navigation colorScheme={colorScheme} />
-         <StatusBar />
-       </SafeAreaProvider>
-    // <Provider store={store}>
-    //   <SafeAreaProvider>
-    //     <Navigation colorScheme={colorScheme} />
-    //     <StatusBar />
-    //   </SafeAreaProvider>
-    // </Provider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <Navigation colorScheme={colorScheme} />
+        <StatusBar />
+      </SafeAreaProvider>
+    </Provider>
   );
 }
 
