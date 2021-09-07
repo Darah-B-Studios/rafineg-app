@@ -8,6 +8,7 @@ export type RootStackParamList = {
   AuthenticationScreen: undefined;
   Login: undefined;
   Signup: undefined;
+  Registration: undefined;
   Dashboard: undefined;
   Packages: undefined;
   PackageDetails: undefined,
