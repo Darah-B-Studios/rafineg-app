@@ -12,6 +12,7 @@ import ReferralScreen from '../screens/referrals/ReferralScreen';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import TransactionDetails from '../screens/transactions/TransactionDetails';
 import EditProfileScreen from '../screens/profile/EditProfileScreen';
+import PackageDetails from '../screens/packages/PackageDetails';
 
 const DrawerNav = createDrawerNavigator()
 
@@ -20,6 +21,7 @@ const ReferralStack = createStackNavigator()
 const ProfileStack = createStackNavigator()
 
 const TransactionsStack = createStackNavigator()
+const PackageStack = createStackNavigator()
 
 function ReferralNavigator() {
     return (
@@ -28,6 +30,15 @@ function ReferralNavigator() {
             <ReferralStack.Screen name="Withdraw" component={ReferralScreen} />
         </ReferralStack.Navigator>
     )
+}
+function PackageNavigator(){
+    return(
+        <PackageStack.Navigator screenOptions={{headerShown: false}}>
+        <PackageStack.Screen name="Package" component={Packages}/>
+        <PackageStack.Screen name="PackageDetails" component={PackageDetails}/>
+    </PackageStack.Navigator>
+    )
+    
 }
 
 function ProfileNavigator() {
@@ -55,7 +66,7 @@ export default function DrawerNavigator() {
             screenOptions={{ headerShown: false }}
         >
             <DrawerNav.Screen name="Home" component={Dashboard} />
-            <DrawerNav.Screen name="Packages" component={Packages} />
+            <DrawerNav.Screen name="Packages" component={PackageNavigator} />
             <DrawerNav.Screen name="Referrals" component={ReferralNavigator} />
             <DrawerNav.Screen name="Transactions" component={TransactionsNavigator} />
             <DrawerNav.Screen name="Profile" component={ProfileNavigator} />

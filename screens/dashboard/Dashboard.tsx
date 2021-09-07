@@ -13,17 +13,18 @@ import { ScreenProps } from "../../App";
 import { ITransaction } from "../../models/Transaction.model";
 import TransactionSummaryView from "../../components/transactions/transaction-summary.component";
 import DashboardHeader from "../../components/dashboard/dashboard-header.component";
+import { AntDesign } from "@expo/vector-icons";
 
-const Dashboard: React.FunctionComponent<ScreenProps<'Dashboard'>> = ({ navigation }) => {
-  // const { transactions, setTransaction } = useTransaction();
-
+const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
+  navigation,
+}) => {
   const transactions: ITransaction = {
     id: 2,
     description: "Savings",
     method: "Package 1",
     createOn: new Date(),
-    amount: 400000
-  }
+    amount: 400000,
+  };
 
   return (
     <>
@@ -35,16 +36,14 @@ const Dashboard: React.FunctionComponent<ScreenProps<'Dashboard'>> = ({ navigati
           <DashboardHeader totalSavings="400000" />
           <View
             style={tailwind(
-              "border-solid border p-2 justify-center border-white "
+              "w-full pt-2 px-2 flex-row flex-1 items-baseline justify-between"
             )}
           >
             <View style={tailwind("")}>
               <Text>Saving Analysis</Text>
             </View>
             <View
-              style={tailwind(
-                "flex-1 p-1 flex-row items-baseline justify-end"
-              )}
+              style={tailwind("flex-1 p-1 flex-row items-baseline justify-end")}
             >
               <TouchableOpacity
                 style={tailwind(
@@ -74,45 +73,45 @@ const Dashboard: React.FunctionComponent<ScreenProps<'Dashboard'>> = ({ navigati
           </View>
           <TouchableOpacity
             onPress={() => navigation.navigate("Transactions")}
-            style={tailwind("p-4 self-center m-2 h-52 bg-white opacity-80 w-11/12")}
+            style={tailwind(
+              "p-4 self-center m-2 h-52 bg-white opacity-80 w-11/12"
+            )}
           >
-            <Text style={tailwind("mx-2 text-xl")}>
-              Recent Transactions
-            </Text>
+            <Text style={tailwind("mx-2 text-xl")}>Recent Transactions</Text>
             <TransactionSummaryView
               id={transactions.id}
               description={transactions.description}
               method={transactions.method}
               amount={transactions.amount}
-              createOn={transactions.createOn} />
+              createOn={transactions.createOn}
+            />
             <TransactionSummaryView
               id={transactions.id}
               description={transactions.description}
               method={transactions.method}
               amount={transactions.amount}
-              createOn={transactions.createOn} />
+              createOn={transactions.createOn}
+            />
             <TransactionSummaryView
               description={transactions.description}
               id={transactions.id}
               method={transactions.method}
               amount={transactions.amount}
-              createOn={transactions.createOn} />
+              createOn={transactions.createOn}
+            />
             <TransactionSummaryView
               description={transactions.description}
               id={transactions.id}
               method={transactions.method}
               amount={transactions.amount}
-              createOn={transactions.createOn} />
+              createOn={transactions.createOn}
+            />
           </TouchableOpacity>
 
           <View
-            style={tailwind(
-              "border-solid border p-2 justify-center border-white "
-            )}
+            style={tailwind("p-4 self-center h-52 bg-white w-11/12 opacity-80")}
           >
-            <Text style={tailwind("text-xl")}>
-              Your Referrals
-            </Text>
+            <Text style={tailwind("text-xl")}>Your Referrals</Text>
           </View>
         </ScrollView>
 
@@ -127,11 +126,8 @@ const Dashboard: React.FunctionComponent<ScreenProps<'Dashboard'>> = ({ navigati
             },
           ]}
         >
-          <Text style={tailwind("self-center text-xl opacity-100")}>
-            Referrals Area
-          </Text>
+          <AntDesign name="plus" size={24} color="black" />
         </TouchableOpacity>
-
       </Container>
     </>
   );

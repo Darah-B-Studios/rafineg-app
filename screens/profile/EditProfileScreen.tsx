@@ -10,11 +10,12 @@ import {
   Modal,
   Alert,
   Pressable,
+  TouchableWithoutFeedback,
 } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import Appbar from "../../components/shared/appbar-header.component";
 import tailwind from "tailwind-rn";
-import { AntDesign, EvilIcons } from "@expo/vector-icons";
+import { AntDesign, EvilIcons, FontAwesome } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import Container from "../../components/shared/container.component";
 import ProfileTextInput from "../../components/profile/textinput.component";
@@ -23,6 +24,7 @@ import ProfileHeader from "../../components/profile/profile-header.component";
 import { useForm, Controller } from "react-hook-form";
 import ValidationError from "../../components/forms/vlaidation-error.component";
 import SuccessMessage from "../../components/shared/successmessage.component";
+import ImagePickerModal from "../../components/profile/imagepicker.component";
 
 type FormData ={
   firstName: string,
@@ -50,8 +52,24 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
         }
       })();
     }, []);
+    const captureImage = async () => {
+      setModalVisible(false)
+      let capturedResult = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      })
+
+      console.log(capturedResult);
+
+      if (!capturedResult.cancelled) {
+        setImage(capturedResult.uri);
+      }
+    }
   
     const pickImage = async () => {
+      setModalVisible(false)
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
@@ -87,7 +105,7 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
               <View style={tailwind("border-gray-300 pb-2 border-b-2")}>
                 <ProfileHeader imageUri={image}>
                   <Pressable 
-                  onPress={pickImage}
+                  onPress={() => setModalVisible(true)}
                   style={[tailwind("absolute p-1 bg-white rounded-full items-center"),{right:0, bottom:0} ]}>
                     <AntDesign name="camera" size={16} color="red" />
                   </Pressable>
@@ -251,23 +269,41 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
                   {errors.aboutMe && <ValidationError message="This is required"/>}
                   </View>
               </View>
-              <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={modalVisible}
-                  onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                  }}
-                >
-                  <SuccessMessage title="Update Profile" message ="Successfully updated profile"><Text onPress={() => setModalVisible(!modalVisible)}>Close</Text></SuccessMessage>
-                </Modal>
-               <TouchableOpacity onPress={() => setModalVisible(true)} style={tailwind("bg-purple-600 p-4 self-start")}>
+           
+               <TouchableOpacity onPress={()=> {}} style={tailwind("bg-purple-600 p-4 self-start")}>
                    <Text style={tailwind("text-white")}>save changes</Text>
                 </TouchableOpacity> 
-
-            </View>
+            </View>      
           </ScrollView>
         </KeyboardAvoidingView>
+        <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                  setModalVisible(!modalVisible);
+                }}
+                >
+                  <View style={{justifyContent: "flex-end"}}>
+                  <View style={[tailwind("flex-row items-center rounded-lg  justify-between  bg-white p-4"), {}]}>
+                    <TouchableWithoutFeedback onPress={pickImage} style={tailwind("items-center")}>
+                      <View style={tailwind("items-center p-8")}>
+                      <FontAwesome name="photo" size={24} color="black" />
+                        <Text>Gallery</Text>
+                      </View>    
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={captureImage} style={tailwind("items-center")}>
+                      <View style={tailwind("items-center p-8")}>
+                        <AntDesign name="camera" size={24} color="black" />
+                        <Text>Take a photo</Text>
+                      </View>
+                      
+                    </TouchableWithoutFeedback>
+
+                   </View>
+                  </View>
+                
+              </Modal>
       </Container>
     );
   };
