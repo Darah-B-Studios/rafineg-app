@@ -3,9 +3,11 @@ import { View, Dimensions, Platform, Image, Text, FlatList, Animated, TouchableO
 import tailwind from 'tailwind-rn';
 import { AntDesign } from "@expo/vector-icons";
 
+type PackageCarouselProps = {
+  navigation: any
+}
 
-
-const PackageCarousel: React.FunctionComponent = ({...props}) => {
+const PackageCarousel: React.FunctionComponent<PackageCarouselProps> = ({navigation}) => {
   const data = [
     {
       id: 0,
@@ -129,7 +131,9 @@ const PackageCarousel: React.FunctionComponent = ({...props}) => {
                     </Text>
                     <Text style={tailwind("pl-2")}>{item.detail}</Text>
                   </View>
-                  <TouchableOpacity {...props}
+                  <TouchableOpacity 
+
+                    onPress={()=> navigation.navigate("PackageDetails")}
                     style={tailwind(
                       "p-3 bg-gray-100 m-3 self-end flex-row items-center justify-between"
                     )}

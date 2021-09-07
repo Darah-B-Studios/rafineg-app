@@ -7,7 +7,7 @@ import {
   View,
   ImageBackground,
   Image,
-  TouchableOpacity,
+  TouchableOpacity, 
 } from "react-native";
 import tailwind from "tailwind-rn";
 import { AntDesign } from "@expo/vector-icons";

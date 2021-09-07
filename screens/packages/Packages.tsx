@@ -41,11 +41,10 @@ const Packages: React.FunctionComponent<ScreenProps<'Packages'>> = ({navigation}
           </View>
           
         {/* package carousel */}
-          <PackageCarousel />
+          <PackageCarousel navigation={navigation}/>
         </View>
 
         <TouchableOpacity
-          onPress={()=> navigation.navigate("PackageDetails")}
           style={[
             tailwind(
               "p-4 bg-white rounded-full absolute items-center justify-center"

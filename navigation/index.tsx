@@ -50,7 +50,6 @@ function RootNavigator() {
       />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
-      <Stack.Screen name="Registration" component={Registration} />
       <Stack.Screen name="Dashboard" component={DrawerNavigator} />
     </Stack.Navigator>
   );
