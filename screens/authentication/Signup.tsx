@@ -17,6 +17,9 @@ import { useForm, Controller } from "react-hook-form";
 import ValidationError from "../../components/forms/vlaidation-error.component";
 import Checkbox from 'expo-checkbox';
 import { ScreenProps } from "../../App";
+import { authService } from "../../services/auth/auth.service";
+import { emptyUser } from "../../models/User.model";
+import { useAuth } from "../../hooks/auth/auth.hook";
 
 const Signup: React.FunctionComponent<ScreenProps<'Signup'>> = ({ navigation }) => {
   const nameInput = React.useRef<TextInput>(null);
@@ -24,6 +27,7 @@ const Signup: React.FunctionComponent<ScreenProps<'Signup'>> = ({ navigation }) 
   const emailInput = React.useRef<TextInput>(null);
   const passwordInput = React.useRef<TextInput>(null);
   const [isChecked, setChecked] = useState(false);
+  const { register } = useAuth();
 
   const {
     control,
@@ -34,11 +38,19 @@ const Signup: React.FunctionComponent<ScreenProps<'Signup'>> = ({ navigation }) 
   type submitProps = {
     email: string;
     password: string;
+    username: string;
+    phoneNumber: string;
   }
-  const onSubmit = ({ email, password }: submitProps) => {
-    if (email.trim() !== '' && password.trim() !== '') {
-      navigation.navigate('Dashboard');
-    }
+  const onSubmit = async (values: submitProps) => {
+    console.log('Registering user');
+    const apiResponse = await register({
+      ...emptyUser,
+      name: values.username,
+      password: values.password,
+      email: values.email,
+      phoneNumber: values.phoneNumber
+    });
+    console.log('response: ', apiResponse);
   };
 
   return (
@@ -190,15 +202,15 @@ const Signup: React.FunctionComponent<ScreenProps<'Signup'>> = ({ navigation }) 
               Platform.OS === 'android' &&
               <>
                 <Checkbox
-                    value={isChecked}
-                    onValueChange={setChecked}
-                    color={isChecked ? '#4630EB' : undefined}
-                  />
+                  value={isChecked}
+                  onValueChange={setChecked}
+                  color={isChecked ? '#4630EB' : undefined}
+                />
                 <Text style={tailwind("p-2")}>I agree to all <Text style={{ color: "#9d0090" }}
                   onPress={() => alert("Terms")}>terms</Text> and
                   <Text style={{ color: "#9d0090" }}
                     onPress={() => alert("Conditions")}> conditions</Text></Text>
-                </>
+              </>
             }
           </View>
 

@@ -14,12 +14,12 @@ export const useAppHook = () => {
   const { initTransactionState } = useTransaction();
   
   const initAppState = async () => {
-    await initCashBoxState();
-    await initUserState();
-    await initReferalState();
-    await initTransactionState();
-    await initProfileState();
-    await initContractState();
+    // await initCashBoxState();
+    // await initUserState();
+    // await initReferalState();
+    // await initTransactionState();
+    // await initProfileState();
+    // await initContractState();
     return true;
   }
 
