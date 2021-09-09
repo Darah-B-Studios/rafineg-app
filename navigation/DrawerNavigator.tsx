@@ -48,6 +48,7 @@ function SavingsNavigator(){
         <SavingsStack.Navigator screenOptions={{headerShown: false}}>
             <SavingsStack.Screen name="DashBoard" component={Dashboard}/>
             <SavingsStack.Screen name="SavingScreen" component={SavingScreen}/>
+            <TransactionsStack.Screen name="TransactionDetails" component={TransactionDetails}/>
         </SavingsStack.Navigator>
     )
 }
@@ -65,9 +66,7 @@ function TransactionsNavigator(){
     return (
         <TransactionsStack.Navigator initialRouteName="Transactionss" screenOptions={{headerShown: false}}>
             <TransactionsStack.Screen name="Transactionss" component={Transactions}/>
-            <TransactionsStack.Screen name="TransactionDetail" component={TransactionDetails}/> 
-            <TransactionsStack.Screen name="Dashboard" component={Dashboard}/>
-            
+            <TransactionsStack.Screen name="TransactionDetails" component={TransactionDetails}/>  
         </TransactionsStack.Navigator>
     )
 }

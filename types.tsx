@@ -16,7 +16,7 @@ export type RootStackParamList = {
   EditProfile: undefined,
   Withdraw: undefined,
   Transactions: undefined,
-  TransactionDetail: undefined,
+  TransactionDetails: undefined,
   Profiles: undefined,
   Profile: undefined,
   SavingScreen: undefined,

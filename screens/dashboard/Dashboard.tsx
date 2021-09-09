@@ -18,13 +18,21 @@ import { AntDesign } from "@expo/vector-icons";
 const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
   navigation,
 }) => {
-  const transactions: ITransaction = {
+  const transactions: ITransaction [] = [{
     id: 2,
     description: "Savings",
     method: "Package 1",
     createOn: new Date(),
     amount: 400000,
-  };
+  }, 
+  {
+    id: 3,
+    description: "Savings",
+    method: "Package 1",
+    createOn: new Date(),
+    amount: 400000,
+  }
+ ];
 
   return (
     <>
@@ -77,20 +85,16 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
             )}
           >
             <Text style={tailwind("mx-2 text-xl")}>Recent Transactions</Text>
-            <TransactionSummaryView
-              id={transactions.id}
-              description={transactions.description}
-              method={transactions.method}
-              amount={transactions.amount}
-              createOn={transactions.createOn}
-            />
-            <TransactionSummaryView
-              id={transactions.id}
-              description={transactions.description}
-              method={transactions.method}
-              amount={transactions.amount}
-              createOn={transactions.createOn}
-            />
+            { transactions.map((item, key) => (
+                <TransactionSummaryView 
+                handlePress={()=> {navigation.navigate("TransactionDetails")}}
+                key={key}
+                transaction={item}
+              />
+            ))
+              
+
+            }
 
           </View>
 
