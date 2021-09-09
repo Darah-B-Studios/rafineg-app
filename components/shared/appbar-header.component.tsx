@@ -4,7 +4,7 @@ import { View, Text, Image, StatusBar, Platform } from 'react-native'
 import tailwind from 'tailwind-rn'
 
 type NavHeaderProps = {
-    navigation: any
+    navigation?: any
     screenTitle: string;
     showDrawer?: boolean;
 }
@@ -13,7 +13,7 @@ const Appbar: React.FunctionComponent<NavHeaderProps> = ({navigation, screenTitl
 
     return (
         <View style={[tailwind("flex-row justify-between items-center px-3 py-4 bg-blue-700 w-full"), {paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}]}>
-            <Text style={tailwind(" text-white text-xl")}> {screenTitle}</Text>
+            <Text style={tailwind("text-white text-xl")}> {screenTitle}</Text>
             {
                 showDrawer &&
                 <View>
