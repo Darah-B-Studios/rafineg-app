@@ -44,11 +44,10 @@ const Login: React.FunctionComponent<ScreenProps<'Login'>> = ({ navigation }) =>
       password
     }
     await login(appUser).then(response => console.log('data: ', response));
-
-    return;
     if (email.trim() !== '' && password.trim() !== '') {
       navigation.replace('Dashboard');
     }
+    return;
   };
 
   return (
