@@ -18,8 +18,10 @@ import DashboardHeader from "../../components/dashboard/dashboard-header.compone
 import { useState } from "react";
 import { ScreenProps } from "../../App";
 import Appbar from "../../components/shared/appbar-header.component";
+import {Picker} from '@react-native-picker/picker';
 
-const ReferralScreen: React.FunctionComponent<ScreenProps<'Referals'>> = () => {
+const SavingScreen: React.FunctionComponent<ScreenProps<"SavingScreen">> = () => {
+  const [selectedPackage, setSelectedPackage] = useState();
   const [loading, setLoading] = useState(false);
   const {
     control,
@@ -34,23 +36,30 @@ const ReferralScreen: React.FunctionComponent<ScreenProps<'Referals'>> = () => {
     <>
       <Container>
           <StatusBar barStyle="light-content" backgroundColor="blue" />
-          <Appbar screenTitle="Withdraw" showDrawer={false}/>
+          <Appbar screenTitle="Save" showDrawer={false}/>
           <View style={tailwind("w-full h-full")}>
             <View style={tailwind("flex-row justify-between pt-10 px-3")}>
-              <View style={tailwind("flex-wrap")}>
-                <Text style={tailwind("text-xl")}>Notice</Text>
-                <Text style={tailwind("text-xs")}>
-                  You have initiated a withrawal request
-                </Text>
-              </View>
-              <View>
-                <Text style={tailwind("text-left text-xs")}>Total Bonuses</Text>
-                <Text style={tailwind("text-xl text-left text-red-600")}>
-                  20,000XAF
-                </Text>
-              </View>
+              
+            
             </View>
             <View style={tailwind("mt-6")}>
+                <View style={tailwind("flex-row items-center")}>
+                    <View style={tailwind("bg-white m-3 ")}><Text style={tailwind("text-sm p-4")}>Package</Text></View>
+                    
+                    <View style={tailwind("bg-white py-4 mr-3 flex-1")}>
+                        <Picker
+                        
+                        selectedValue={selectedPackage}
+                        onValueChange={(itemValue, itemIndex) =>
+                            setSelectedPackage(itemValue)
+                        }>
+                            <Picker.Item label="Basic" value="basic" />
+                            <Picker.Item label="Classic" value="clasic" />
+                        </Picker>
+                    </View>
+                    
+                </View>
+                
               <Controller
                 control={control}
                 rules={{
@@ -96,7 +105,7 @@ const ReferralScreen: React.FunctionComponent<ScreenProps<'Referals'>> = () => {
                   "bg-blue-700 items-center justify-center m-3 self-end p-4"
                 )}
               >
-                <Text style={tailwind("text-white")}>Withdraw</Text>
+                <Text style={tailwind("text-white")}>Save</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -105,4 +114,4 @@ const ReferralScreen: React.FunctionComponent<ScreenProps<'Referals'>> = () => {
   );
 };
 
-export default ReferralScreen;
+export default SavingScreen;

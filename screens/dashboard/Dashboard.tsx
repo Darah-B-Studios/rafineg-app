@@ -71,10 +71,9 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
           <View style={tailwind("p-4 self-center mt-4 h-52 bg-white w-11/12")}>
             <Text style={tailwind("self-center text-xl")}>Chart Area</Text>
           </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Transactions")}
+          <View
             style={tailwind(
-              "p-4 self-center m-2 h-52 bg-white opacity-80 w-11/12"
+              "p-4 self-center m-2 p-2 bg-white opacity-80 w-11/12"
             )}
           >
             <Text style={tailwind("mx-2 text-xl")}>Recent Transactions</Text>
@@ -92,21 +91,8 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
               amount={transactions.amount}
               createOn={transactions.createOn}
             />
-            <TransactionSummaryView
-              description={transactions.description}
-              id={transactions.id}
-              method={transactions.method}
-              amount={transactions.amount}
-              createOn={transactions.createOn}
-            />
-            <TransactionSummaryView
-              description={transactions.description}
-              id={transactions.id}
-              method={transactions.method}
-              amount={transactions.amount}
-              createOn={transactions.createOn}
-            />
-          </TouchableOpacity>
+
+          </View>
 
           <View
             style={tailwind("p-4 self-center h-52 bg-white w-11/12 opacity-80")}
@@ -116,6 +102,7 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
         </ScrollView>
 
         <TouchableOpacity
+          onPress={()=> navigation.navigate("SavingScreen")}
           style={[
             tailwind(
               "p-4 bg-white rounded-full absolute items-center justify-center"

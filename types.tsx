@@ -19,6 +19,7 @@ export type RootStackParamList = {
   TransactionDetail: undefined,
   Profiles: undefined,
   Profile: undefined,
+  SavingScreen: undefined,
 };
 
 export type DrawerNavParamList = {
