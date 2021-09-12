@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store from './redux/store';
 import AppShell from './components/shared/app-shell.component';
 import SavingScreen from './screens/savings/SavingScreen';
+import ForgotPassword from './screens/authentication/ForgotPassword';
 
 //Auth context to manage authentication flow
 // const AuthContext = React.createContext('signIn');

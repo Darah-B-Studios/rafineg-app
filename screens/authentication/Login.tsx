@@ -149,7 +149,7 @@ const Login: React.FunctionComponent<ScreenProps<'Login'>> = ({ navigation }) =>
                 </Text>
               </TouchableOpacity>
             </View>
-            <Text style={tailwind("underline p-6")} onPress={() => alert()}>
+            <Text style={tailwind("underline p-6")} onPress={() => navigation.navigate("ForgotPassword")}>
               Forgot Password
             </Text>
           </View>
