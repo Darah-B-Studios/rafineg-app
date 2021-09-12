@@ -20,7 +20,8 @@ export type RootStackParamList = {
   Profiles: undefined,
   Profile: undefined,
   SavingScreen: undefined,
-  SettingsScreen: undefined
+  SettingsScreen: undefined,
+  ForgotPassword: undefined
 };
 
 export type DrawerNavParamList = {
