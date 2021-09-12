@@ -138,12 +138,11 @@ const Transactions: React.FunctionComponent<ScreenProps<"Transactions">> = ({
           keyExtractor={(item) => item.id.toString()}
           data={sampleTransactions}
           scrollEnabled={true}
-          contentContainerStyle={{paddingTop:8}}
+          contentContainerStyle={{ paddingTop: 8 }}
           ItemSeparatorComponent={() => <View></View>}
           renderItem={({ item }) => (
             <TouchableOpacity
-
-              onPress={()=> navigation.navigate("TransactionDetail")}
+              onPress={() => navigation.navigate("TransactionDetails")}
               style={tailwind(
                 "w-full justify-between px-3 flex-row flex-1 bg-white opacity-70"
               )}
@@ -160,18 +159,18 @@ const Transactions: React.FunctionComponent<ScreenProps<"Transactions">> = ({
         />
       </View>
       <TouchableOpacity
-            style={[
-              tailwind(
-                "p-4 bg-white rounded-full absolute items-center justify-center"
-              ),
-              {
-                  right:16, 
-                bottom: 23,
-              },
-            ]}
-          >
-            <AntDesign name="plus" size={24} color="black" />
-          </TouchableOpacity>
+        style={[
+          tailwind(
+            "p-4 bg-white rounded-full absolute items-center justify-center"
+          ),
+          {
+            right: 16,
+            bottom: 23,
+          },
+        ]}
+      >
+        <AntDesign name="plus" size={24} color="black" />
+      </TouchableOpacity>
     </Container>
   );
 };
