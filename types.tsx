@@ -20,6 +20,7 @@ export type RootStackParamList = {
   Profiles: undefined,
   Profile: undefined,
   SavingScreen: undefined,
+  SettingsScreen: undefined
 };
 
 export type DrawerNavParamList = {

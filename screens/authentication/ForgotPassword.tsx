@@ -4,7 +4,7 @@ import { View } from 'react-native'
 const ForgotPassword: React.FunctionComponent = () => {
   return (
     <View>
-      <
+      
     </View>
   )
 }
