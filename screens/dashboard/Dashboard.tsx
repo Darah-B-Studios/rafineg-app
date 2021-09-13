@@ -7,30 +7,37 @@ import {
   TouchableOpacity,
 } from "react-native";
 import tailwind from "tailwind-rn";
-import { AntDesign } from "@expo/vector-icons";
 import Container from "../../components/shared/container.component";
-import DashboardHeader from "../../components/dashboard/dashboard-header.component";
 import Appbar from "../../components/shared/appbar-header.component";
 import { ScreenProps } from "../../App";
 import { ITransaction } from "../../models/Transaction.model";
 import TransactionSummaryView from "../../components/transactions/transaction-summary.component";
+import DashboardHeader from "../../components/dashboard/dashboard-header.component";
+import { AntDesign } from "@expo/vector-icons";
 
 const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
   navigation,
 }) => {
-  const transactions: ITransaction = {
-    id: 2,
-    description: "Savings",
-    method: "Package 1",
-    createOn: new Date(),
-    amount: 400000,
-  };
+  const transactions: ITransaction[] = [
+    {
+      id: 2,
+      description: "Savings",
+      method: "Package 1",
+      createOn: new Date(),
+      amount: 400000,
+    },
+    {
+      id: 3,
+      description: "Savings",
+      method: "Package 1",
+      createOn: new Date(),
+      amount: 400000,
+    },
+  ];
 
   return (
     <>
       <Container>
-        {/* TODO: Make status bar consistent on iOS */}
-        <StatusBar />
         <Appbar navigation={navigation} screenTitle="Dashboard" />
 
         <ScrollView style={tailwind("w-full")}>
@@ -72,42 +79,22 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
           <View style={tailwind("p-4 self-center mt-4 h-52 bg-white w-11/12")}>
             <Text style={tailwind("self-center text-xl")}>Chart Area</Text>
           </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Transactions")}
+          <View
             style={tailwind(
-              "p-4 self-center m-2 h-52 bg-white opacity-80 w-11/12"
+              "p-4 self-center m-2 p-2 bg-white opacity-80 w-11/12"
             )}
           >
             <Text style={tailwind("mx-2 text-xl")}>Recent Transactions</Text>
-            <TransactionSummaryView
-              id={transactions.id}
-              description={transactions.description}
-              method={transactions.method}
-              amount={transactions.amount}
-              createOn={transactions.createOn}
-            />
-            <TransactionSummaryView
-              id={transactions.id}
-              description={transactions.description}
-              method={transactions.method}
-              amount={transactions.amount}
-              createOn={transactions.createOn}
-            />
-            <TransactionSummaryView
-              description={transactions.description}
-              id={transactions.id}
-              method={transactions.method}
-              amount={transactions.amount}
-              createOn={transactions.createOn}
-            />
-            <TransactionSummaryView
-              description={transactions.description}
-              id={transactions.id}
-              method={transactions.method}
-              amount={transactions.amount}
-              createOn={transactions.createOn}
-            />
-          </TouchableOpacity>
+            {transactions.map((item, key) => (
+              <TransactionSummaryView
+                handlePress={() => {
+                  navigation.navigate("TransactionDetails");
+                }}
+                key={key}
+                transaction={item}
+              />
+            ))}
+          </View>
 
           <View
             style={tailwind("p-4 self-center h-52 bg-white w-11/12 opacity-80")}
@@ -117,6 +104,7 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
         </ScrollView>
 
         <TouchableOpacity
+          onPress={() => navigation.navigate("SavingScreen")}
           style={[
             tailwind(
               "p-4 bg-white rounded-full absolute items-center justify-center"

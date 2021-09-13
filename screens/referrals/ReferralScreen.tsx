@@ -17,8 +17,9 @@ import Container from "../../components/shared/container.component";
 import DashboardHeader from "../../components/dashboard/dashboard-header.component";
 import { useState } from "react";
 import { ScreenProps } from "../../App";
+import Appbar from "../../components/shared/appbar-header.component";
 
-const ReferralScreen: React.FunctionComponent<ScreenProps<'Referals'>> = () => {
+const ReferralScreen: React.FunctionComponent<ScreenProps<'Referals'>> = ({navigation}) => {
   const [loading, setLoading] = useState(false);
   const {
     control,
@@ -33,7 +34,7 @@ const ReferralScreen: React.FunctionComponent<ScreenProps<'Referals'>> = () => {
     <>
       <Container>
           <StatusBar barStyle="light-content" backgroundColor="blue" />
-          <DashboardHeader totalSavings="Referral Withdrawal"/>
+          <Appbar screenTitle="Withdraw" showDrawer={false} showBackButton={true} navigation={navigation}/>
           <View style={tailwind("w-full h-full")}>
             <View style={tailwind("flex-row justify-between pt-10 px-3")}>
               <View style={tailwind("flex-wrap")}>

@@ -8,7 +8,6 @@ export const useContract = () => {
   const contracts = useSelector(contractsSelector);
   const contract = useSelector(contractSelector);
 
-
   /**
    * initialize app contract state
    * @returns null

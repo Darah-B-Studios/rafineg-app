@@ -16,6 +16,7 @@ export const useCashBox = () => {
     if (apiResponse.success) {
       dispatch(addCashbox(apiResponse.data));
     }
+    console.log('API data feedback: ', apiResponse.data);
   }
 
   /**
