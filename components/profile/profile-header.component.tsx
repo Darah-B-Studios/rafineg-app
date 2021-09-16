@@ -3,7 +3,7 @@ import { View, Image, Text } from 'react-native'
 import tailwind from 'tailwind-rn'
 
 type ProfileHeaderProps = {
-  imageUri: any
+  imageUri?: any
 }
 
 const ProfileHeader: React.FunctionComponent<ProfileHeaderProps> = ({imageUri, children}) => {

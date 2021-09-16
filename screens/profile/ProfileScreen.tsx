@@ -50,7 +50,7 @@ const ProfileScreen: React.FunctionComponent<ScreenProps<'Profile'>> = ({ naviga
                 <View style={[tailwind("bg-white mx-3 p-2 bg-opacity-50 my-6 w-11/12")]}>
                     <View style={tailwind("flex-row justify-between items-end")}>
                         <Text style={tailwind("p-2")}>Passwords</Text>
-                        <TouchableOpacity style={tailwind("flex-row p-2 ")}>
+                        <TouchableOpacity style={tailwind("flex-row p-2 ")} onPress={() => navigation.navigate("EditPassword")}>
                             <EvilIcons name="pencil" size={24} color="blue" />
                             <Text style={tailwind("text-blue-700 underline")}>edit password</Text>
                         </TouchableOpacity>

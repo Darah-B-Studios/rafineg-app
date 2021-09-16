@@ -11,6 +11,7 @@ import {
   Alert,
   Pressable,
   TouchableWithoutFeedback,
+  Animated,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Appbar from "../../components/shared/appbar-header.component";
@@ -39,6 +40,7 @@ type FormData = {
 const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
   ({ navigation }) => {
     const [image, setImage] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
       (async () => {
@@ -83,7 +85,7 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
       }
     };
 
-    const [modalVisible, setModalVisible] = useState(false);
+    
     const {
       control,
       handleSubmit,
@@ -109,6 +111,7 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
       });
     return (
       <Container>
+        
         <Appbar
           screenTitle="Your Profile"
           navigation={navigation}
@@ -329,21 +332,23 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
+
+        
         <Modal
-          animationType="fade"
+          animationType='slide'
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
             setModalVisible(!modalVisible);
           }}
         >
-          <View style={{ justifyContent: "flex-end" }}>
+          
+          <View style={{ backgroundColor: 'rgba(0,0,0,0.2)', flex: 1, justifyContent: 'flex-end',}}>
             <View
               style={[
                 tailwind(
-                  "flex-row items-center rounded-lg  justify-between  bg-white p-4"
-                ),
-                {},
+                  "flex-row items-center rounded-t-lg  justify-between  bg-white p-4"
+                )
               ]}
             >
               <TouchableWithoutFeedback
@@ -366,7 +371,8 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
               </TouchableWithoutFeedback>
             </View>
           </View>
-        </Modal>
+         
+        </Modal>  
       </Container>
     );
   };

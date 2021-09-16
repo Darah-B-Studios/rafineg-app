@@ -21,7 +21,8 @@ export type RootStackParamList = {
   Profile: undefined,
   SavingScreen: undefined,
   SettingsScreen: undefined,
-  ForgotPassword: undefined
+  ForgotPassword: undefined,
+  EditPassword: undefined
 };
 
 export type DrawerNavParamList = {
