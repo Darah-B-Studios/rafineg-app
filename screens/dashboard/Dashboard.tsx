@@ -18,18 +18,26 @@ import { AntDesign } from "@expo/vector-icons";
 const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
   navigation,
 }) => {
-  const transactions: ITransaction = {
-    id: 2,
-    description: "Savings",
-    method: "Package 1",
-    createOn: new Date(),
-    amount: 400000,
-  };
+  const transactions: ITransaction[] = [
+    {
+      id: 2,
+      description: "Savings",
+      method: "Package 1",
+      createOn: new Date(),
+      amount: 400000,
+    },
+    {
+      id: 3,
+      description: "Savings",
+      method: "Package 1",
+      createOn: new Date(),
+      amount: 400000,
+    },
+  ];
 
   return (
     <>
       <Container>
-        <StatusBar />
         <Appbar navigation={navigation} screenTitle="Dashboard" />
 
         <ScrollView style={tailwind("w-full")}>
@@ -77,21 +85,15 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
             )}
           >
             <Text style={tailwind("mx-2 text-xl")}>Recent Transactions</Text>
-            <TransactionSummaryView
-              id={transactions.id}
-              description={transactions.description}
-              method={transactions.method}
-              amount={transactions.amount}
-              createOn={transactions.createOn}
-            />
-            <TransactionSummaryView
-              id={transactions.id}
-              description={transactions.description}
-              method={transactions.method}
-              amount={transactions.amount}
-              createOn={transactions.createOn}
-            />
-
+            {transactions.map((item, key) => (
+              <TransactionSummaryView
+                handlePress={() => {
+                  navigation.navigate("TransactionDetails");
+                }}
+                key={key}
+                transaction={item}
+              />
+            ))}
           </View>
 
           <View
@@ -102,7 +104,7 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
         </ScrollView>
 
         <TouchableOpacity
-          onPress={()=> navigation.navigate("SavingScreen")}
+          onPress={() => navigation.navigate("SavingScreen")}
           style={[
             tailwind(
               "p-4 bg-white rounded-full absolute items-center justify-center"

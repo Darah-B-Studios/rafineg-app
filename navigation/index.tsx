@@ -20,6 +20,7 @@ import Login from "../screens/authentication/Login";
 import DrawerNavigator from "./DrawerNavigator";
 import Signup from "../screens/authentication/Signup";
 import Registration from "../screens/registration/RegistrationScreen";
+import ForgotPassword from "../screens/authentication/ForgotPassword";
 
 export default function Navigation({
   colorScheme,
@@ -50,6 +51,7 @@ function RootNavigator() {
       />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
       <Stack.Screen name="Dashboard" component={DrawerNavigator} />
     </Stack.Navigator>
   );
