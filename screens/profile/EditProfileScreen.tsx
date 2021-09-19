@@ -333,7 +333,7 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
           </ScrollView>
         </KeyboardAvoidingView>
 
-        
+        <TouchableWithoutFeedback style={{flex: 1}} onPress={() => setModalVisible(false)}>
         <Modal
           animationType='slide'
           transparent={true}
@@ -373,6 +373,7 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
           </View>
          
         </Modal>  
+        </TouchableWithoutFeedback>
       </Container>
     );
   };
