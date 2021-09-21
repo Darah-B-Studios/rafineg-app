@@ -2,6 +2,7 @@ import React from "react";
 import {
   ScrollView,
   StatusBar,
+  Image,
   Text,
   View,
   TouchableOpacity,
@@ -97,9 +98,22 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
           </View>
 
           <View
-            style={tailwind("p-4 self-center h-52 bg-white w-11/12 opacity-80")}
-          >
-            <Text style={tailwind("text-xl")}>Your Referrals</Text>
+            style={tailwind("p-4 self-center flex-col justify-between mb-4 h-52 bg-white w-11/12 opacity-80")}
+          > 
+            <View>
+              <Text style={tailwind("text-xl")}>Your Referrals</Text>
+              <Text>Get your friends to join RAFINEG and stand a chance to win amazing bonuses.</Text>
+            </View>
+
+            <View style={tailwind("flex-row justify-between")}>
+              <View>
+                <ReferralITemD/>
+              </View>
+              <View>
+                <Text>bonuses</Text>
+                <Text>20, 000XAF</Text>
+              </View>
+            </View>
           </View>
         </ScrollView>
 
@@ -121,5 +135,29 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
     </>
   );
 };
+
+function ReferralITemD() {
+  return (
+    <View style={tailwind("flex-row")}>
+    
+            <Image
+              style={tailwind("w-12 h-12 rounded-full")}
+              resizeMode="cover"
+              source={{ uri: "https://picsum.photos/40" }}
+            />
+            <Image
+              style={tailwind("w-12 h-12 -ml-8 rounded-full")}
+              resizeMode="cover"
+              source={{ uri: "https://picsum.photos/40" }}
+            />
+            <Image
+              style={tailwind("w-12 h-12 -ml-8 rounded-full")}
+              resizeMode="cover"
+              source={{ uri: "https://picsum.photos/40" }}
+            />
+            <Text style={tailwind("self-center px-2")}>+5 others</Text>
+    </View>
+  )
+}
 
 export default Dashboard;
