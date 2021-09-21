@@ -21,7 +21,7 @@ export const authService = {
       .then(response => response.data)
       .catch(error => error.response.data);
   },
-  logout: async (): Promise<ApiResponse> => await axios.post(API_URL.concat('logout'), { headers })
+  logout: async (): Promise<ApiResponse> => await axios.post(API_URL.concat('logout'), headers)
     .then(response => response.data)
     .catch(error => error.response.data)
 }

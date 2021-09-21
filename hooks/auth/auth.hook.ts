@@ -5,7 +5,7 @@ import { emptyUser, IUser } from "../../models/User.model"
 import { userState } from "../../recoil/atoms/user.atom";
 
 import { authService } from "../../services/auth/auth.service";
-import { baseService } from "../../services/base.service";
+import { apiToken, baseService, headers } from "../../services/base.service";
 import { useUser } from "../user.hook";
 
 
@@ -21,6 +21,8 @@ export const useAuth = () => {
         ...apiResponse.data,
         token: apiResponse.accessToken
       });
+      // await AsyncStorage.setItem('token', JSON.stringify(apiResponse.accessToken));
+      headers.Authorization = `Bearer ${apiResponse.accessToken}`;
       return true;
     }
     return false;

@@ -19,13 +19,14 @@ import { ScreenProps } from "../../App";
 import { useAuth } from "../../hooks/auth/auth.hook";
 import { emptyUser } from "../../models/User.model";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../recoil/atoms/user.atom";
+import { userListState, userState } from "../../recoil/atoms/user.atom";
 
 const Login: React.FunctionComponent<ScreenProps<'Login'>> = ({ navigation }) => {
   const emailInput = React.useRef<TextInput>(null);
   const passwordInput = React.useRef<TextInput>(null);
   const { login } = useAuth();
   const user = useRecoilValue(userState);
+  const userList = useRecoilValue(userListState);
 
   const {
     control,

@@ -5,14 +5,15 @@ import axios from "axios";
 
 export const apiToken = async () => {
   const token = await AsyncStorage.getItem('token') as string;
-  return JSON.parse(token);
+  console.log('token: ', token);
+  // return JSON.parse(token);
 };
 
 
 export const headers = {
   'Content-Type': 'application/json',
-  'Accept': 'application/json',
-  'Authorization': `Bearer: ${apiToken}`
+  Accept: 'application/json',
+  Authorization: `Bearer`
 }
 
 export type ApiResponse<T = {}> = {
