@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { emptyUser, IUser } from "../../models/User.model"
 import { userState } from "../../recoil/atoms/user.atom";
 
@@ -11,28 +11,31 @@ import { useUser } from "../user.hook";
 
 export const useAuth = () => {
   // const { setUser, user } = useUser();
-  const setUser = useSetRecoilState(userState);
+  const dispatch = useDispatch();
+  const [user, setUser] = useRecoilState(userState);
 
   const login = async (userData: IUser) => {
     const apiResponse = await authService.login(userData);
     if (apiResponse.success)
     {
-      setUser({
+      const userData = {
         ...apiResponse.data,
         token: apiResponse.accessToken
-      });
-      return true;
+      };
+      setUser(userData);
+      console.log('state user data: ', user);
     }
-    return false;
+    return apiResponse;
   }
 
   const register = async (user: IUser) => {
     const apiResponse = await authService.register(user);
-    return apiResponse;
+    return apiResponse.data;
   }
 
   const testAuth = async () => {
     const apiResponse = await baseService.test();
+    console.log('test auth response: ', apiResponse);
     return apiResponse.data;
   }
 
