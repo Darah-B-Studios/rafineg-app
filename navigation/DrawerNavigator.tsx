@@ -16,6 +16,7 @@ import PackageDetails from "../screens/packages/PackageDetails";
 import SavingScreen from "../screens/savings/SavingScreen";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import EditPassword from "../screens/profile/EditPassword";
+import Registration from "../screens/registration/RegistrationScreen";
 
 const DrawerNav = createDrawerNavigator();
 
@@ -47,6 +48,7 @@ function PackageNavigator() {
 function SavingsNavigator() {
   return (
     <SavingsStack.Navigator screenOptions={{ headerShown: false }}>
+      <SavingsStack.Screen name="Registration" component={Registration} />
       <SavingsStack.Screen name="DashBoard" component={Dashboard} />
       <SavingsStack.Screen name="SavingScreen" component={SavingScreen} />
       <TransactionsStack.Screen
