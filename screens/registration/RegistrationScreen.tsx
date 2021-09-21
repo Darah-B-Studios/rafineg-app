@@ -13,6 +13,10 @@ import tailwind from "tailwind-rn";
 import { useForm, Controller } from "react-hook-form";
 import Container from "../../components/shared/container.component";
 import { ScreenProps } from "../../App";
+import {
+  emptyRegistration,
+  IRegistration,
+} from "../../models/Registration.model";
 
 const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
   navigation,
@@ -26,12 +30,12 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
     formState: { errors },
   } = useForm();
 
-  type submitProps = {
-    phoneNumber: number;
-    transactionMethod: string;
-  };
-
-  const onSubmit = ({ phoneNumber, transactionMethod }: submitProps) => {
+  const onSubmit = ({ phoneNumber, transactionMethod }: IRegistration) => {
+    console.log("registration", {
+      ...emptyRegistration,
+      phoneNumber: phoneNumber,
+      transactionMethod: transactionMethod,
+    });
     if (
       phoneNumber.toString().trim() !== "" &&
       transactionMethod.trim() !== ""
