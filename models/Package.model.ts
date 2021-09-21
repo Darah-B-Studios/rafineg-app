@@ -1,19 +1,21 @@
 export interface IPackage {
-  id: "",
+  id: number | string,
   name: string,
   code: string,
   description: string,
   lowInvestmentLimit: number,
   highInvestmentLimit: number,
-  createdOn: Date,
-  updatedOn: Date
+  image: string;
+  createdOn?: Date,
+  updatedOn?: Date
 }
 
 export const emptyPackage: IPackage = {
-  id: "",
+  id: 0,
   name: "",
   code: "",
   description: "",
+  image: "",
   lowInvestmentLimit: 0,
   highInvestmentLimit: 0,
   createdOn: new Date(),
