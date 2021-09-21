@@ -8,7 +8,7 @@ import {
   Platform,
   Pressable,
   Keyboard,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from "react-native";
 import tailwind from "tailwind-rn";
 import { useForm, Controller } from "react-hook-form";
@@ -21,12 +21,13 @@ import { emptyUser } from "../../models/User.model";
 import { useRecoilValue } from "recoil";
 import { userListState, userState } from "../../recoil/atoms/user.atom";
 
-const Login: React.FunctionComponent<ScreenProps<'Login'>> = ({ navigation }) => {
+const Login: React.FunctionComponent<ScreenProps<"Login">> = ({
+  navigation,
+}) => {
   const emailInput = React.useRef<TextInput>(null);
   const passwordInput = React.useRef<TextInput>(null);
   const { login } = useAuth();
   const user = useRecoilValue(userState);
-  const userList = useRecoilValue(userListState);
 
   const {
     control,
@@ -35,17 +36,17 @@ const Login: React.FunctionComponent<ScreenProps<'Login'>> = ({ navigation }) =>
   } = useForm();
 
   type submitProps = {
-    email: string,
+    email: string;
     password: string;
-  }
+  };
 
   const onSubmit = async ({ email, password }: submitProps) => {
-    console.log('user login');
+    console.log("user login");
     const feedback = await login({ ...emptyUser, email, password });
     if (feedback) {
-      navigation.navigate('Dashboard');
+      navigation.navigate("Dashboard");
     } else {
-      console.log('authentication error');
+      console.log("authentication error");
     }
   };
 
@@ -56,21 +57,19 @@ const Login: React.FunctionComponent<ScreenProps<'Login'>> = ({ navigation }) =>
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={tailwind(
-            "items-center content-center w-full pt-32 flex-col"
-          )}>
-            <View style={tailwind(
-              "items-center content-center w-full"
-            )}>
+          <View
+            style={tailwind(
+              "items-center content-center w-full pt-32 flex-col"
+            )}
+          >
+            <View style={tailwind("items-center content-center w-full")}>
               <Logo showText />
-
             </View>
             <View
               style={tailwind(
                 "pt-5 w-full m-1 items-center content-center justify-center flex-col"
               )}
             >
-
               <View
                 style={tailwind(
                   "border-solid border-2 justify-center w-11/12 border-white mb-6"
@@ -100,10 +99,11 @@ const Login: React.FunctionComponent<ScreenProps<'Login'>> = ({ navigation }) =>
                     name="email"
                     defaultValue=""
                   />
-                  {errors.firstName && <ValidationError message="This is required." />}
+                  {errors.firstName && (
+                    <ValidationError message="This is required." />
+                  )}
                 </Pressable>
               </View>
-
 
               <View
                 style={tailwind(
@@ -148,7 +148,10 @@ const Login: React.FunctionComponent<ScreenProps<'Login'>> = ({ navigation }) =>
                 </Text>
               </TouchableOpacity>
             </View>
-            <Text style={tailwind("underline p-6")} onPress={() => navigation.navigate("ForgotPassword")}>
+            <Text
+              style={tailwind("underline p-6")}
+              onPress={() => navigation.navigate("ForgotPassword")}
+            >
               Forgot Password
             </Text>
           </View>

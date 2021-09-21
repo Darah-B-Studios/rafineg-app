@@ -4,6 +4,8 @@ export interface IUser {
   email: string;
   password: string;
   phoneNumber: string;
+  isRegistered: boolean;
+  isVerified: boolean;
   token?: string;
 }
 
@@ -13,5 +15,7 @@ export const emptyUser: IUser = {
   email: "",
   password: "",
   phoneNumber: "",
+  isRegistered: false,
+  isVerified: false,
   token: "",
 }
