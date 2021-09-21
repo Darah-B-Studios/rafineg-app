@@ -5,10 +5,10 @@ import axios from "axios";
 
 export const authService = {
   login: async (user: IUser): Promise<ApiResponse<IUser>> => {
-    const userCredentials = {email: user.email, password: user.password}
+    const userCredentials = { email: user.email, password: user.password }
     return await axios.post(API_URL.concat('signin'), userCredentials)
       .then(response => response.data)
-      .catch(error => console.log('auth error: ', error));
+      .catch(error => error.response.data);
   },
   register: async (user: IUser): Promise<ApiResponse<IUser>> => {
     const credentials = {
@@ -17,12 +17,11 @@ export const authService = {
       password: user.password,
       phone_number: user.phoneNumber
     };
-    console.log('credentials: ', credentials);
     return await axios.post(API_URL.concat('signup'), credentials)
       .then(response => response.data)
-      .catch(error => console.log('error occured: ', error));
+      .catch(error => error.response.data);
   },
-  logout: async (): Promise<ApiResponse> => await axios.post(API_URL.concat('logout'), { headers })
+  logout: async (): Promise<ApiResponse> => await axios.post(API_URL.concat('logout'), headers)
     .then(response => response.data)
-    .catch(error => console.log('logout error: ', error))
+    .catch(error => error.response.data)
 }

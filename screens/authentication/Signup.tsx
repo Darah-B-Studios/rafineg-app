@@ -53,6 +53,11 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
       phoneNumber: values.phoneNumber
     });
     console.log('response: ', apiResponse);
+    if (apiResponse.success) {
+      navigation.navigate('Login');
+    } else {
+      console.log('registration error: ', apiResponse.errors);
+    }
   };
 
   return (
@@ -164,7 +169,7 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
                     placeholderTextColor="#ffffff"
                   />
                 )}
-                name="telephoneNumber"
+                name="phoneNumber"
                 defaultValue=""
               />
               {errors.firstName && (

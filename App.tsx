@@ -8,6 +8,7 @@ import store from './redux/store';
 import AppShell from './components/shared/app-shell.component';
 import SavingScreen from './screens/savings/SavingScreen';
 import ForgotPassword from './screens/authentication/ForgotPassword';
+import { RecoilRoot } from 'recoil';
 
 //Auth context to manage authentication flow
 // const AuthContext = React.createContext('signIn');
@@ -31,7 +32,9 @@ const App = () => {
   return (
     <>
       <Provider store={store}>
-        <AppShell />
+        <RecoilRoot>
+          <AppShell />
+        </RecoilRoot>
       </Provider>
     </>
   );

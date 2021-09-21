@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  ImageBackground,
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
@@ -9,7 +8,7 @@ import {
   Platform,
   Pressable,
   Keyboard,
-  TouchableWithoutFeedback,
+  TouchableWithoutFeedback
 } from "react-native";
 import tailwind from "tailwind-rn";
 import { useForm, Controller } from "react-hook-form";
@@ -19,11 +18,15 @@ import ValidationError from "../../components/forms/vlaidation-error.component";
 import { ScreenProps } from "../../App";
 import { useAuth } from "../../hooks/auth/auth.hook";
 import { emptyUser } from "../../models/User.model";
+import { useRecoilValue } from "recoil";
+import { userListState, userState } from "../../recoil/atoms/user.atom";
 
 const Login: React.FunctionComponent<ScreenProps<'Login'>> = ({ navigation }) => {
   const emailInput = React.useRef<TextInput>(null);
   const passwordInput = React.useRef<TextInput>(null);
   const { login } = useAuth();
+  const user = useRecoilValue(userState);
+  const userList = useRecoilValue(userListState);
 
   const {
     control,
@@ -37,17 +40,13 @@ const Login: React.FunctionComponent<ScreenProps<'Login'>> = ({ navigation }) =>
   }
 
   const onSubmit = async ({ email, password }: submitProps) => {
-    console.log('login user in');
-    const appUser = {
-      ...emptyUser,
-      email,
-      password
+    console.log('user login');
+    const feedback = await login({ ...emptyUser, email, password });
+    if (feedback) {
+      navigation.navigate('Dashboard');
+    } else {
+      console.log('authentication error');
     }
-    await login(appUser).then(response => console.log('data: ', response));
-    if (email.trim() !== '' && password.trim() !== '') {
-      navigation.replace('Dashboard');
-    }
-    return;
   };
 
   return (
