@@ -136,6 +136,7 @@ const Login: React.FunctionComponent<ScreenProps<"Login">> = ({
                   />
                 </Pressable>
               </View>
+
               <TouchableOpacity
                 style={[
                   tailwind("w-11/12 items-center py-4 mt-5 justify-center "),

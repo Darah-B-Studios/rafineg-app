@@ -8,41 +8,30 @@ import {
   Pressable,
   Image,
   TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import tailwind from "tailwind-rn";
 import { useForm, Controller } from "react-hook-form";
 import Container from "../../components/shared/container.component";
 import { ScreenProps } from "../../App";
+import { Formik } from "formik";
+
+import { registrationService } from "../../services/registration.service";
 import {
   emptyRegistration,
   IRegistration,
 } from "../../models/Registration.model";
+import { Button } from "react-native-paper";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil/atoms/user.atom";
 
 const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
   navigation,
 }) => {
   const phoneNumber = React.useRef<TextInput>(null);
   const transactionMethod = React.useRef<TextInput>(null);
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = ({ phoneNumber, transactionMethod }: IRegistration) => {
-    console.log("registration", {
-      ...emptyRegistration,
-      phoneNumber: phoneNumber,
-      transactionMethod: transactionMethod,
-    });
-    if (
-      phoneNumber.toString().trim() !== "" &&
-      transactionMethod.trim() !== ""
-    ) {
-      navigation.replace("Dashboard");
-    }
-  };
+  const user = useRecoilValue(userState);
 
   const [transactionType, setTransactionType] = useState("");
 
@@ -119,87 +108,99 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
           </View>
         </View>
 
-        <View
-          style={tailwind(
-            "pt-12 w-full m-1 items-center content-center justify-center flex-col"
-          )}
-        >
-          <View
-            style={tailwind(
-              "border-solid border-2 justify-center w-11/12 border-white mb-4"
-            )}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Formik
+            initialValues={emptyRegistration}
+            onSubmit={async (values, { setSubmitting }) => {
+              const obj: IRegistration = {
+                ...values,
+                phoneNumber: values.phoneNumber,
+                transactionMethod: transactionType,
+              };
+
+              console.log("obj: ", obj);
+
+              const feedback = await registrationService.store(obj);
+
+              if (feedback) {
+                console.log("Successful !", feedback.message);
+              } else {
+                console.log("Not successful !");
+              }
+
+              setSubmitting(false);
+            }}
           >
-            <Pressable onPress={() => transactionMethod.current?.focus()}>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur } }) => (
+            {({
+              handleBlur,
+              handleChange,
+              isSubmitting,
+              handleReset,
+              values,
+              handleSubmit,
+            }) => (
+              <View
+                style={tailwind(
+                  "pt-12 w-full m-1 items-center content-center justify-center flex-col"
+                )}
+              >
+                <View
+                  style={tailwind(
+                    "border-solid border-2 justify-center w-11/12 border-white mb-4"
+                  )}
+                >
                   <TextInput
                     style={tailwind("py-3 px-4 text-xl text-white")}
                     placeholder="Transaction Method"
                     selectionColor="#ffffff"
                     returnKeyType="done"
-                    onBlur={onBlur}
-                    onSubmitEditing={handleSubmit(onSubmit)}
-                    onChangeText={onChange}
+                    onBlur={handleBlur("transactionMethod")}
+                    onSubmitEditing={() => transactionMethod.current?.focus}
+                    onChangeText={handleChange("transactionMethod")}
                     ref={transactionMethod}
                     placeholderTextColor="#ffffff"
                     editable={false}
                     value={transactionType}
                   />
-                )}
-                name="transactionMethod"
-                defaultValue=""
-              />
-            </Pressable>
-          </View>
+                </View>
 
-          <View
-            style={tailwind(
-              "border-solid border-2 justify-center w-11/12 border-white "
-            )}
-          >
-            <Pressable onPress={() => phoneNumber.current?.focus()}>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
+                <View
+                  style={tailwind(
+                    "border-solid border-2 justify-center w-11/12 border-white mb-4"
+                  )}
+                >
                   <TextInput
                     style={tailwind("py-3 px-4 text-xl text-white")}
                     placeholder="Phone Number"
                     selectionColor="#ffffff"
                     returnKeyType="done"
-                    onBlur={onBlur}
-                    onSubmitEditing={handleSubmit(onSubmit)}
-                    onChangeText={onChange}
+                    onBlur={handleBlur("phoneNumber")}
+                    onChangeText={handleChange("phoneNumber")}
                     ref={phoneNumber}
                     placeholderTextColor="#ffffff"
                     // secureTextEntry
-                    value={value}
+                    value={values.phoneNumber}
+                    onSubmitEditing={() => phoneNumber.current?.focus}
                   />
-                )}
-                name="phoneNumber"
-                defaultValue=""
-              />
-            </Pressable>
-          </View>
+                </View>
 
-          <TouchableOpacity
-            style={[
-              tailwind("w-11/12 items-center py-4 mt-5 justify-center "),
-              { backgroundColor: "#9d0090" },
-            ]}
-            onPress={handleSubmit(onSubmit)}
-          >
-            <Text style={tailwind("text-white text-center text-xl")}>
-              SUBMIT
-            </Text>
-          </TouchableOpacity>
-        </View>
+                <Button
+                  style={[
+                    tailwind("w-11/12 items-center py-4 mt-5 justify-center "),
+                    { backgroundColor: "#9d0090" },
+                  ]}
+                  onPress={handleSubmit}
+                  loading={isSubmitting}
+                  disabled={isSubmitting}
+                >
+                  <Text style={tailwind("text-white text-center text-xl")}>
+                    SUBMIT
+                  </Text>
+                </Button>
+              </View>
+            )}
+          </Formik>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </Container>
   );
