@@ -42,21 +42,21 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
     password: string;
     username: string;
     phoneNumber: string;
-  }
+  };
   const onSubmit = async (values: submitProps) => {
-    console.log('Registering user');
+    console.log("Registering user");
     const apiResponse = await register({
       ...emptyUser,
       name: values.username,
       password: values.password,
       email: values.email,
-      phoneNumber: values.phoneNumber
+      phoneNumber: values.phoneNumber,
     });
-    console.log('response: ', apiResponse);
+    console.log("response: ", apiResponse);
     if (apiResponse.success) {
-      navigation.navigate('Login');
+      navigation.navigate("Login");
     } else {
-      console.log('registration error: ', apiResponse.errors);
+      console.log("registration error: ", apiResponse.message);
     }
   };
 
@@ -218,14 +218,27 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
                 <Checkbox
                   value={isChecked}
                   onValueChange={setChecked}
-                  color={isChecked ? '#4630EB' : undefined}
+                  color={isChecked ? "#4630EB" : undefined}
                 />
-                <Text style={tailwind("p-2")}>I agree to all <Text style={{ color: "#9d0090" }}
-                  onPress={() => alert("Terms")}>terms</Text> and
-                  <Text style={{ color: "#9d0090" }}
-                    onPress={() => alert("Conditions")}> conditions</Text></Text>
-              </>)
-            }
+                <Text style={tailwind("p-2")}>
+                  I agree to all{" "}
+                  <Text
+                    style={{ color: "#9d0090" }}
+                    onPress={() => alert("Terms")}
+                  >
+                    terms
+                  </Text>{" "}
+                  and
+                  <Text
+                    style={{ color: "#9d0090" }}
+                    onPress={() => alert("Conditions")}
+                  >
+                    {" "}
+                    conditions
+                  </Text>
+                </Text>
+              </>
+            )}
           </View>
 
           <TouchableOpacity

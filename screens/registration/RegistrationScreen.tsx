@@ -114,8 +114,8 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
             onSubmit={async (values, { setSubmitting }) => {
               const obj: IRegistration = {
                 ...values,
-                phoneNumber: values.phoneNumber,
-                transactionMethod: transactionType,
+                phone_number: values.phone_number,
+                transaction_method: transactionType,
               };
 
               console.log("obj: ", obj);
@@ -153,10 +153,9 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
                     style={tailwind("py-3 px-4 text-xl text-white")}
                     placeholder="Transaction Method"
                     selectionColor="#ffffff"
-                    returnKeyType="done"
-                    onBlur={handleBlur("transactionMethod")}
+                    onBlur={handleBlur("transaction_method")}
                     onSubmitEditing={() => transactionMethod.current?.focus}
-                    onChangeText={handleChange("transactionMethod")}
+                    onChangeText={handleChange("transaction_method")}
                     ref={transactionMethod}
                     placeholderTextColor="#ffffff"
                     editable={false}
@@ -172,14 +171,16 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
                   <TextInput
                     style={tailwind("py-3 px-4 text-xl text-white")}
                     placeholder="Phone Number"
+                    keyboardType="phone-pad"
+                    textContentType="telephoneNumber"
                     selectionColor="#ffffff"
                     returnKeyType="done"
-                    onBlur={handleBlur("phoneNumber")}
-                    onChangeText={handleChange("phoneNumber")}
+                    onBlur={handleBlur("phone_number")}
+                    onChangeText={handleChange("phone_number")}
                     ref={phoneNumber}
                     placeholderTextColor="#ffffff"
                     // secureTextEntry
-                    value={values.phoneNumber}
+                    value={values.phone_number}
                     onSubmitEditing={() => phoneNumber.current?.focus}
                   />
                 </View>

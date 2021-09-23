@@ -9,4 +9,9 @@ export const useRegistration = () => {
     const apiResponse = await registrationService.index();
     return apiResponse;
   };
+
+  return {
+    setRegistration,
+    registrations,
+  };
 };
