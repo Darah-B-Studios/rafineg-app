@@ -1,12 +1,17 @@
 import React from 'react'
 import { View, Image, Text } from 'react-native'
+import { useRecoilValue } from 'recoil'
 import tailwind from 'tailwind-rn'
+import { userState } from '../../recoil/atoms/user.atom'
 
 type ProfileHeaderProps = {
   imageUri?: any
 }
 
 const ProfileHeader: React.FunctionComponent<ProfileHeaderProps> = ({imageUri, children}) => {
+
+  const user = useRecoilValue(userState);
+  
   return (
      <View style={tailwind("flex-row items-center p-2")}>
         <View style={tailwind("")}>
@@ -18,8 +23,8 @@ const ProfileHeader: React.FunctionComponent<ProfileHeaderProps> = ({imageUri, c
 
         </View>
         <View style={tailwind("p-2 items-start")}>
-            <Text style={tailwind("capitalize text-lg")}>bless darah</Text>
-            <Text style={tailwind("text-sm")}>blessdarahuba@gmail.com</Text>
+            <Text style={tailwind("capitalize text-lg")}>{user.name}</Text>
+            <Text style={tailwind("text-sm")}>{user.email}</Text>
         </View>
     </View>
   )
