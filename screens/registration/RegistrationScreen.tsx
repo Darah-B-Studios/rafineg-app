@@ -25,6 +25,7 @@ import {
 import { Button } from "react-native-paper";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil/atoms/user.atom";
+import { AntDesign } from "@expo/vector-icons";
 
 const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
   navigation,
@@ -34,13 +35,19 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
   const user = useRecoilValue(userState);
 
   const [transactionType, setTransactionType] = useState("");
+  const [mtnCheckbox, setMtnCheckbox] = useState(false)
+  const [orangeCheckbox, setOrangeCheckbox] = useState(false)
 
   const onPressMtnMomo = () => {
     setTransactionType("mtn");
+    setMtnCheckbox(true)
+    setOrangeCheckbox(false)
   };
 
   const onPressOrangeMomo = () => {
     setTransactionType("orange");
+    setOrangeCheckbox(true)
+    setMtnCheckbox(false)
   };
 
   return (
@@ -78,6 +85,7 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
                   borderWidth: 1,
                   borderColor: "#9d0090",
                   borderRadius: 3,
+                  alignContent: "center"
                   // padding: 5,
                 }}
               >
@@ -87,6 +95,7 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
                   style={{ width: 150, height: 150 }}
                 />
               </View>
+              {mtnCheckbox && <AntDesign style={tailwind("self-center")} name="check" size={24} color="green" />}
             </TouchableOpacity>
 
             <TouchableOpacity onPress={onPressOrangeMomo}>
@@ -104,6 +113,7 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
                   style={{ width: 150, height: 150 }}
                 />
               </View>
+              {orangeCheckbox && <AntDesign style={tailwind("self-center")} name="check" size={24} color="green" />}
             </TouchableOpacity>
           </View>
         </View>

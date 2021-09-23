@@ -48,8 +48,8 @@ function PackageNavigator() {
 function SavingsNavigator() {
   return (
     <SavingsStack.Navigator screenOptions={{ headerShown: false }}>
-      <SavingsStack.Screen name="Registration" component={Registration} />
       <SavingsStack.Screen name="DashBoard" component={Dashboard} />
+      <SavingsStack.Screen name="Registration" component={Registration} />
       <SavingsStack.Screen name="SavingScreen" component={SavingScreen} />
       <TransactionsStack.Screen
         name="TransactionDetails"
