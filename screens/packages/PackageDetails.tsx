@@ -1,13 +1,26 @@
 import React, { useState } from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import { useRecoilValue } from "recoil";
 import tailwind from "tailwind-rn";
 import { ScreenProps } from "../../App";
 import Appbar from "../../components/shared/appbar-header.component";
 import Container from "../../components/shared/container.component";
+import { usePackage } from "../../hooks/package.hook";
+import { subscriptionState } from "../../recoil/atoms/package.atoms";
 
 const PackageDetails: React.FunctionComponent<ScreenProps<"PackageDetails">> =
-  ({ navigation }) => {
+  ({navigation }) => {
+
     const [isSubscribed, setIsSubscribed] = useState(false);
+    const subscription = useRecoilValue(subscriptionState)
+    const {storePackage} = usePackage()
+
+    const handlePackageSubscription = () => {
+      setIsSubscribed(true)
+      storePackage(subscription)
+    }
+
+    
     return (
       <Container>
         <Appbar
@@ -23,18 +36,16 @@ const PackageDetails: React.FunctionComponent<ScreenProps<"PackageDetails">> =
             <Image
               resizeMode="contain"
               style={tailwind("w-full h-48")}
-              source={{ uri: "https://picsum.photos/40" }}
+              source={{ uri: subscription.image }}
             />
-            <Text style={tailwind("text-xl p-2 ")}>Package Name</Text>
+            <Text style={tailwind("text-xl p-2 ")}>{subscription.name}</Text>
             <Text style={tailwind("px-2")}>
-              Package Details are the detailed information that one will get
-              regarding some package he or she may be interested in subscribing
-              for
+             {subscription.description}
             </Text>
 
             <View style={tailwind("p-2")}>
-              <Text style={tailwind("pb-2")}>Upper Investment Limit: </Text>
-              <Text>Lower Investment Limit: </Text>
+              <Text style={tailwind("pb-2")}>Upper Investment Limit: {subscription.highInvestmentLimit}</Text>
+              <Text>Lower Investment Limit: {subscription.lowInvestmentLimit} </Text>
             </View>
             <View style={tailwind("p-2")}>
               <Text style={tailwind("pb-2")}>Date Created: </Text>
@@ -52,7 +63,7 @@ const PackageDetails: React.FunctionComponent<ScreenProps<"PackageDetails">> =
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
-                onPress={() => setIsSubscribed(true)}
+                onPress={handlePackageSubscription}
                 style={tailwind(
                   "bg-blue-700 items-center justify-center m-3 self-end p-4"
                 )}

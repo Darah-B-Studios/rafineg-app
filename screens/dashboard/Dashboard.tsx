@@ -13,6 +13,7 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
   navigation,
 }) => {
   const user = useRecoilValue(userState);
+
   // if (!user.isRegistered) {
   //   navigation.navigate("Registration");
   // }

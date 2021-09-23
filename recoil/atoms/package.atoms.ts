@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import { emptyPackage, IPackage } from "../../models/Package.model";
 
-const subcriptionState = atom({
+const subscriptionState = atom({
   key: "subscription",
   default: emptyPackage
 });
@@ -11,4 +11,4 @@ const subscriptionListState = atom({
   default: [] as IPackage[]
 });
 
-export { subcriptionState, subscriptionListState }
+export { subscriptionState, subscriptionListState }
