@@ -2,50 +2,72 @@ import React from 'react'
 import { View, Dimensions, Platform, Image, Text, FlatList, Animated, TouchableOpacity } from 'react-native';
 import tailwind from 'tailwind-rn';
 import { AntDesign } from "@expo/vector-icons";
+import { IPackage } from '../../models/Package.model';
+import { usePackage } from '../../recoil-hooks/package.hook';
+import { useTestPackage } from '../../recoil-hooks/temppackage.hook';
 
 type PackageCarouselProps = {
   navigation: any
 }
 
-const PackageCarousel: React.FunctionComponent<PackageCarouselProps> = ({navigation}) => {
-  const data = [
-    {
-      id: 0,
-      title: "Basic",
-      image:
-        "https://cdn.dribbble.com/users/3281732/screenshots/11192830/media/7690704fa8f0566d572a085637dd1eee.jpg?compress=1&resize=1200x1200",
-      detail: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet",
-    },
-    {
-      id: 1,
-      title: "Business",
-      image:
-        "https://cdn.dribbble.com/users/3281732/screenshots/13130602/media/592ccac0a949b39f058a297fd1faa38e.jpg?compress=1&resize=1200x1200",
-      detail: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet",
-    },
-    {
-      id: 2,
-      title: "Premium",
-      image:
-        "https://cdn.dribbble.com/users/3281732/screenshots/9165292/media/ccbfbce040e1941972dbc6a378c35e98.jpg?compress=1&resize=1200x1200",
-      detail: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet",
-    },
-    {
-      id: 3,
-      title: "VIP",
-      image:
-        "https://cdn.dribbble.com/users/3281732/screenshots/11205211/media/44c854b0a6e381340fbefe276e03e8e4.jpg?compress=1&resize=1200x1200",
-      detail: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet",
-    },
-  ];
+export const packagesData : IPackage [] = [
+  {
+    id: 0,
+    name: "Basic",
+    code: "B1",
+    description: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet",
+    image:
+      "https://cdn.dribbble.com/users/3281732/screenshots/11192830/media/7690704fa8f0566d572a085637dd1eee.jpg?compress=1&resize=1200x1200",
+    lowInvestmentLimit: 5000,
+    highInvestmentLimit: 10000
+  },
+  {
+    id: 1,
+    name: "Classic",
+    code: "B1",
+    description: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet",
+    image:
+      "https://cdn.dribbble.com/users/3281732/screenshots/13130602/media/592ccac0a949b39f058a297fd1faa38e.jpg?compress=1&resize=1200x1200",
+    lowInvestmentLimit: 5000,
+    highInvestmentLimit: 10000
+  },
+  {
+    id: 2,
+    name: "VIP",
+    code: "B1",
+    description: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet",
+    image:
+      "https://cdn.dribbble.com/users/3281732/screenshots/9165292/media/ccbfbce040e1941972dbc6a378c35e98.jpg?compress=1&resize=1200x1200",
+    lowInvestmentLimit: 5000,
+    highInvestmentLimit: 10000
+  },
+  {
+    id: 3,
+    name: "Premium",
+    code: "B1",
+    description: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet",
+    image:
+      "https://cdn.dribbble.com/users/3281732/screenshots/11205211/media/44c854b0a6e381340fbefe276e03e8e4.jpg?compress=1&resize=1200x1200",
+    lowInvestmentLimit: 5000,
+    highInvestmentLimit: 10000
+  },
+];
+const PackageCarousel: React.FunctionComponent<PackageCarouselProps> = ({ navigation }) => {
   const { width, height } = Dimensions.get("window");
   const SPACING = 10;
   const imageW = width * 0.65;
   const CAROUSEL_HEIGHT = height * 0.65;
   const ITEM_SIZE = Platform.OS === "ios" ? width * 0.90 : width * 0.90;
   const SPACER_ITEM_SIZE = (width - ITEM_SIZE) / 2;
-  const dataWithSpacer = [{ id: "leftSpacer" }, ...data, { id: "rightSpacer" }];
+  const dataWithSpacer = [{ id: "leftSpacer" }, ...packagesData, { id: "rightSpacer" }];
   const scrollX = React.useRef(new Animated.Value(0)).current;
+
+
+  const {setPackage} = useTestPackage()
+  const handlePackageDetailPress = (subscription: IPackage) => {
+    setPackage(subscription)
+    navigation.navigate('PackageDetails')
+  }
 
   return (
     <>
@@ -87,7 +109,7 @@ const PackageCarousel: React.FunctionComponent<PackageCarouselProps> = ({navigat
               inputRange,
               outputRange: [-50, 0, -50],
             });
-            if (!item.title) {
+            if (!item.name) {
               return <View style={{ width: SPACER_ITEM_SIZE }}></View>;
             }
             return (
@@ -127,13 +149,13 @@ const PackageCarousel: React.FunctionComponent<PackageCarouselProps> = ({navigat
                   />
                   <View style={tailwind("flex-1")}>
                     <Text style={tailwind("p-2 text-xl")}>
-                      {item.title}
+                      {item.name}
                     </Text>
-                    <Text style={tailwind("pl-2")}>{item.detail}</Text>
+                    <Text style={tailwind("pl-2")}>{item.description}</Text>
                   </View>
-                  <TouchableOpacity 
+                  <TouchableOpacity
 
-                    onPress={()=> navigation.navigate("PackageDetails")}
+                    onPress={() => handlePackageDetailPress(item as IPackage)}
                     style={tailwind(
                       "p-3 bg-gray-100 m-3 self-end flex-row items-center justify-between"
                     )}

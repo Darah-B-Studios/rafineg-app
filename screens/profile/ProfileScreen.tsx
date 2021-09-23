@@ -6,8 +6,14 @@ import { ScreenProps } from '../../App'
 import Container from '../../components/shared/container.component'
 import { EvilIcons } from '@expo/vector-icons'
 import ProfileHeader from '../../components/profile/profile-header.component'
+import { useRecoilValue } from 'recoil'
+import { userState } from '../../recoil/atoms/user.atom'
 
 const ProfileScreen: React.FunctionComponent<ScreenProps<'Profile'>> = ({ navigation }) => {
+    const user = useRecoilValue(userState)
+    const names: string [] = user.name.split(" ")
+
+
     return (
         <Container>
             <Appbar screenTitle="Your Profile" navigation={navigation} />
@@ -26,19 +32,19 @@ const ProfileScreen: React.FunctionComponent<ScreenProps<'Profile'>> = ({ naviga
                     <View>
                         <View style={tailwind("justify-between flex-row p-2")}>
                             <Text style={tailwind("text-blue-700")}>Firt name: </Text>
-                            <Text style={tailwind("")}>Bless</Text>
+                            <Text style={tailwind("")}>{names[0]}</Text>
                         </View>
                         <View style={tailwind("justify-between flex-row p-2")}>
                             <Text style={tailwind("text-blue-700")}>Last name: </Text>
-                            <Text style={tailwind("")}>Darah</Text>
+                            <Text style={tailwind("")}>{names[1]}</Text>
                         </View>
                         <View style={tailwind("justify-between flex-row p-2")}>
                             <Text style={tailwind("text-blue-700")}>Email address: </Text>
-                            <Text style={tailwind("")}>blessdarahuba@gmail.com</Text>
+                            <Text style={tailwind("")}>{user.email}</Text>
                         </View>
                         <View style={tailwind("justify-between flex-row p-2")}>
                             <Text style={tailwind("text-blue-700")}>Phone number: </Text>
-                            <Text style={tailwind("")}>672374414</Text>
+                            <Text style={tailwind("")}>{user.phoneNumber}</Text>
                         </View>
                         <View style={tailwind("p-2")}>
                             <Text style={tailwind("text-blue-700 mb-2")}>About me: </Text>
