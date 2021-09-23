@@ -1,4 +1,5 @@
-import React from "react";
+import { FieldAttributes } from "formik";
+import React, { ComponentProps } from "react";
 import { KeyboardType } from "react-native";
 import { View, Text, TextInput } from "react-native";
 import tailwind from "tailwind-rn";
@@ -9,7 +10,7 @@ type TextInputParams = {
 const ProfileTextInput: React.FunctionComponent<TextInputParams> = ({
   label,
   ...props
-}) => {
+}): FieldAttributes<ComponentProps<any>> => {
   return (
     <View style={tailwind("mb-4 flex-1")}>
       <Text style={tailwind("mb-2")}>{label}</Text>
