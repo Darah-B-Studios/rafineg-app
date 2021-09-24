@@ -19,7 +19,7 @@ import { ScreenProps } from "../../App";
 import { useAuth } from "../../hooks/auth/auth.hook";
 import { emptyUser } from "../../models/User.model";
 import { useRecoilValue } from "recoil";
-import { userListState, userState } from "../../recoil/atoms/user.atom";
+import { userState } from "../../recoil/atoms/user.atom";
 
 const Login: React.FunctionComponent<ScreenProps<"Login">> = ({
   navigation,

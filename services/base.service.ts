@@ -4,16 +4,14 @@ import axios from "axios";
 
 export const apiToken = async () => {
   const tokenKey = (await AsyncStorage.getItem("token")) as string;
-  console.log("token: ", tokenKey);
   return JSON.parse(tokenKey);
 };
 
-apiToken();
 
 export const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  Authorization: `Bearer`,
+  "Authorization": "",
 };
 
 export type ApiResponse<T = {}> = {
@@ -23,31 +21,46 @@ export type ApiResponse<T = {}> = {
   data: T;
   accessToken?: string;
 };
-
+async function setConfigHeaders() {
+  const token = await apiToken();
+  headers["Authorization"] = `Bearer ${token}`;
+}
 export const baseService = {
   get: async <T>(route: string): Promise<ApiResponse<T[]>> => {
+    await setConfigHeaders();
+    console.log('headers: ', headers);
+    console.log('route: ', route);
     return await axios
       .get(route, { headers })
-      .then((response) => response.data);
+      .then((response) => response.data)
+      .catch((error) => error.response.data);
   },
   post: async <T>(route: string, payload?: any): Promise<ApiResponse<T>> => {
+    await setConfigHeaders();
     return await axios
       .post(route, payload, { headers })
-      .then((response) => response.data);
+      .then((response) => response.data)
+      .catch((error) => error.response.data);
   },
   patch: async <T>(route: string, payload: any): Promise<ApiResponse<T>> => {
+    await setConfigHeaders();
     return await axios
       .patch(route, payload, { headers })
-      .then((response) => response.data);
+      .then((response) => response.data)
+      .catch((error) => error.response.data);
   },
   destroy: async <T>(route: string): Promise<ApiResponse<T>> => {
+    await setConfigHeaders();
     return await axios
       .delete(route, { headers })
-      .then((response) => response.data);
+      .then((response) => response.data)
+      .catch((error) => error.response.data);
   },
   test: async (): Promise<ApiResponse> => {
+    await setConfigHeaders();
     return await axios
       .get(API_URL.concat("test"))
-      .then((response) => response.data);
+      .then((response) => response.data)
+      .catch((error) => error.response.data);
   },
 };

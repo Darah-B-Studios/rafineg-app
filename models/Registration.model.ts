@@ -1,17 +1,17 @@
 export interface IRegistration {
   id: number;
   username: string;
-  user_id: string;
-  phone_number: string;
+  userId: string;
+  phoneNumber: string;
   amount: string;
-  transaction_method: string;
+  transactionMethod: string;
 }
 
 export const emptyRegistration: IRegistration = {
   id: 0,
   username: "",
-  user_id: "",
-  phone_number: "",
+  userId: "",
+  phoneNumber: "",
   amount: "",
-  transaction_method: "",
+  transactionMethod: "",
 };

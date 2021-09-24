@@ -26,6 +26,7 @@ import { Button } from "react-native-paper";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil/atoms/user.atom";
 import { AntDesign } from "@expo/vector-icons";
+import { userService } from "../../services/user.service";
 
 const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
   navigation,
@@ -34,7 +35,7 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
   const transactionMethod = React.useRef<TextInput>(null);
   const user = useRecoilValue(userState);
 
-  const [transactionType, setTransactionType] = useState("");
+  const [transactionType, setTransactionType] = useState("mtn");
   const [mtnCheckbox, setMtnCheckbox] = useState(false);
   const [orangeCheckbox, setOrangeCheckbox] = useState(false);
 
@@ -42,12 +43,14 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
     setTransactionType("mtn");
     setMtnCheckbox(true);
     setOrangeCheckbox(false);
+    console.log('chosen method: ', transactionType);
   };
 
   const onPressOrangeMomo = () => {
     setTransactionType("orange");
     setOrangeCheckbox(true);
     setMtnCheckbox(false);
+    console.log('chosen method: ', transactionType);
   };
 
   return (
@@ -136,22 +139,15 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
           <Formik
             initialValues={emptyRegistration}
             onSubmit={async (values, { setSubmitting }) => {
-              const obj: IRegistration = {
-                ...values,
-                phone_number: values.phone_number,
-                transaction_method: transactionType,
-              };
-
-              console.log("obj: ", obj);
-
-              const feedback = await registrationService.store(obj);
+              console.log('form values: ', values);
+              const feedback = await userService.index();
+              // const feedback = await registrationService.store({ ...values, transactionMethod: "mtn" });
 
               if (feedback) {
-                console.log("Successful !", feedback.message);
+                console.log("Successful!", feedback);
               } else {
                 console.log("Not successful !");
               }
-
               setSubmitting(false);
             }}
           >
@@ -177,13 +173,13 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
                     style={tailwind("py-3 px-4 text-xl text-white")}
                     placeholder="Transaction Method"
                     selectionColor="#ffffff"
-                    onBlur={handleBlur("transaction_method")}
+                    onBlur={handleBlur("transactionMethod")}
                     onSubmitEditing={() => transactionMethod.current?.focus}
-                    onChangeText={handleChange("transaction_method")}
-                    ref={transactionMethod}
+                    onChangeText={handleChange("transactionMethod")}
+                    // ref={transactionMethod}
                     placeholderTextColor="#ffffff"
                     editable={false}
-                    value={transactionType}
+                    defaultValue="mtn"
                   />
                 </View>
 
@@ -199,12 +195,12 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
                     textContentType="telephoneNumber"
                     selectionColor="#ffffff"
                     returnKeyType="done"
-                    onBlur={handleBlur("phone_number")}
-                    onChangeText={handleChange("phone_number")}
+                    onBlur={handleBlur("phoneNumber")}
+                    onChangeText={handleChange("phoneNumber")}
                     ref={phoneNumber}
                     placeholderTextColor="#ffffff"
                     // secureTextEntry
-                    value={values.phone_number}
+                    value={values.phoneNumber}
                     onSubmitEditing={() => phoneNumber.current?.focus}
                   />
                 </View>

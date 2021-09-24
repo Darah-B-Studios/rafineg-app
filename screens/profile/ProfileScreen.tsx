@@ -11,8 +11,6 @@ import { userState } from '../../recoil/atoms/user.atom'
 
 const ProfileScreen: React.FunctionComponent<ScreenProps<'Profile'>> = ({ navigation }) => {
     const user = useRecoilValue(userState)
-    const names: string [] = user.name.split(" ")
-
 
     return (
         <Container>
@@ -31,12 +29,16 @@ const ProfileScreen: React.FunctionComponent<ScreenProps<'Profile'>> = ({ naviga
 
                     <View>
                         <View style={tailwind("justify-between flex-row p-2")}>
-                            <Text style={tailwind("text-blue-700")}>Firt name: </Text>
-                            <Text style={tailwind("")}>{names[0]}</Text>
+                            <Text style={tailwind("text-blue-700")}>Username: </Text>
+                            <Text style={tailwind("")}>{user.name}</Text>
+                        </View>
+                        <View style={tailwind("justify-between flex-row p-2")}>
+                            <Text style={tailwind("text-blue-700")}>First name: </Text>
+                            <Text style={tailwind("")}>{user.firstName ?? "not set"}</Text>
                         </View>
                         <View style={tailwind("justify-between flex-row p-2")}>
                             <Text style={tailwind("text-blue-700")}>Last name: </Text>
-                            <Text style={tailwind("")}>{names[1]}</Text>
+                            <Text style={tailwind("")}>{user.lastName ?? "not set"}</Text>
                         </View>
                         <View style={tailwind("justify-between flex-row p-2")}>
                             <Text style={tailwind("text-blue-700")}>Email address: </Text>

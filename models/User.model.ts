@@ -1,6 +1,8 @@
 export interface IUser {
   id: number;
   name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   phoneNumber: string;
@@ -12,6 +14,8 @@ export interface IUser {
 export const emptyUser: IUser = {
   id: 0,
   name: "",
+  firstName: "",
+  lastName: "",
   email: "",
   password: "",
   phoneNumber: "",

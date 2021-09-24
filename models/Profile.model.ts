@@ -6,8 +6,8 @@ export interface IProfile {
   bio: string,
   address: string,
   gender: string,
-  dateOfBirth: Date,
   imageUrl: string,
+  dateOfBirth: Date,
   createdOn: Date,
   updatedOn: Date
 }
