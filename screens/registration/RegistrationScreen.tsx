@@ -16,8 +16,6 @@ import { useForm, Controller } from "react-hook-form";
 import Container from "../../components/shared/container.component";
 import { ScreenProps } from "../../App";
 import { Formik } from "formik";
-
-import { registrationService } from "../../services/registration.service";
 import {
   emptyRegistration,
   IRegistration,
@@ -27,6 +25,7 @@ import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil/atoms/user.atom";
 import { AntDesign } from "@expo/vector-icons";
 import { userService } from "../../services/user.service";
+import { useRegistration } from "../../hooks/registration.hook";
 
 const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
   navigation,
@@ -38,19 +37,20 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
   const [transactionType, setTransactionType] = useState("mtn");
   const [mtnCheckbox, setMtnCheckbox] = useState(false);
   const [orangeCheckbox, setOrangeCheckbox] = useState(false);
+  const { addRegistration } = useRegistration();
 
   const onPressMtnMomo = () => {
     setTransactionType("mtn");
     setMtnCheckbox(true);
     setOrangeCheckbox(false);
-    console.log('chosen method: ', transactionType);
+    console.log("chosen method: ", transactionType);
   };
 
   const onPressOrangeMomo = () => {
     setTransactionType("orange");
     setOrangeCheckbox(true);
     setMtnCheckbox(false);
-    console.log('chosen method: ', transactionType);
+    console.log("chosen method: ", transactionType);
   };
 
   return (
@@ -139,14 +139,17 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
           <Formik
             initialValues={emptyRegistration}
             onSubmit={async (values, { setSubmitting }) => {
-              console.log('form values: ', values);
-              const feedback = await userService.index();
-              // const feedback = await registrationService.store({ ...values, transactionMethod: "mtn" });
+              const obj = {
+                ...values,
+                transactionMethod: transactionType,
+              };
+              // const feedback = await userService.index();
+              const feedback = await addRegistration(obj);
 
               if (feedback) {
                 console.log("Successful!", feedback);
               } else {
-                console.log("Not successful !");
+                console.log("Not successful !", feedback);
               }
               setSubmitting(false);
             }}
