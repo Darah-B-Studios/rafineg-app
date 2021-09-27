@@ -15,3 +15,12 @@ export const emptyRegistration: IRegistration = {
   amount: "",
   transactionMethod: "",
 };
+
+export interface registrationApiProps {
+  id: number;
+  username: string;
+  user_id: string;
+  phone_number: string;
+  amount: string;
+  transaction_method: string;
+}

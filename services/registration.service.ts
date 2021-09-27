@@ -5,15 +5,16 @@ import { baseService } from "./base.service";
 export const registrationService = {
   index: async () =>
     await baseService.get<IRegistration>(API_URL.concat("registration")),
-  show: async (registration: IRegistration) => 
+  show: async (registration: IRegistration) =>
     await baseService.get<IRegistration>(
       API_URL.concat(`registration/${registration.id}`)
     ),
   store: async (registration: IRegistration) => {
     const obj = {
-      "phone_number": registration.phoneNumber,
-      "transaction_method": registration.transactionMethod,
-    }
+      phone_number: registration.phoneNumber,
+      transaction_method: registration.transactionMethod,
+    };
+    console.log("obj: ", obj);
     return await baseService.post<IRegistration>(
       API_URL.concat("registration"),
       obj
