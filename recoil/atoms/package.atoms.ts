@@ -11,4 +11,4 @@ const subscriptionListState = atom({
   default: [] as IPackage[]
 });
 
-export { subscriptionState, subscriptionListState }
+export { subscriptionState, subscriptionListState}

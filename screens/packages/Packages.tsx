@@ -13,11 +13,20 @@ import Appbar from "../../components/shared/appbar-header.component";
 import Tag from "../../components/shared/tag.component";
 import PackageCarousel from "../../components/packages/package-carousel.component";
 import { ScreenProps } from "../../App";
+import { IPackage } from "../../models/Package.model";
+import { useTestPackage } from "../../recoil-hooks/temppackage.hook";
+import { useRecoilValue } from "recoil";
+import { subscriptionListState } from "../../recoil/atoms/package.atoms";
+import { packagesData } from "./util";
 
 const { width, height } = Dimensions.get("window");
 const CAROUSEL_HEIGHT = height * 0.65;
 
 const Packages: React.FunctionComponent<ScreenProps<'Packages'>> = ({navigation}) => {
+  const {setDefaultPackages} = useTestPackage()
+  setDefaultPackages(packagesData)
+
+  const subscriptions = useRecoilValue(subscriptionListState)
   return (
     <Container>
         <Appbar navigation={navigation} screenTitle="Subscriptions"/>
@@ -41,7 +50,7 @@ const Packages: React.FunctionComponent<ScreenProps<'Packages'>> = ({navigation}
           </View>
           
         {/* package carousel */}
-          <PackageCarousel navigation={navigation}/>
+          <PackageCarousel navigation={navigation} packagesToDisplay={subscriptions}/>
         </View>
 
         <TouchableOpacity
@@ -59,5 +68,7 @@ const Packages: React.FunctionComponent<ScreenProps<'Packages'>> = ({navigation}
         </Container>
   );
 };
+
+
 
 export default Packages;

@@ -6,18 +6,27 @@ import { ScreenProps } from "../../App";
 import Appbar from "../../components/shared/appbar-header.component";
 import Container from "../../components/shared/container.component";
 import { usePackage } from "../../hooks/package.hook";
-import { subscriptionState } from "../../recoil/atoms/package.atoms";
+import { IPackage } from "../../models/Package.model";
+import { useTestPackage } from "../../recoil-hooks/temppackage.hook";
+import {subscriptionListState, subscriptionState } from "../../recoil/atoms/package.atoms";
 
 const PackageDetails: React.FunctionComponent<ScreenProps<"PackageDetails">> =
   ({navigation }) => {
-
+    const subscription = useRecoilValue(subscriptionState);
     const [isSubscribed, setIsSubscribed] = useState(false);
-    const subscription = useRecoilValue(subscriptionState)
+
+    
+
     const {storePackage} = usePackage()
+    
 
     const handlePackageSubscription = () => {
-      setIsSubscribed(true)
-      storePackage(subscription)
+      if(subscription.subscribed){
+        setIsSubscribed(true)
+      } else{
+        setIsSubscribed(false)
+      }
+     // storePackage(subscription)
     }
 
     
@@ -54,7 +63,7 @@ const PackageDetails: React.FunctionComponent<ScreenProps<"PackageDetails">> =
 
             {isSubscribed ? (
               <TouchableOpacity
-                onPress={() => setIsSubscribed(false)}
+                onPress={handlePackageSubscription}
                 style={tailwind(
                   "bg-red-700 items-center justify-center m-3 self-end p-4"
                 )}
