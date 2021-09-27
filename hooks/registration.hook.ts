@@ -1,6 +1,9 @@
 import { useCallback } from "react";
 import { useSetRecoilState } from "recoil";
-import { IRegistration } from "../models/Registration.model";
+import {
+  IRegistration,
+  registrationApiProps,
+} from "../models/Registration.model";
 import { registrationState } from "../recoil/atoms/registration";
 import { registrationService } from "../services/registration.service";
 
