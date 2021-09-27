@@ -7,11 +7,10 @@ export const apiToken = async () => {
   return JSON.parse(tokenKey);
 };
 
-
 export const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  "Authorization": "",
+  Authorization: "",
 };
 
 export type ApiResponse<T = {}> = {
@@ -28,8 +27,8 @@ async function setConfigHeaders() {
 export const baseService = {
   get: async <T>(route: string): Promise<ApiResponse<T[]>> => {
     await setConfigHeaders();
-    console.log('headers: ', headers);
-    console.log('route: ', route);
+    console.log("headers: ", headers);
+    console.log("route: ", route);
     return await axios
       .get(route, { headers })
       .then((response) => response.data)
@@ -39,8 +38,14 @@ export const baseService = {
     await setConfigHeaders();
     return await axios
       .post(route, payload, { headers })
-      .then((response) => response.data)
-      .catch((error) => error.response.data);
+      .then((response) => {
+        console.log("Data: ", response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+        return error;
+      });
   },
   patch: async <T>(route: string, payload: any): Promise<ApiResponse<T>> => {
     await setConfigHeaders();

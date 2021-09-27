@@ -26,6 +26,7 @@ import { userState } from "../../recoil/atoms/user.atom";
 import { AntDesign } from "@expo/vector-icons";
 import { userService } from "../../services/user.service";
 import { useRegistration } from "../../hooks/registration.hook";
+import { registrationService } from "../../services/registration.service";
 
 const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
   navigation,
@@ -139,12 +140,14 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
           <Formik
             initialValues={emptyRegistration}
             onSubmit={async (values, { setSubmitting }) => {
-              const obj = {
+              const obj: IRegistration = {
                 ...values,
+                userId: user.id.toString(),
+                username: user.name,
                 transactionMethod: transactionType,
               };
               // const feedback = await userService.index();
-              const feedback = await addRegistration(obj);
+              const feedback = await registrationService.store(obj);
 
               if (feedback) {
                 console.log("Successful!", feedback);
