@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   TextInput,
   KeyboardAvoidingView,
@@ -9,6 +9,7 @@ import {
   Pressable,
   Keyboard,
   TouchableWithoutFeedback,
+  ActivityIndicator,
 } from "react-native";
 import tailwind from "tailwind-rn";
 import { useForm, Controller } from "react-hook-form";
@@ -26,6 +27,7 @@ const Login: React.FunctionComponent<ScreenProps<"Login">> = ({
 }) => {
   const emailInput = React.useRef<TextInput>(null);
   const passwordInput = React.useRef<TextInput>(null);
+  const [loginLoading, setLoginLoading] = useState(false)
   const { login } = useAuth();
   const user = useRecoilValue(userState);
 
@@ -41,10 +43,14 @@ const Login: React.FunctionComponent<ScreenProps<"Login">> = ({
   };
 
   const onSubmit = async ({ email, password }: submitProps) => {
+    setLoginLoading(true)
     console.log("user login");
     const feedback = await login({ ...emptyUser, email, password });
     if (feedback) {
-      navigation.navigate("Dashboard");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Dashboard' }],
+      });
     } else {
       console.log("authentication error");
     }
@@ -139,14 +145,15 @@ const Login: React.FunctionComponent<ScreenProps<"Login">> = ({
 
               <TouchableOpacity
                 style={[
-                  tailwind("w-11/12 items-center py-4 mt-5 justify-center "),
+                  tailwind("w-11/12 items-center py-4 mt-5 justify-center flex-row"),
                   { backgroundColor: "#9d0090" },
                 ]}
                 onPress={handleSubmit(onSubmit)}
               >
-                <Text style={tailwind("text-white text-center text-xl")}>
+                <Text style={tailwind("text-white text-center text-xl px-4")}>
                   LOGIN
                 </Text>
+                {loginLoading && <ActivityIndicator color="#fff" />}
               </TouchableOpacity>
             </View>
             <Text

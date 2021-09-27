@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 import tailwind from "tailwind-rn";
 import Container from "../../components/shared/container.component";
@@ -24,6 +25,7 @@ import { useAuth } from "../../hooks/auth/auth.hook";
 const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
   navigation,
 }) => {
+  const [signupLoading, setsignupLoading] = useState(false)
   const nameInput = React.useRef<TextInput>(null);
   const phoneInput = React.useRef<TextInput>(null);
   const emailInput = React.useRef<TextInput>(null);
@@ -44,6 +46,7 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
     phoneNumber: string;
   };
   const onSubmit = async (values: submitProps) => {
+    setsignupLoading(true)
     console.log("Registering user");
     const apiResponse = await register({
       ...emptyUser,
@@ -243,14 +246,15 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
 
           <TouchableOpacity
             style={[
-              tailwind("w-11/12 items-center py-4 mt-4 justify-center "),
+              tailwind("w-11/12 items-center py-4 mt-4 justify-center flex-row "),
               { backgroundColor: "#9d0090" },
             ]}
             onPress={handleSubmit(onSubmit)}
           >
-            <Text style={tailwind("text-white uppercase text-center text-xl")}>
+            <Text style={tailwind("text-white uppercase text-center text-xl px-4")}>
               signup
             </Text>
+            {signupLoading && <ActivityIndicator color="#fff"/>}
           </TouchableOpacity>
           <View style={tailwind("p-6")}>
             <Text>

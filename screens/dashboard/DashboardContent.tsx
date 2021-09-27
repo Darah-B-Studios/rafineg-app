@@ -106,21 +106,36 @@ const DashboardContent: React.FunctionComponent<ScreenProps<"Dashboard">> = ({ n
 function ReferralITemD() {
   return (
     <View style={tailwind("flex-row")}>
-      <Image
-        style={tailwind("w-12 h-12 rounded-full")}
-        resizeMode="cover"
-        source={{ uri: "https://picsum.photos/40" }}
-      />
-      <Image
-        style={tailwind("w-12 h-12 -ml-8 rounded-full")}
-        resizeMode="cover"
-        source={{ uri: "https://picsum.photos/40" }}
-      />
-      <Image
-        style={tailwind("w-12 h-12 -ml-8 rounded-full")}
-        resizeMode="cover"
-        source={{ uri: "https://picsum.photos/40" }}
-      />
+      <View  style={tailwind("w-12 h-12 p-1 bg-white items-center justify-center rounded-full")}>
+        <Image
+          style={tailwind("w-11 h-11 rounded-full")}
+          resizeMode="contain"
+          source={{ uri: "https://picsum.photos/40" }}
+        />
+      </View>
+      <View style={tailwind("w-12 h-12 -ml-8 p-1 bg-white items-center justify-center rounded-full")}>
+        <Image
+          style={tailwind("w-11 h-11 rounded-full")}
+          resizeMode="contain"
+          source={{ uri: "https://picsum.photos/40" }}
+        />
+      </View>
+      
+      <View style={tailwind("w-12 h-12 -ml-8 p-1 bg-white items-center justify-center rounded-full")}>
+        <Image
+          style={tailwind("w-11 h-11 rounded-full")}
+          resizeMode="contain"
+          source={{ uri: "https://picsum.photos/40" }}
+        />
+      </View>
+      <View style={tailwind("w-12 h-12 -ml-8 p-1 bg-white items-center justify-center rounded-full")}>
+        <Image
+          style={tailwind("w-11 h-11 rounded-full")}
+          resizeMode="contain"
+          source={{ uri: "https://picsum.photos/40" }}
+        />
+      </View>
+      
       <Text style={tailwind("self-center px-2")}>+5 others</Text>
     </View>
   )

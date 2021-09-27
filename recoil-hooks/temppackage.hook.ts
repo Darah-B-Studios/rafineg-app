@@ -1,11 +1,19 @@
 import { useSetRecoilState } from "recoil"
-import { subscriptionState } from "../recoil/atoms/package.atoms"
+import { IPackage } from "../models/Package.model";
+import { subscribedPackagesListState, subscriptionListState, subscriptionState } from "../recoil/atoms/package.atoms"
+
 
 export const useTestPackage = () => {
+
     const setPackage = useSetRecoilState(subscriptionState)
+
+    const setDefaultPackages = useSetRecoilState(subscriptionListState)
+
+    
 
 
     return {
-        setPackage
+        setPackage,
+        setDefaultPackages
     }
 }

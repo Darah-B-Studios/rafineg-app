@@ -7,7 +7,8 @@ export interface IPackage {
   highInvestmentLimit: number,
   image: string;
   createdOn?: Date,
-  updatedOn?: Date
+  updatedOn?: Date,
+  subscribed: boolean
 }
 
 export const emptyPackage: IPackage = {
@@ -19,5 +20,6 @@ export const emptyPackage: IPackage = {
   lowInvestmentLimit: 0,
   highInvestmentLimit: 0,
   createdOn: new Date(),
-  updatedOn: new Date()
+  updatedOn: new Date(),
+  subscribed: false
 }
