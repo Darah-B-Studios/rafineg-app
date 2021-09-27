@@ -44,7 +44,10 @@ const Login: React.FunctionComponent<ScreenProps<"Login">> = ({
     console.log("user login");
     const feedback = await login({ ...emptyUser, email, password });
     if (feedback) {
-      navigation.navigate("Dashboard");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Dashboard' }],
+      });
     } else {
       console.log("authentication error");
     }
