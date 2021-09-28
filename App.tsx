@@ -9,6 +9,7 @@ import AppShell from './components/shared/app-shell.component';
 import SavingScreen from './screens/savings/SavingScreen';
 import ForgotPassword from './screens/authentication/ForgotPassword';
 import { RecoilRoot } from 'recoil';
+import { API_URL } from '@env';
 
 //Auth context to manage authentication flow
 // const AuthContext = React.createContext('signIn');
@@ -28,6 +29,7 @@ export type ScreenProps<T extends keyof RootStackParamList> = {
 
 const App = () => {
   // useCachedResources();
+  console.log('current api path: ', API_URL);
 
   return (
     <>
