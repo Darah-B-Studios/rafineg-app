@@ -6,8 +6,6 @@ import { RouteProp } from '@react-navigation/native';
 import { Provider } from "react-redux";
 import store from './redux/store';
 import AppShell from './components/shared/app-shell.component';
-import SavingScreen from './screens/savings/SavingScreen';
-import ForgotPassword from './screens/authentication/ForgotPassword';
 import { RecoilRoot } from 'recoil';
 import { API_URL } from '@env';
 

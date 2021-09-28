@@ -27,7 +27,7 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
           <DashboardContent navigation={navigation} route={undefined} />
         </ScrollView>
 
-        {user.isRegistered && (
+        
           <TouchableOpacity
             onPress={() => navigation.navigate("SavingScreen")}
             style={[
@@ -42,7 +42,6 @@ const Dashboard: React.FunctionComponent<ScreenProps<"Dashboard">> = ({
           >
             <AntDesign name="plus" size={24} color="black" />
           </TouchableOpacity>
-        )}
       </Container>
     </>
   );

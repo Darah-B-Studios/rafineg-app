@@ -7,6 +7,8 @@ import Navigation from '../../navigation'
 const AppShell: React.FunctionComponent = () => {
   const { initAppState } = useAppHook();
   const colorScheme = useColorScheme();
+  
+  
   useEffect(() => {
     console.log('loading redux data');
     initAppState()
