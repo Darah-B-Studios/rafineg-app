@@ -5,8 +5,7 @@ import { emptyUser, IUser } from "../../models/User.model";
 import { userState } from "../../recoil/atoms/user.atom";
 
 import { authService } from "../../services/auth/auth.service";
-import { apiToken, baseService, headers } from "../../services/base.service";
-import { useUser } from "../user.hook";
+import { baseService, headers } from "../../services/base.service";
 
 export const useAuth = () => {
   // const { setUser, user } = useUser();
@@ -14,6 +13,7 @@ export const useAuth = () => {
 
   const login = async (userData: IUser) => {
     const apiResponse = await authService.login(userData);
+    console.log("login response: ", apiResponse);
     if (apiResponse.success) {
       setUser({
         ...apiResponse.data,

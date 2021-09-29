@@ -52,7 +52,7 @@ const Login: React.FunctionComponent<ScreenProps<"Login">> = ({
         routes: [{ name: 'Dashboard' }],
       });
     } else {
-      console.log("authentication error");
+      console.log("authentication error: ", feedback);
     }
   };
 

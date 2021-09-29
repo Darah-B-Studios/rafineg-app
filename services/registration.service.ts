@@ -1,7 +1,7 @@
-import { API_URL } from "@env";
+// import { API_URL } from "@env";
 import { IRegistration } from "../models/Registration.model";
 import { baseService } from "./base.service";
-
+const API_URL = "https://922a-129-0-101-29.ngrok.io/api/";
 export const registrationService = {
   index: async () =>
     await baseService.get<IRegistration>(API_URL.concat("registration")),
@@ -15,10 +15,12 @@ export const registrationService = {
       transaction_method: registration.transactionMethod,
     };
     console.log("obj: ", obj);
-    return await baseService.post<IRegistration>(
+    const result = await baseService.post<IRegistration>(
       API_URL.concat("registration"),
       obj
     );
+    console.log("registration app result: ", result);
+    return result;
   },
   update: async (registration: IRegistration) =>
     await baseService.patch<IRegistration>(

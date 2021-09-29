@@ -1,4 +1,4 @@
-import { API_URL } from "@env";
+// import { API_URL } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
@@ -6,7 +6,7 @@ export const apiToken = async () => {
   const tokenKey = (await AsyncStorage.getItem("token")) as string;
   return JSON.parse(tokenKey);
 };
-
+const API_URL = "https://922a-129-0-101-29.ngrok.io/api/";
 export const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
@@ -39,13 +39,9 @@ export const baseService = {
     return await axios
       .post(route, payload, { headers })
       .then((response) => {
-        console.log("Data: ", response.data);
         return response.data;
       })
-      .catch((error) => {
-        console.log("error: ", error);
-        return error;
-      });
+      .catch((error) => error.response.data);
   },
   patch: async <T>(route: string, payload: any): Promise<ApiResponse<T>> => {
     await setConfigHeaders();
