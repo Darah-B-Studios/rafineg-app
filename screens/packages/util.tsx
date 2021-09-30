@@ -10,7 +10,7 @@ export const packagesData : IPackage [] = [
         "https://cdn.dribbble.com/users/3281732/screenshots/11192830/media/7690704fa8f0566d572a085637dd1eee.jpg?compress=1&resize=1200x1200",
       lowInvestmentLimit: 5000,
       highInvestmentLimit: 10000,
-      subscribed: false
+      subscribed: true
     },
     {
       id: 1,
@@ -32,7 +32,7 @@ export const packagesData : IPackage [] = [
         "https://cdn.dribbble.com/users/3281732/screenshots/9165292/media/ccbfbce040e1941972dbc6a378c35e98.jpg?compress=1&resize=1200x1200",
       lowInvestmentLimit: 5000,
       highInvestmentLimit: 10000,
-      subscribed: false
+      subscribed: true
     },
     {
       id: 3,

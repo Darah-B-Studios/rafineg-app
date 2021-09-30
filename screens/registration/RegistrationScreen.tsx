@@ -193,15 +193,15 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
                 >
                   <TextInput
                     style={tailwind("py-3 px-4 text-xl text-white")}
-                    placeholder="Transaction Method"
+                    placeholder={transactionType}
                     selectionColor="#ffffff"
                     onBlur={handleBlur("transactionMethod")}
+                    
                     onSubmitEditing={() => transactionMethod.current?.focus}
                     onChangeText={handleChange("transactionMethod")}
                     // ref={transactionMethod}
                     placeholderTextColor="#ffffff"
                     editable={false}
-                    defaultValue="mtn"
                   />
                 </View>
 

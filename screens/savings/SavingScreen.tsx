@@ -19,12 +19,15 @@ import { useState } from "react";
 import { ScreenProps } from "../../App";
 import Appbar from "../../components/shared/appbar-header.component";
 import { Picker } from "@react-native-picker/picker";
+import { useRecoilValue } from "recoil";
+import { subscriptionListState } from "../../recoil/atoms/package.atoms";
 
 const SavingScreen: React.FunctionComponent<ScreenProps<"SavingScreen">> = ({
   navigation,
 }) => {
   const [selectedPackage, setSelectedPackage] = useState();
   const [loading, setLoading] = useState(false);
+  const subscriptions = useRecoilValue(subscriptionListState).filter(item => item.subscribed === true)
   const {
     control,
     handleSubmit,
@@ -58,8 +61,11 @@ const SavingScreen: React.FunctionComponent<ScreenProps<"SavingScreen">> = ({
                     setSelectedPackage(itemValue)
                   }
                 >
-                  <Picker.Item label="Basic" value="basic" />
-                  <Picker.Item label="Classic" value="clasic" />
+                  {
+                    subscriptions.map((item, index) => {
+                      return (<Picker.Item label={item.name} value={item.name} key={index}/>)
+                    })
+                  }
                 </Picker>
               </View>
             </View>

@@ -17,6 +17,7 @@ import SavingScreen from "../screens/savings/SavingScreen";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import EditPassword from "../screens/profile/EditPassword";
 import Registration from "../screens/registration/RegistrationScreen";
+import EditPersonalInfoScreen from "../screens/profile/EditPersonalInfoScreen";
 
 const DrawerNav = createDrawerNavigator();
 
@@ -64,6 +65,7 @@ function ProfileNavigator() {
     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
       <ProfileStack.Screen name="ProfileS" component={ProfileScreen} />
       <ProfileStack.Screen name="EditProfile" component={EditProfileScreen} />
+      <ProfileStack.Screen name="EditPersonalInfoScreen" component={EditPersonalInfoScreen} />
       <ProfileStack.Screen name="EditPassword" component={EditPassword} />
     </ProfileStack.Navigator>
   );

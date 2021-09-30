@@ -16,32 +16,37 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import Appbar from "../../components/shared/appbar-header.component";
 import tailwind from "tailwind-rn";
-import { AntDesign, EvilIcons, FontAwesome } from "@expo/vector-icons";
+import { AntDesign, Entypo, EvilIcons, FontAwesome } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import Container from "../../components/shared/container.component";
 import ProfileTextInput from "../../components/profile/textinput.component";
 import { ScreenProps } from "../../App";
 import ProfileHeader from "../../components/profile/profile-header.component";
-import { useForm, Controller } from "react-hook-form";
 import ValidationError from "../../components/forms/vlaidation-error.component";
-import SuccessMessage from "../../components/shared/successmessage.component";
-import ImagePickerModal from "../../components/profile/imagepicker.component";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil/atoms/user.atom";
 import { Formik } from "formik";
 import { profileState } from "../../recoil/atoms/profile.atom";
 import { IProfile } from "../../models/Profile.model";
 import { useProfile } from "../../recoil-hooks/profile.hook";
-import { IUser } from "../../models/User.model";
-import { Button } from "react-native-paper";
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+interface FormValues {
+  bio: string,
+  address: string,
+  gender: string,
+}
+
 
 const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
   ({ navigation }) => {
     const [image, setImage] = useState<string>("");
     const [modalVisible, setModalVisible] = useState(false);
+    const [date, setDate] = useState(new Date(1598051730000));
+    const [show, setShow] = useState(false);
     const user = useRecoilValue(userState);
     const profileInfo = useRecoilValue(profileState);
-    const { updateProfile } = useProfile();
+    const {setProfile, updateProfile } = useProfile();
 
     useEffect(() => {
       (async () => {
@@ -86,24 +91,46 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
       }
     };
 
-    const {
-      control,
-      handleSubmit,
-      formState: { errors },
-    } = useForm<IProfile & IUser>();
-    const onSubmit = ({
-      bio,
-      dateOfBirth,
-      gender,
-      name,
-      password,
-      email,
-      address,
-    }: IProfile & IUser) =>
-      console.log({
-        email,
-        address,
-      });
+    const onChange = (event, selectedDate) => {
+      const currentDate = selectedDate || date;
+      setShow(Platform.OS === 'ios');
+      setDate(currentDate);
+    };
+
+    const submitForm = async (values: FormValues) => {
+      const obj: IProfile = {
+        ...values, 
+        id: null,
+        user: user,
+        imageUrl: image,
+        createdOn: new Date(),
+        updatedOn: new Date(),
+        dateOfBirth: date
+      };
+
+      console.log("obj: ", obj);
+
+      setProfile(obj)
+
+      const feedback = await updateProfile(obj);
+
+      if (feedback) {
+        console.log("Successful !", feedback.message);
+      } else {
+        console.log("Not successful !");
+      }
+
+    }
+
+    const imageToshow = () => {
+      if(image === ""){
+        return profileInfo.imageUrl
+      } else {
+        return image
+      }
+    }
+
+  
     return (
       <Container>
         <Appbar
@@ -123,7 +150,7 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
               ]}
             >
               <View style={tailwind("border-gray-300 pb-2 border-b-2")}>
-                <ProfileHeader imageUri={image}>
+                <ProfileHeader imageUri={imageToshow()}>
                   <Pressable
                     onPress={() => setModalVisible(true)}
                     style={[
@@ -139,33 +166,14 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
 
                 <View style={tailwind("flex-row justify-between items-end")}>
                   <Text style={tailwind("p-2")}>Personal Information</Text>
-                  <TouchableOpacity style={tailwind("flex-row p-2 ")}>
-                    <EvilIcons name="pencil" size={24} color="blue" />
-                    <Text style={tailwind("text-blue-700 underline")}>
-                      edit
-                    </Text>
-                  </TouchableOpacity>
                 </View>
               </View>
 
               <View style={tailwind("p-2 mt-3")}>
                 <Formik
                   initialValues={profileInfo}
-                  onSubmit={async (values, { setSubmitting }) => {
-                    const obj: IProfile = {
-                      ...values,
-                    };
-
-                    console.log("obj: ", obj);
-
-                    const feedback = await updateProfile(obj);
-
-                    if (feedback) {
-                      console.log("Successful !", feedback.message);
-                    } else {
-                      console.log("Not successful !");
-                    }
-
+                  onSubmit={(values: FormValues , { setSubmitting }) => {
+                    submitForm(values)
                     setSubmitting(false);
                   }}
                 >
@@ -178,129 +186,66 @@ const EditProfileScreen: React.FunctionComponent<ScreenProps<"EditProfile">> =
                     handleSubmit,
                   }) => (
                     <>
-                      <View
-                        style={tailwind(
-                          "flex-row justify-between items-center"
-                        )}
-                      >
-                        <View style={tailwind("flex-1 mx-1")}>
+                      <View style={tailwind("")}>
                           <ProfileTextInput
-                            label="First Name"
-                            placeholder="Enter your name"
+                            label="Address"
+                            placeholder="Enter your addres"
                             keyboardType="default"
-                            onChangeText={handleChange("name")}
-                            onBlur={handleBlur("name")}
-                            // value={values}
-                            defaultValue={user.name}
+                            onChangeText={handleChange("address")}
+                            onBlur={handleBlur("address")}
+                            value={values.address}
+                            defaultValue={profileInfo.address}
                           />
-                          {errors.name && (
-                            <ValidationError message="This is required" />
-                          )}
-                        </View>
-                      </View>
-                      <View>
-                        <ProfileTextInput
-                          label="Email address"
-                          placeholder="Enter your email address"
-                          keyboardType="email-address"
-                          onChangeText={handleChange("email")}
-                          onBlur={handleBlur("email")}
-                          // value={values.em}
-                          name="email"
-                          defaultValue={user.email}
-                        />
-                        {errors.email && (
-                          <ValidationError message="This is required" />
-                        )}
-                      </View>
-                      <View>
-                        <ProfileTextInput
-                          label="Address"
-                          placeholder="Mile 4 Nkwen"
-                          keyboardType="default"
-                          onChangeText={handleChange("address")}
-                          onBlur={handleBlur("address")}
-                          // value={values.address}
-                          name="address"
-                          defaultValue={profileInfo.address}
-                        />
-                        {errors.address && (
-                          <ValidationError message="This is required" />
-                        )}
-                      </View>
-                      {/* <View
-                        style={tailwind(
-                          "flex-row justify-between items-center"
-                        )}
-                      >
-                        <View style={tailwind("flex-1 mx-1")}>
                           <ProfileTextInput
-                            label="City/Town"
-                            placeholder="Mile 4 Nkwen"
+                            label="Gender"
+                            placeholder="Enter Male/Female or Other"
                             keyboardType="default"
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            value={value}
-                            name="city"
-                            defaultValue=""
+                            onChangeText={handleChange("gender")}
+                            onBlur={handleBlur("gender")}
+                            value={values.gender}
+                            name="gender"
+                            defaultValue={profileInfo.gender}
                           />
-                          {errors.city && (
-                            <ValidationError message="This is required" />
-                          )}
-                        </View>
-                        <View style={tailwind("flex-1 mx-1")}>
+                          <Text style={tailwind("mb-2")}>Date of Birth</Text>
+                          <View style={tailwind("flex-row mb-4 justify-between items-center border rounded p-2 border-gray-400")}>
+                            
+                            <Text>{profileInfo.dateOfBirth.toDateString() ?? date.toDateString()}</Text>
+                            <TouchableOpacity onPress={() => setShow(!show)}>
+                              <Entypo name="calendar" size={24} color="black" />
+                            </TouchableOpacity>
+                          </View>
+                          {show && (
+                              <DateTimePicker
+                                testID="dateTimePicker"
+                                value={date}
+                                mode="date"
+                                is24Hour={true}
+                                display="default"
+                                onChange={onChange}
+                              />
+                            )}
                           <ProfileTextInput
-                            label="Region"
-                            placeholder="North West"
+                            label="About Me"
+                            placeholder="Tell us more about you"
                             keyboardType="default"
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            value={value}
-                            name="region"
-                            defaultValue=""
+                            onChangeText={handleChange("bio")}
+                            multiline={true}
+                            onBlur={handleBlur("bio")}
+                            value={values.bio}
+                            name="bio"
+                            defaultValue={profileInfo.bio}
                           />
-                          {errors.region && (
-                            <ValidationError message="This is required" />
-                          )}
-                        </View>
-                      </View> */}
-                      <View>
-                        <ProfileTextInput
-                          label="About Me"
-                          placeholder="A business man going about his daily activities"
-                          keyboardType="default"
-                          onChangeText={handleChange("bio")}
-                          multiline={true}
-                          onBlur={handleBlur("bio")}
-                          // value={value}
-                          name="aboutMe"
-                          defaultValue={profileInfo.bio}
-                        />
-                        {errors.bio && (
-                          <ValidationError message="This is required" />
-                        )}
-                      </View>
-
-                      <Button
-                        style={[tailwind("bg-purple-600 self-start")]}
-                        onPress={handleSubmit}
-                        loading={isSubmitting}
-                        disabled={isSubmitting}
-                      >
-                        <Text style={tailwind("text-white text-center")}>
-                          Save Changes
-                        </Text>
-                      </Button>
-                      {/* 
                       <TouchableOpacity
-                        onPress={() => {}}
+                        onPress={handleSubmit}
                         style={tailwind("bg-purple-600 p-4 self-start")}
                       >
                         <Text style={tailwind("text-white")}>save changes</Text>
-                      </TouchableOpacity> */}
+                      </TouchableOpacity>
+                      </View>
                     </>
                   )}
                 </Formik>
+
               </View>
             </View>
           </ScrollView>

@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useSetRecoilState } from "recoil";
 import { IProfile } from "../models/Profile.model";
+import { profileState } from "../recoil/atoms/profile.atom";
 import { addProfile, profileSelector, profilesSelector } from "../redux/profile.slice";
 import { profileService } from "../services/priofile.service"
 
@@ -24,7 +26,8 @@ export const useProfile = () => {
    * @param profile profile
    * @returns null
    */
-  const setProfile = (profile: IProfile): void => dispatch(setProfile(profile));
+  //const setProfile = (profile: IProfile): void => dispatch(setProfile(profile));
+  const setProfile = useSetRecoilState(profileState)
 
   /**
    * Update user profile information
