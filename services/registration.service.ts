@@ -1,7 +1,10 @@
 // import { API_URL } from "@env";
+import { ngrokTunnelLink } from "../constants";
 import { IRegistration } from "../models/Registration.model";
 import { baseService } from "./base.service";
-const API_URL = "https://922a-129-0-101-29.ngrok.io/api/";
+
+const API_URL = ngrokTunnelLink;
+
 export const registrationService = {
   index: async () =>
     await baseService.get<IRegistration>(API_URL.concat("registration")),

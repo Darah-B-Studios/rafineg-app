@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   TextInput,
   KeyboardAvoidingView,
@@ -53,6 +53,22 @@ const Registration: React.FunctionComponent<ScreenProps<"Registration">> = ({
     setMtnCheckbox(false);
     console.log("chosen method: ", transactionType);
   };
+
+  const [state, setState] = useState<IRegistration[]>();
+  const registrations = useCallback(async () => {
+    const obj = await registrationService.index();
+    if (obj) {
+      console.log("new: ", obj);
+      setState(obj.data);
+      return true;
+    }
+
+    return obj;
+  }, []);
+
+  useEffect(() => {
+    registrations();
+  }, []);
 
   return (
     <Container>
