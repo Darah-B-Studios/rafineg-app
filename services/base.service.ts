@@ -1,12 +1,13 @@
 // import { API_URL } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { ngrokTunnelLink } from "../constants";
 
 export const apiToken = async () => {
   const tokenKey = (await AsyncStorage.getItem("token")) as string;
   return JSON.parse(tokenKey);
 };
-const API_URL = "https://922a-129-0-101-29.ngrok.io/api/";
+const API_URL = ngrokTunnelLink;
 export const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
@@ -41,6 +42,7 @@ export const baseService = {
       .then((response) => {
         return response.data;
       })
+      .then((result) => console.log(result))
       .catch((error) => error.response.data);
   },
   patch: async <T>(route: string, payload: any): Promise<ApiResponse<T>> => {

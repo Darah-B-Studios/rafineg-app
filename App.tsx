@@ -1,19 +1,19 @@
-import 'react-native-gesture-handler';
-import React from 'react';
-import { RootStackParamList } from './types';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
+import "react-native-gesture-handler";
+import React from "react";
+import { RootStackParamList } from "./types";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RouteProp } from "@react-navigation/native";
 import { Provider } from "react-redux";
-import store from './redux/store';
-import AppShell from './components/shared/app-shell.component';
-import { RecoilRoot } from 'recoil';
-import { API_URL } from '@env';
+import store from "./redux/store";
+import AppShell from "./components/shared/app-shell.component";
+import { RecoilRoot } from "recoil";
+import { ngrokTunnelLink } from "./constants";
+// import { API_URL } from '@env';
 
 //Auth context to manage authentication flow
 // const AuthContext = React.createContext('signIn');
-type ScreenNavigationProp<
-  T extends keyof RootStackParamList
-  > = StackNavigationProp<RootStackParamList, T>;
+type ScreenNavigationProp<T extends keyof RootStackParamList> =
+  StackNavigationProp<RootStackParamList, T>;
 
 type ScreenRouteProp<T extends keyof RootStackParamList> = RouteProp<
   RootStackParamList,
@@ -27,7 +27,7 @@ export type ScreenProps<T extends keyof RootStackParamList> = {
 
 const App = () => {
   // useCachedResources();
-  console.log('current api path: ', API_URL);
+  console.log("current api path: ", ngrokTunnelLink);
 
   return (
     <>
@@ -38,6 +38,6 @@ const App = () => {
       </Provider>
     </>
   );
-}
+};
 
 export default App;
