@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StatusBar,
   Text,
@@ -24,7 +24,10 @@ const CAROUSEL_HEIGHT = height * 0.65;
 
 const Packages: React.FunctionComponent<ScreenProps<'Packages'>> = ({navigation}) => {
   const {setDefaultPackages} = useTestPackage()
-  setDefaultPackages(packagesData)
+  useEffect(() => {
+     setDefaultPackages(packagesData)
+  }, [])
+  
 
   const subscriptions = useRecoilValue(subscriptionListState)
   return (

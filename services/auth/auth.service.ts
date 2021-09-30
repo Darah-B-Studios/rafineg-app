@@ -2,7 +2,7 @@ import { ApiResponse, headers } from "../base.service";
 // import { API_URL } from "@env";
 import { IUser } from "../../models/User.model";
 import axios from "axios";
-const API_URL = "https://922a-129-0-101-29.ngrok.io/api/";
+const API_URL = "https://rafineg.herokuapp.com/api/";
 const config = headers;
 export const authService = {
   login: async (user: IUser): Promise<ApiResponse<IUser>> => {
