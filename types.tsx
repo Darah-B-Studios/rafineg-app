@@ -24,6 +24,8 @@ export type RootStackParamList = {
   ForgotPassword: undefined,
   EditPassword: undefined,
   DashboardContent: undefined,
+  EditPersonalInfoScreen: undefined
+
 };
 
 export type DrawerNavParamList = {
@@ -36,16 +38,3 @@ export type DrawerNavParamList = {
   Logout: undefined;
   Packages: undefined;
 }
-
-export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
-};
-
-export type TabOneParamList = {
-  TabOneScreen: undefined;
-};
-
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
-};
