@@ -1,10 +1,10 @@
 import { ApiResponse, headers } from "../base.service";
-// import { API_URL } from "@env";
+import { API_URL } from "@env";
 import { IUser } from "../../models/User.model";
 import axios from "axios";
 import { ngrokTunnelLink } from "../../constants";
 
-const API_URL = ngrokTunnelLink;
+// const API_URL = ngrokTunnelLink;
 const config = headers;
 
 export const authService = {
