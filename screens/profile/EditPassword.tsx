@@ -27,35 +27,34 @@ import { useForm, Controller } from "react-hook-form";
 import ValidationError from "../../components/forms/vlaidation-error.component";
 import SuccessMessage from "../../components/shared/successmessage.component";
 import ImagePickerModal from "../../components/profile/imagepicker.component";
+import { Formik } from "formik";
+import * as Yup from 'yup'
 
-type FormData = {
+type submitProps = {
   oldPassword: string;
   newPassword: string;
-  newPasswordRepeat: string;
+  confirmNewPassword: string;
 };
 
 const EditPassword: React.FunctionComponent<ScreenProps<"EditPassword">> =
   ({ navigation }) => {
     const newPasswordInput = React.useRef<TextInput>(null);
     const oldPasswordInput = React.useRef<TextInput>(null);
-    const newPasswordRepeatInput = React.useRef<TextInput>(null);
-    const {
-      control,
-      handleSubmit,
-      formState: { errors },
-    } = useForm<FormData>();
+    const confirmNewPasswordInput = React.useRef<TextInput>(null);
+    
+    const editPasswordSchema = Yup.object().shape({
+      oldPassword: Yup.string().required('required'),
+      newPassword: Yup.string().required('required').matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      ),
+      confirmNewPassword: Yup.string().required().oneOf([Yup.ref('password'), null], "Passwords must match"),
+    });
 
 
-    const onSubmit = ({
-      oldPassword,
-      newPassword,
-      newPasswordRepeat
-    }: FormData) =>
-      console.log({
-        oldPassword,
-        newPassword,
-        newPasswordRepeat
-      });
+    const submitForm = async (values: submitProps) => {
+
+    }
     return (
       <Container>
         
@@ -69,39 +68,40 @@ const EditPassword: React.FunctionComponent<ScreenProps<"EditPassword">> =
           style={tailwind("w-full items-center")}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
-          <ScrollView style={tailwind("w-full")}>
+          
 
+          <Formik
+           initialValues={{oldPassword: '', newPassword: '', confirmNewPassword: ''}}
+           onSubmit={(values: submitProps, {setSubmitting}) => {
+             submitForm(values)
+           
 
-          <View
+           }}
+           validationSchema= {editPasswordSchema} >
+          {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+            <ScrollView style={tailwind("w-full")}>
+            <View
             style={tailwind(
               "border-solid border justify-center self-center w-11/12 border-white my-4"
             )}
           >
           <Pressable onPress={() => oldPasswordInput.current?.focus()}>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
+              
                   <TextInput
                     style={tailwind("py-3 px-4 text-xl text-white ")}
                     placeholder="Old Password"
                     selectionColor="#ffffff"
-                    returnKeyType="done"
-                    onBlur={onBlur}
+                    returnKeyType="next"
+                    onBlur={handleBlur('oldPassword')}
                     onSubmitEditing={() => newPasswordInput.current?.focus()}
-                    onChangeText={onChange}
+                    onChangeText={handleChange('oldPassword')}
                     ref={oldPasswordInput}
                     placeholderTextColor="#ffffff"
                     secureTextEntry
-                    value={value}
+                    value={values.oldPassword}
                   />
-                )}
-                name="oldPassword"
-                defaultValue=""
-              />
             </Pressable>
+            {errors.oldPassword && <ValidationError message={errors.oldPassword}/>}
             </View>
 
           <View
@@ -110,78 +110,63 @@ const EditPassword: React.FunctionComponent<ScreenProps<"EditPassword">> =
             )}
           >
           <Pressable onPress={() => newPasswordInput.current?.focus()}>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
                     style={tailwind("py-3 px-4 text-xl text-white ")}
                     placeholder="New Password"
                     selectionColor="#ffffff"
-                    returnKeyType="done"
-                    onBlur={onBlur}
-                    onSubmitEditing={() => newPasswordRepeatInput.current?.focus()}
-                    onChangeText={onChange}
+                    returnKeyType="next"
+                    onBlur={handleBlur('newPassword')}
+                    onSubmitEditing={() => confirmNewPasswordInput.current?.focus()}
+                    onChangeText={handleChange('newPassword')}
                     ref={newPasswordInput}
                     placeholderTextColor="#ffffff"
                     secureTextEntry
-                    value={value}
+                    value={values.newPassword}
                   />
-                )}
-                name="newPassword"
-                defaultValue=""
-              />
             </Pressable>
+            {errors.newPassword && <ValidationError message={errors.newPassword}/>}
             </View>
             <View
             style={tailwind(
               "border-solid border justify-center self-center w-11/12 border-white mb-4"
             )}
           >
-          <Pressable onPress={() => newPasswordRepeatInput.current?.focus()}>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
+          <Pressable onPress={() => confirmNewPasswordInput.current?.focus()}>
+
                   <TextInput
                     style={tailwind("py-3 px-4 text-xl text-white ")}
-                    placeholder="Repeat new password"
+                    placeholder="confirm new password"
                     selectionColor="#ffffff"
                     returnKeyType="done"
-                    onBlur={onBlur}
+                    onBlur={handleBlur('confirmNewPassword')}
                     //onSubmitEditing={handleSubmit(onSubmit)}
-                    onChangeText={onChange}
-                    ref={newPasswordRepeatInput}
+                    onChangeText={handleChange('confirmNewPassword')}
+                    ref={confirmNewPasswordInput}
                     placeholderTextColor="#ffffff"
                     secureTextEntry
-                    value={value}
+                    value={values.confirmNewPassword}
                   />
-                )}
-                name="newPasswordRepeat"
-                defaultValue=""
-              />
             </Pressable>
+            {errors.confirmNewPassword && <ValidationError message={errors.confirmNewPassword}/>}
             </View>
-
-            
-
-
            <TouchableOpacity
             style={[
               tailwind("w-11/12 items-center self-center py-4 mt-4 justify-center "),
               { backgroundColor: "#9d0090" },
             ]}
-            onPress={handleSubmit(onSubmit)}
+            onPress={handleSubmit}
           >
             <Text style={tailwind("text-white uppercase text-center text-xl")}>
               change  password
             </Text>
           </TouchableOpacity>
           </ScrollView>
+          )}
+          </Formik>
+
+
+          
+          
         </KeyboardAvoidingView> 
       </Container>
     );

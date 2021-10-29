@@ -10,6 +10,7 @@ import {
   ScrollView,
   Platform,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import tailwind from "tailwind-rn";
 import Container from "../../components/shared/container.component";
@@ -21,6 +22,8 @@ import { ScreenProps } from "../../App";
 import { authService } from "../../services/auth/auth.service";
 import { emptyUser } from "../../models/User.model";
 import { useAuth } from "../../hooks/auth/auth.hook";
+import { Formik } from "formik";
+import * as Yup from 'yup'
 
 const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
   navigation,
@@ -30,22 +33,30 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
   const phoneInput = React.useRef<TextInput>(null);
   const emailInput = React.useRef<TextInput>(null);
   const passwordInput = React.useRef<TextInput>(null);
+  const confirmPasswordInput = React.useRef<TextInput>(null);
   const [isChecked, setChecked] = useState(false);
   const { register } = useAuth();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+ 
+  const SignupSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Required'),
+    password: Yup.string().required('required').matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+    ),
+    confirmPassword: Yup.string().required().oneOf([Yup.ref('password'), null], "Passwords must match"),
+    username: Yup.string().required('Please provide the name'),
+
+  });
 
   type submitProps = {
     email: string;
     password: string;
+    confirmPassword: string;
     username: string;
     phoneNumber: string;
   };
-  const onSubmit = async (values: submitProps) => {
+  const submitForm = async (values: submitProps) => {
     setsignupLoading(true)
     console.log("Registering user");
     const apiResponse = await register({
@@ -56,10 +67,17 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
       phoneNumber: values.phoneNumber,
     });
     console.log("response: ", apiResponse);
+    setsignupLoading(false)
     if (apiResponse.success) {
       navigation.navigate("Login");
     } else {
       console.log("registration error: ", apiResponse.message);
+      
+
+      console.log("registration error: ", apiResponse.errors);
+      const {phone_number} = apiResponse.errors
+
+      Alert.alert("Error Creating Account", phone_number[0]);
     }
   };
 
@@ -78,39 +96,34 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
         </Text>
 
         <KeyboardAvoidingView style={tailwind("w-full items-center")}>
-          <View
-            style={tailwind(
-              "border-solid border-2 justify-center w-11/12 border-white mb-4"
-            )}
-          >
-            <Pressable onPress={() => nameInput.current?.focus()}>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    style={[tailwind("py-3 px-4 text-white text-xl")]}
-                    placeholder="Name"
-                    keyboardType="default"
-                    textContentType="username"
-                    returnKeyType="next"
-                    ref={nameInput}
-                    onSubmitEditing={() => emailInput.current?.focus()}
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    placeholderTextColor="#ffffff"
-                  />
-                )}
-                name="username"
-                defaultValue=""
-              />
-              {errors.firstName && (
-                <ValidationError message="This is required." />
-              )}
+          
+            <Formik
+              initialValues={{email: '', password:'', username: '', phoneNumber: '', confirmPassword: ''}}
+              onSubmit={(values: submitProps , { setSubmitting }) => {
+                submitForm(values)
+                setSubmitting(false);
+              }}
+              validationSchema={SignupSchema}
+              >
+                {({handleChange, handleBlur, handleSubmit, values, errors}) => (    
+                <View style={tailwind("w-full items-center")}>
+                <View style={tailwind("border-solid border-2 justify-center w-11/12 border-white mb-4")}>
+                  <Pressable onPress={() => nameInput.current?.focus()}>
+                      <TextInput
+                        style={[tailwind("py-3 px-4 text-white text-xl")]}
+                        placeholder="Name"
+                        keyboardType="default"
+                        textContentType="username"
+                        returnKeyType="next"
+                        ref={nameInput}
+                        onSubmitEditing={() => emailInput.current?.focus()}
+                        onBlur={handleBlur("username")}
+                        onChangeText={handleChange("username")}
+                        value={values.username}
+                        placeholderTextColor="#ffffff"
+                      />
             </Pressable>
+            {errors.username && <ValidationError message={errors.username}/>}
           </View>
           <View
             style={tailwind(
@@ -118,12 +131,6 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
             )}
           >
             <Pressable onPress={() => emailInput.current?.focus()}>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
                     style={[tailwind("py-3 px-4 text-white text-xl")]}
                     placeholder="Email address"
@@ -132,19 +139,13 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
                     returnKeyType="next"
                     ref={emailInput}
                     onSubmitEditing={() => phoneInput.current?.focus()}
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
+                    onBlur={handleBlur('email')}
+                    onChangeText={handleChange('email')}
+                    value={values.email}
                     placeholderTextColor="#ffffff"
                   />
-                )}
-                name="email"
-                defaultValue=""
-              />
-              {errors.firstName && (
-                <ValidationError message="This is required." />
-              )}
             </Pressable>
+            {errors.email && <ValidationError message={errors.email}/>}
           </View>
           <View
             style={tailwind(
@@ -152,12 +153,6 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
             )}
           >
             <Pressable onPress={() => phoneInput.current?.focus()}>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
                     style={[tailwind("py-3 px-4 text-white text-xl")]}
                     placeholder="Phone Number"
@@ -166,50 +161,57 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
                     returnKeyType="next"
                     ref={phoneInput}
                     onSubmitEditing={() => passwordInput.current?.focus()}
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
+                    onBlur={handleBlur('phoneNumber')}
+                    onChangeText={handleChange('phoneNumber')}
+                    value={values.phoneNumber}
                     placeholderTextColor="#ffffff"
                   />
-                )}
-                name="phoneNumber"
-                defaultValue=""
-              />
-              {errors.firstName && (
-                <ValidationError message="This is required." />
-              )}
             </Pressable>
+            {errors.phoneNumber && <ValidationError message={errors.phoneNumber}/>}
+          </View>
+          <View
+            style={tailwind(
+              "border-solid border-2 justify-center w-11/12 border-white mb-4 "
+            )}
+          >
+            <Pressable onPress={() => passwordInput.current?.focus()}>
+                  <TextInput
+                    style={tailwind("py-3 px-4 text-xl text-white")}
+                    placeholder="Password"
+                    selectionColor="#ffffff"
+                    returnKeyType="done"
+                    onBlur={handleBlur('password')}
+                    onSubmitEditing={() => confirmPasswordInput.current?.focus}
+                    onChangeText={handleChange('password')}
+                    ref={passwordInput}
+                    placeholderTextColor="#ffffff"
+                    secureTextEntry
+                    value={values.password}
+                  />
+            </Pressable>
+          {errors.password && <ValidationError message={errors.password}/>}
           </View>
           <View
             style={tailwind(
               "border-solid border-2 justify-center w-11/12 border-white "
             )}
           >
-            <Pressable onPress={() => passwordInput.current?.focus()}>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
+            <Pressable onPress={() => confirmPasswordInput.current?.focus()}>
                   <TextInput
                     style={tailwind("py-3 px-4 text-xl text-white")}
-                    placeholder="Password"
+                    placeholder="Confirm Password"
                     selectionColor="#ffffff"
                     returnKeyType="done"
-                    onBlur={onBlur}
+                    onBlur={handleBlur('confirmPassword')}
                     //onSubmitEditing={handleSubmit(onSubmit)}
-                    onChangeText={onChange}
-                    ref={passwordInput}
+                    onChangeText={handleChange('confirmPassword')}
+                    ref={confirmPasswordInput}
                     placeholderTextColor="#ffffff"
                     secureTextEntry
-                    value={value}
+                    value={values.confirmPassword}
                   />
-                )}
-                name="password"
-                defaultValue=""
-              />
             </Pressable>
+          {errors.confirmPassword && <ValidationError message={errors.confirmPassword}/>}
           </View>
           <View
             style={tailwind(
@@ -249,7 +251,7 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
               tailwind("w-11/12 items-center py-4 mt-4 justify-center flex-row "),
               { backgroundColor: "#9d0090" },
             ]}
-            onPress={handleSubmit(onSubmit)}
+            onPress={handleSubmit}
           >
             <Text style={tailwind("text-white uppercase text-center text-xl px-4")}>
               signup
@@ -267,6 +269,11 @@ const Signup: React.FunctionComponent<ScreenProps<"Signup">> = ({
               </Text>
             </Text>
           </View>
+          </View>
+                )}
+              
+            </Formik>
+       
         </KeyboardAvoidingView>
       </ScrollView>
     </Container>
