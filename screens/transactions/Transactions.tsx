@@ -2,141 +2,145 @@ import { AntDesign } from "@expo/vector-icons";
 import React from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { Item } from "react-native-paper/lib/typescript/components/List/List";
+import { useRecoilValue } from "recoil";
 import tailwind from "tailwind-rn";
 import { ScreenProps } from "../../App";
 import Appbar from "../../components/shared/appbar-header.component";
 import Container from "../../components/shared/container.component";
 import { ITransaction } from "../../models/Transaction.model";
+import { savingListState } from "../../recoil/atoms/saving.atom";
+
+const sampleTransactions: ITransaction[] = [
+  {
+    id: 345,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+  {
+    id: 3450,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+  {
+    id: 3451,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+  {
+    id: 3452,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+  {
+    id: 3453,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+  {
+    id: 3454,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+  {
+    id: 3455,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+  {
+    id: 3456,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+  {
+    id: 3457,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+  {
+    id: 3458,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+  {
+    id: 3459,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+  {
+    id: 3460,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+  {
+    id: 3461,
+    code: "",
+    description: "Saving",
+    amount: 30000,
+    method: "Momo",
+    createOn: new Date(),
+    updateOn: new Date(),
+  },
+];
 
 const Transactions: React.FunctionComponent<ScreenProps<"Transactions">> = ({
   navigation,
 }) => {
-  const sampleTransactions: ITransaction[] = [
-    {
-      id: 345,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-    {
-      id: 3450,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-    {
-      id: 3451,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-    {
-      id: 3452,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-    {
-      id: 3453,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-    {
-      id: 3454,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-    {
-      id: 3455,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-    {
-      id: 3456,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-    {
-      id: 3457,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-    {
-      id: 3458,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-    {
-      id: 3459,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-    {
-      id: 3460,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-    {
-      id: 3461,
-      code: "",
-      description: "Saving",
-      amount: 30000,
-      method: "Momo",
-      createOn: new Date(),
-      updateOn: new Date(),
-    },
-  ];
+  const savingsData = useRecoilValue(savingListState);
   return (
     <Container>
       <Appbar navigation={navigation} screenTitle="Transactions" />
       <View style={tailwind("")}>
         <FlatList
           keyExtractor={(item) => item.id.toString()}
-          data={sampleTransactions}
+          data={savingsData}
           scrollEnabled={true}
           contentContainerStyle={{ paddingTop: 8 }}
           ItemSeparatorComponent={() => <View></View>}
@@ -149,7 +153,7 @@ const Transactions: React.FunctionComponent<ScreenProps<"Transactions">> = ({
             >
               <View style={tailwind("p-2")}>
                 <Text style={tailwind("text-xl")}>XAF {item.amount}</Text>
-                <Text>{item.description}</Text>
+                <Text>{item.package}</Text>
               </View>
               <View style={tailwind("self-end p-2")}>
                 <Text>{item.createOn.toDateString()}</Text>
