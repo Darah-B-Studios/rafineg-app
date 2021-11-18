@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
 } from "react-native";
 import tailwind from "tailwind-rn";
-import { useForm, Controller } from "react-hook-form";
 import Container from "../../components/shared/container.component";
 import { useState } from "react";
 import { ScreenProps } from "../../App";
@@ -30,7 +29,6 @@ const SavingScreen: React.FunctionComponent<ScreenProps<"SavingScreen">> = ({
   const amountInput = React.useRef<TextInput>(null);
   const telephoneInput = React.useRef<TextInput>(null);
   const [selectedPackage, setSelectedPackage] = useState("Basic");
-  const [loading, setLoading] = useState(false);
   const subscriptions = useRecoilValue(subscriptionListState).filter(
     (item) => item.subscribed === true
   );
@@ -67,7 +65,7 @@ const SavingScreen: React.FunctionComponent<ScreenProps<"SavingScreen">> = ({
 
             setSubmitting(false);
           }}
-          // validationSchema={LoginSchema}
+        // validationSchema={LoginSchema}
         >
           {({
             handleChange,

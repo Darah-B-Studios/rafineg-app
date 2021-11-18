@@ -9,7 +9,7 @@ const config = headers;
 export const authService = {
   login: async (user: IUser): Promise<ApiResponse<IUser>> => {
     const userCredentials = { email: user.email, password: user.password };
-    console.log("tunnel: ", API_URL);
+    console.log("tunnel: ", API_URL.concat("signin"), userCredentials);
 
     return await axios
       .post(API_URL.concat("signin"), userCredentials, { headers })
